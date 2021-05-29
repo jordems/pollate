@@ -1,7 +1,7 @@
-import { Response } from '@deb8/type/deb8';
+import { Response } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 export const RESPONSE_MODEL_NAME = 'Response';
 
@@ -10,7 +10,7 @@ export type ResponseDocument = ResponseSchema & Document;
 @Schema()
 export class ResponseSchema implements Response {
   @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: ObjectId;
+  _id: string;
 
   @Prop({
     index: true,
@@ -18,10 +18,10 @@ export class ResponseSchema implements Response {
     ref: 'Question',
     required: true,
   })
-  questionId: ObjectId;
+  questionId: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  userId: ObjectId;
+  userId: string;
 
   @Prop({ required: true })
   response: string;

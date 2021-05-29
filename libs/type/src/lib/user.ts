@@ -1,10 +1,8 @@
-import { ObjectId } from 'mongoose';
-
 export interface User {
   /**
    * Unique ID of the user
    */
-  _id: ObjectId;
+  _id: string;
 
   /**
    * The firebase uid created for the user (only creating anoynmous user accounts)
@@ -21,5 +19,5 @@ export interface AuthUserParams {
   /**
    * User's _id, that is filled from the request headers
    */
-  userId: ObjectId;
+  userId: string;
 }

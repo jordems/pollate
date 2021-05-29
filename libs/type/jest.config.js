@@ -1,6 +1,6 @@
 module.exports = {
-  displayName: 'type-deb8',
-  preset: '../../../jest.preset.js',
+  displayName: 'type',
+  preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/type/deb8',
+  coverageDirectory: '../../coverage/libs/type',
 };

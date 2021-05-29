@@ -1,20 +1,18 @@
-import { ObjectId } from 'mongoose';
-
 export interface Response {
   /**
    * Unique ID of the response
    */
-  _id: ObjectId;
+  _id: string;
 
   /**
    * The question of which this response is under
    */
-  questionId: ObjectId;
+  questionId: string;
 
   /**
    * The user who created the response
    */
-  userId: ObjectId;
+  userId: string;
 
   /**
    * The response selected for the question

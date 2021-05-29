@@ -284,27 +284,6 @@
         }
       }
     },
-    "type-deb8": {
-      "root": "libs/type/deb8",
-      "sourceRoot": "libs/type/deb8/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/type/deb8/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/type/deb8"],
-          "options": {
-            "jestConfig": "libs/type/deb8/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "api-feature-chat": {
       "root": "libs/api/feature/chat",
       "sourceRoot": "libs/api/feature/chat/src",
@@ -447,6 +426,48 @@
           "outputs": ["coverage/libs/api/shared/util/auth"],
           "options": {
             "jestConfig": "libs/api/shared/util/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "testing": {
+      "root": "libs/testing",
+      "sourceRoot": "libs/testing/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/testing/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/testing"],
+          "options": {
+            "jestConfig": "libs/testing/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "type": {
+      "root": "libs/type",
+      "sourceRoot": "libs/type/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/type/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/type"],
+          "options": {
+            "jestConfig": "libs/type/jest.config.js",
             "passWithNoTests": true
           }
         }

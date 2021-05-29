@@ -1,8 +1,8 @@
-import { User } from '@deb8/type/deb8';
+import { User } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { UserDocument, USER_MODEL_NAME } from './user.schema';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class UserModelService {
   /**
    * Find user by mongodb _id
    */
-  async findUnique(id: ObjectId): Promise<User | null> {
+  async findUnique(id: string): Promise<User | null> {
     const user = await this.model.findById(id);
 
     if (!user) {
@@ -52,7 +52,7 @@ export class UserModelService {
     return UserModelService.fromDocument(await this.model.create(user));
   }
 
-  async update(id: ObjectId, user: Pick<User, 'name'>): Promise<User> {
+  async update(id: string, user: Pick<User, 'name'>): Promise<User> {
     return UserModelService.fromDocument(
       await this.model.findByIdAndUpdate(id, { $set: user }, { new: true })
     );

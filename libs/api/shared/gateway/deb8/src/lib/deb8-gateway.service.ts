@@ -1,6 +1,5 @@
-import { Deb8WSEvent, Deb8WSEventMap } from '@deb8/type/deb8';
+import { Deb8WSEvent, Deb8WSEventMap } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
-import { ObjectId } from 'mongoose';
 import * as SocketIO from 'socket.io';
 
 @Injectable()
@@ -22,7 +21,7 @@ export class Deb8GatewayService {
    * @param data - Data associated with the event type
    */
   emit<Event extends Deb8WSEvent, Data extends Deb8WSEventMap[Event]>(
-    questionId: ObjectId & string,
+    questionId: string,
     event: Event,
     data: Data
   ): void {

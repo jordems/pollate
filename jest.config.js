@@ -15,5 +15,6 @@ module.exports = {
     '<rootDir>/libs/api/shared/gateway/deb8',
     '<rootDir>/libs/api/data-access/shared/util/mongoose',
     '<rootDir>/libs/api/shared/util/auth',
+    '<rootDir>/libs/testing',
   ],
 };

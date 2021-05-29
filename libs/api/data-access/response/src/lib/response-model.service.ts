@@ -1,8 +1,8 @@
-import { MinimalResponse, Response } from '@deb8/type/deb8';
+import { MinimalResponse, Response } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { ResponseDocument, RESPONSE_MODEL_NAME } from './response.schema';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class ResponseModelService {
     return ResponseModelService.fromDocument(await this.model.create(response));
   }
 
-  async findAllOnQuestion(questionId: ObjectId): Promise<Response[]> {
+  async findAllOnQuestion(questionId: string): Promise<Response[]> {
     return (
       await this.model.find({
         questionId,

@@ -1,8 +1,8 @@
-import { Message, MinimalMessage, PaginateParams } from '@deb8/type/deb8';
+import { Message, MinimalMessage, PaginateParams } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';
-import { Model, ObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 import { MessageDocument, MESSAGE_MODEL_NAME } from './message.schema';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class MessageModelService {
    * @param paginateParams - params for pagination on messages
    */
   async findMessagesOnQuestion(
-    questionId: ObjectId,
+    questionId: string,
     { startId, limit }: PaginateParams
   ): Promise<Message[]> {
     return (

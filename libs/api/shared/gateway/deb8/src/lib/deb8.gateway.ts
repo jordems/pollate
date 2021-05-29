@@ -1,7 +1,7 @@
 import { MessageModelService } from '@deb8/api/data-access/chat';
 import { ResponseModelService } from '@deb8/api/data-access/response';
 import { isObjectId } from '@deb8/api/shared/util/mongoose';
-import { Deb8ConnectedEvent, DEB8_NAMESPACE } from '@deb8/type/deb8';
+import { Deb8ConnectedEvent, DEB8_NAMESPACE } from '@deb8/type';
 import { Logger } from '@nestjs/common';
 import {
   OnGatewayConnection,
@@ -10,7 +10,6 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { ObjectId } from 'mongoose';
 import * as SocketIO from 'socket.io';
 import { Deb8GatewayService } from './deb8-gateway.service';
 
@@ -56,7 +55,7 @@ export class Deb8Gateway
   }
 
   private async fetchOnConnectedData(
-    questionId: ObjectId
+    questionId: string
   ): Promise<Deb8ConnectedEvent | null> {
     const messages = await this.messageModelService.findMessagesOnQuestion(
       questionId,

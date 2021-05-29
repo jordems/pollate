@@ -23,7 +23,6 @@
       "@deb8/api/data-access/response": [
         "libs/api/data-access/response/src/index.ts"
       ],
-      "@deb8/type/deb8": ["libs/type/deb8/src/index.ts"],
       "@deb8/api/feature/chat": ["libs/api/feature/chat/src/index.ts"],
       "@deb8/api/feature/response": ["libs/api/feature/response/src/index.ts"],
       "@deb8/api/feature/question": ["libs/api/feature/question/src/index.ts"],
@@ -34,7 +33,9 @@
       "@deb8/api/shared/util/mongoose": [
         "libs/api/shared/util/mongoose/src/index.ts"
       ],
-      "@deb8/api/shared/util/auth": ["libs/api/shared/util/auth/src/index.ts"]
+      "@deb8/api/shared/util/auth": ["libs/api/shared/util/auth/src/index.ts"],
+      "@deb8/testing": ["libs/testing/src/index.ts"],
+      "@deb8/type": ["libs/type/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

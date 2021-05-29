@@ -1,4 +1,4 @@
-import { Question } from '@deb8/type/deb8';
+import { Question } from '@deb8/type';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';

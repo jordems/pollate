@@ -1,7 +1,7 @@
-import { Question } from '@deb8/type/deb8';
+import { Question } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 export const QUESTION_MODEL_NAME = 'Question';
 
@@ -10,13 +10,13 @@ export type QuestionDocument = QuestionSchema & Document;
 @Schema()
 export class QuestionSchema implements Question {
   @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: ObjectId;
+  _id: string;
 
   @Prop({ index: true, unique: true })
   stub: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  userId: ObjectId;
+  userId: string;
 
   @Prop({ required: true })
   question: string;

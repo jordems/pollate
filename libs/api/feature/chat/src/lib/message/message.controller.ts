@@ -1,5 +1,5 @@
 import { AuthParam, AuthParamsValidator } from '@deb8/api/shared/util/auth';
-import { CreateMessageResponse } from '@deb8/type/deb8';
+import { CreateMessageResponse } from '@deb8/type';
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { MessageService } from './message.service';
 import {

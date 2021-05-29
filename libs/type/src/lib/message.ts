@@ -1,20 +1,18 @@
-import { ObjectId } from 'mongoose';
-
 export interface Message {
   /**
    * Unique ID of the message
    */
-  _id: ObjectId;
+  _id: string;
 
   /**
    * User who created the message
    */
-  userId: ObjectId;
+  userId: string;
 
   /**
    * Question the message was created under
    */
-  questionId: ObjectId;
+  questionId: string;
 
   /**
    * Name of the user who created the message at the time of creation.

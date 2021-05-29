@@ -1,7 +1,7 @@
-import { Message } from '@deb8/type/deb8';
+import { Message } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
 export const MESSAGE_MODEL_NAME = 'Message';
 
@@ -10,17 +10,17 @@ export type MessageDocument = MessageSchema & Document;
 @Schema()
 export class MessageSchema implements Message {
   @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: ObjectId;
+  _id: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  userId: ObjectId;
+  userId: string;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question',
     required: true,
   })
-  questionId: ObjectId;
+  questionId: string;
 
   @Prop({ required: true })
   name: string;

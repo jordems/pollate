@@ -5,7 +5,7 @@ import { IsObjectId, toObjectId } from './object-id';
 describe('toObjectId', () => {
   it('should successfuly convert to objectid if valid string', () => {
     expect(toObjectId('4edd40c86762e0fb12000003')).toEqual(
-      expect.any(mongoose.Types.ObjectId)
+      expect.any(mongoose.Type.ObjectId)
     );
   });
 });

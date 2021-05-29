@@ -1,10 +1,8 @@
-import { ObjectId } from 'mongoose';
-
 export interface Question {
   /**
    * Unique ID of the question
    */
-  _id: ObjectId;
+  _id: string;
 
   /**
    * Stub to find question from https://.../{stub}
@@ -15,7 +13,7 @@ export interface Question {
   /**
    * User who created the question
    */
-  userId: ObjectId;
+  userId: string;
 
   /**
    * The text that is displayed as the question
