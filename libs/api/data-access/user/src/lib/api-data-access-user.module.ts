@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ResponseModelService } from './response-model.service';
-import { responseSchema, RESPONSE_MODEL_NAME } from './response.schema';
+import { UserModelService } from './user-model.service';
+import { userSchema, USER_MODEL_NAME } from './user.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: RESPONSE_MODEL_NAME, schema: responseSchema },
-    ]),
+    MongooseModule.forFeature([{ name: USER_MODEL_NAME, schema: userSchema }]),
   ],
-  providers: [ResponseModelService],
-  exports: [ResponseModelService],
+  providers: [UserModelService],
+  exports: [UserModelService],
 })
-export class ApiDataAccessResponseModule {}
+export class ApiDataAccessUserModule {}
