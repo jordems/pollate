@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
+import { MessageModule } from './message/message.module';
 
 @Module({
-  controllers: [],
-  providers: [],
-  exports: [],
+  imports: [MessageModule],
 })
 export class ApiFeatureChatModule {}
