@@ -1,5 +1,6 @@
 export * from './lib/dto/deb8-ws';
 export * from './lib/dto/message-ep';
+export * from './lib/dto/question-ep';
 export * from './lib/dto/response-ep';
 export * from './lib/dto/user-ep';
 export * from './lib/message';

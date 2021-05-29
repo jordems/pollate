@@ -12,10 +12,14 @@ export class MessageSchema implements Message {
   @Prop({ index: true })
   _id: ObjectId;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   userId: ObjectId;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Question' })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Question',
+    required: true,
+  })
   questionId: ObjectId;
 
   @Prop({ required: true })

@@ -7,6 +7,12 @@ export interface Question {
   _id: ObjectId;
 
   /**
+   * Stub to find question from https://.../{stub}
+   * @unique
+   */
+  stub: string;
+
+  /**
    * User who created the question
    */
   userId: ObjectId;
