@@ -29,7 +29,34 @@
     "api": {
       "tags": []
     },
-    "api-interfaces": {
+    "api-data-access-user": {
+      "tags": []
+    },
+    "api-data-access-question": {
+      "tags": []
+    },
+    "api-data-access-chat": {
+      "tags": []
+    },
+    "api-data-access-response": {
+      "tags": []
+    },
+    "type-deb8": {
+      "tags": []
+    },
+    "api-feature-chat": {
+      "tags": []
+    },
+    "api-feature-response": {
+      "tags": []
+    },
+    "api-feature-question": {
+      "tags": []
+    },
+    "api-feature-user": {
+      "tags": []
+    },
+    "api-shared-gateway-deb8": {
       "tags": []
     }
   }

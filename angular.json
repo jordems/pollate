@@ -200,15 +200,212 @@
         }
       }
     },
-    "api-interfaces": {
-      "root": "libs/api-interfaces",
-      "sourceRoot": "libs/api-interfaces/src",
+    "api-data-access-user": {
+      "root": "libs/api/data-access/user",
+      "sourceRoot": "libs/api/data-access/user/src",
       "projectType": "library",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+            "lintFilePatterns": ["libs/api/data-access/user/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/data-access/user"],
+          "options": {
+            "jestConfig": "libs/api/data-access/user/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-data-access-question": {
+      "root": "libs/api/data-access/question",
+      "sourceRoot": "libs/api/data-access/question/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/data-access/question/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/data-access/question"],
+          "options": {
+            "jestConfig": "libs/api/data-access/question/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-data-access-chat": {
+      "root": "libs/api/data-access/chat",
+      "sourceRoot": "libs/api/data-access/chat/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/data-access/chat/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/data-access/chat"],
+          "options": {
+            "jestConfig": "libs/api/data-access/chat/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-data-access-response": {
+      "root": "libs/api/data-access/response",
+      "sourceRoot": "libs/api/data-access/response/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/data-access/response/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/data-access/response"],
+          "options": {
+            "jestConfig": "libs/api/data-access/response/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "type-deb8": {
+      "root": "libs/type/deb8",
+      "sourceRoot": "libs/type/deb8/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/type/deb8/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/type/deb8"],
+          "options": {
+            "jestConfig": "libs/type/deb8/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-feature-chat": {
+      "root": "libs/api/feature/chat",
+      "sourceRoot": "libs/api/feature/chat/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/feature/chat/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/feature/chat"],
+          "options": {
+            "jestConfig": "libs/api/feature/chat/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-feature-response": {
+      "root": "libs/api/feature/response",
+      "sourceRoot": "libs/api/feature/response/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/feature/response/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/feature/response"],
+          "options": {
+            "jestConfig": "libs/api/feature/response/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-feature-question": {
+      "root": "libs/api/feature/question",
+      "sourceRoot": "libs/api/feature/question/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/feature/question/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/feature/question"],
+          "options": {
+            "jestConfig": "libs/api/feature/question/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-feature-user": {
+      "root": "libs/api/feature/user",
+      "sourceRoot": "libs/api/feature/user/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/feature/user/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/feature/user"],
+          "options": {
+            "jestConfig": "libs/api/feature/user/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-shared-gateway-deb8": {
+      "root": "libs/api/shared/gateway/deb8",
+      "sourceRoot": "libs/api/shared/gateway/deb8/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/shared/gateway/deb8/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/shared/gateway/deb8"],
+          "options": {
+            "jestConfig": "libs/api/shared/gateway/deb8/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
