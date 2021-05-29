@@ -12,4 +12,4 @@ import { questionSchema, QUESTION_MODEL_NAME } from './question.schema';
   providers: [QuestionModelService],
   exports: [QuestionModelService],
 })
-export class ApiDataAccessChatModule {}
+export class ApiDataAccessQuestionModule {}

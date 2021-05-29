@@ -12,7 +12,7 @@ export class MessageModelService {
     private model: Model<MessageDocument, Message>
   ) {}
 
-  static fromMessageDocument(doc: MessageDocument): Message {
+  static fromDocument(doc: MessageDocument): Message {
     return pick(doc, [
       '_id',
       'name',
@@ -26,9 +26,7 @@ export class MessageModelService {
   async create(
     message: Pick<Message, 'name' | 'text' | 'questionId' | 'userId'>
   ): Promise<Message> {
-    return MessageModelService.fromMessageDocument(
-      await this.model.create(message)
-    );
+    return MessageModelService.fromDocument(await this.model.create(message));
   }
 
   /**
@@ -49,6 +47,6 @@ export class MessageModelService {
         })
         .sort({ createdAt: -1 })
         .limit(limit)
-    ).map((message) => MessageModelService.fromMessageDocument(message));
+    ).map((message) => MessageModelService.fromDocument(message));
   }
 }

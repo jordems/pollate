@@ -9,7 +9,7 @@ export type MessageDocument = MessageSchema & Document;
 
 @Schema()
 export class MessageSchema implements Message {
-  @Prop({ index: true })
+  @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
   _id: ObjectId;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })

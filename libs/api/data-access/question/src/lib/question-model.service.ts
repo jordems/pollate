@@ -12,7 +12,7 @@ export class QuestionModelService {
     private model: Model<QuestionDocument, Question>
   ) {}
 
-  static fromQuestionDocument(doc: QuestionDocument): Question {
+  static fromDocument(doc: QuestionDocument): Question {
     return pick(doc, [
       '_id',
       'stub',
@@ -26,9 +26,7 @@ export class QuestionModelService {
   async create(
     question: Pick<Question, 'question' | 'responses' | 'stub' | 'userId'>
   ): Promise<Question> {
-    return QuestionModelService.fromQuestionDocument(
-      await this.model.create(question)
-    );
+    return QuestionModelService.fromDocument(await this.model.create(question));
   }
 
   async findByStub(stub: string): Promise<Question> {
@@ -40,6 +38,6 @@ export class QuestionModelService {
       throw new NotFoundException({ message: 'Question not found' });
     }
 
-    return QuestionModelService.fromQuestionDocument(question);
+    return QuestionModelService.fromDocument(question);
   }
 }

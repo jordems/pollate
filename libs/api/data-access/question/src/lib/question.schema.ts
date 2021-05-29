@@ -9,7 +9,7 @@ export type QuestionDocument = QuestionSchema & Document;
 
 @Schema()
 export class QuestionSchema implements Question {
-  @Prop({ index: true })
+  @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
   _id: ObjectId;
 
   @Prop({ index: true, unique: true })
