@@ -430,6 +430,27 @@
           }
         }
       }
+    },
+    "api-shared-util-auth": {
+      "root": "libs/api/shared/util/auth",
+      "sourceRoot": "libs/api/shared/util/auth/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/shared/util/auth/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/shared/util/auth"],
+          "options": {
+            "jestConfig": "libs/api/shared/util/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

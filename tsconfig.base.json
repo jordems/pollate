@@ -33,7 +33,8 @@
       ],
       "@deb8/api/shared/util/mongoose": [
         "libs/api/shared/util/mongoose/src/index.ts"
-      ]
+      ],
+      "@deb8/api/shared/util/auth": ["libs/api/shared/util/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -16,3 +16,10 @@ export interface User {
    */
   name: string;
 }
+
+export interface AuthUserParams {
+  /**
+   * User's _id, that is filled from the request headers
+   */
+  userId: ObjectId;
+}

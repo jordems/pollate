@@ -1,0 +1,24 @@
+import { IsObjectId } from '@deb8/api/shared/util/mongoose';
+import { AuthUserParams } from '@deb8/type/deb8';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
+/**
+ * Decorator to be used in Nestjs contollers to get the userId out of the request
+ */
+export const AuthParam = createParamDecorator(
+  (ctx: ExecutionContext): AuthUserParams => {
+    const request = ctx.switchToHttp().getRequest();
+
+    return {
+      userId: request.headers['x-user-id'],
+    };
+  }
+);
+
+/**
+ * Class validator to confirm that the required params have been passed in the request
+ */
+export class AuthParamsValidator implements AuthUserParams {
+  @IsObjectId()
+  userId: ObjectId;
+}
