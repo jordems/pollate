@@ -409,6 +409,27 @@
           }
         }
       }
+    },
+    "api-shared-util-mongoose": {
+      "root": "libs/api/shared/util/mongoose",
+      "sourceRoot": "libs/api/shared/util/mongoose/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/shared/util/mongoose/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/shared/util/mongoose"],
+          "options": {
+            "jestConfig": "libs/api/shared/util/mongoose/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

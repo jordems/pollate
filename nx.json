@@ -58,6 +58,9 @@
     },
     "api-shared-gateway-deb8": {
       "tags": []
+    },
+    "api-shared-util-mongoose": {
+      "tags": []
     }
   }
 }

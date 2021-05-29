@@ -30,6 +30,9 @@
       "@deb8/api/feature/user": ["libs/api/feature/user/src/index.ts"],
       "@deb8/api/shared/gateway/deb8": [
         "libs/api/shared/gateway/deb8/src/index.ts"
+      ],
+      "@deb8/api/shared/util/mongoose": [
+        "libs/api/shared/util/mongoose/src/index.ts"
       ]
     }
   },
