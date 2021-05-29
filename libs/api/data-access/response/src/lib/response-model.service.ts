@@ -1,4 +1,4 @@
-import { Response } from '@deb8/type/deb8';
+import { MinimalResponse, Response } from '@deb8/type/deb8';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';
@@ -14,6 +14,10 @@ export class ResponseModelService {
 
   static fromDocument(doc: ResponseDocument): Response {
     return pick(doc, ['_id', 'questionId', 'userId', 'response', 'createdAt']);
+  }
+
+  static toMinimal<T extends Response>(response: T): MinimalResponse {
+    return pick(response, ['_id', 'userId', 'response', 'createdAt']);
   }
 
   async create(

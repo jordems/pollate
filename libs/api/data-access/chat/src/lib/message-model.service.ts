@@ -1,4 +1,4 @@
-import { Message, PaginateParams } from '@deb8/type/deb8';
+import { Message, MinimalMessage, PaginateParams } from '@deb8/type/deb8';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { pick } from 'lodash';
@@ -21,6 +21,10 @@ export class MessageModelService {
       'userId',
       'createdAt',
     ]);
+  }
+
+  static toMinimal<T extends Message>(message: T): MinimalMessage {
+    return pick(message, ['name', 'text', 'createdAt']);
   }
 
   async create(

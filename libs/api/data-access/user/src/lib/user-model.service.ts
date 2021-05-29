@@ -16,6 +16,22 @@ export class UserModelService {
     return pick(doc, ['_id', 'uid', 'name', 'createdAt']);
   }
 
+  /**
+   * Find user by mongodb _id
+   */
+  async findUnique(id: ObjectId): Promise<User | null> {
+    const user = await this.model.findById(id);
+
+    if (!user) {
+      return null;
+    }
+
+    return UserModelService.fromDocument(user);
+  }
+
+  /**
+   * Find user by the firebase uid
+   */
   async findByUid(uid: string): Promise<User | null> {
     const user = await this.model.findOne({ uid });
 

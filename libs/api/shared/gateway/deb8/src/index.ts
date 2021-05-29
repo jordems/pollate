@@ -1,1 +1,2 @@
-export * from './lib/api-shared-gateway-deb8.module';
+export * from './lib/deb8-gateway.module';
+export * from './lib/deb8-gateway.service';

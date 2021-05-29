@@ -3,8 +3,6 @@ import { MinimalResponse } from '../response';
 
 export const DEB8_NAMESPACE = 'deb8' as const;
 
-export type Deb8WSEvent = 'connected' | 'onMessage' | 'onUpsertResponse';
-
 export interface Deb8ConnectedEvent {
   messages: MinimalMessage[];
   responses: MinimalResponse[];
@@ -17,3 +15,11 @@ export interface Deb8OnMessageEvent {
 export interface Deb8OnUpsertResponse {
   response: MinimalResponse;
 }
+
+export interface Deb8WSEventMap {
+  connected: Deb8ConnectedEvent;
+  onMessage: Deb8OnMessageEvent;
+  onUpsertResponse: Deb8OnUpsertResponse;
+}
+
+export type Deb8WSEvent = keyof Deb8WSEventMap;

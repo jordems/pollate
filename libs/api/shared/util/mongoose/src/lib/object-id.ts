@@ -8,8 +8,8 @@ import * as mongoose from 'mongoose';
  * @param id - String version of an ObjectId
  * @returns - ObjectId version of id
  */
-export function toObjectId(id: string): mongoose.Types.ObjectId {
-  return mongoose.Types.ObjectId(id);
+export function isObjectId(id: any): id is mongoose.ObjectId {
+  return mongoose.isValidObjectId(id);
 }
 
 /**
