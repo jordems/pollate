@@ -1,9 +1,9 @@
-import { Deb8WSEvent, Deb8WSEventMap } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
+import { QuestionWSEvent, QuestionWSEventMap } from '@pollate/type';
 import * as SocketIO from 'socket.io';
 
 @Injectable()
-export class Deb8GatewayService {
+export class QuestionGatewayService {
   private server: SocketIO.Server;
 
   /**
@@ -14,13 +14,13 @@ export class Deb8GatewayService {
   }
 
   /**
-   * Emit a deb8 websocket event
+   * Emit a pollate websocket event
    *
    * @param questionId - Question this event will be emitted to
    * @param event - Type of event that is being emitted
    * @param data - Data associated with the event type
    */
-  emit<Event extends Deb8WSEvent, Data extends Deb8WSEventMap[Event]>(
+  emit<Event extends QuestionWSEvent, Data extends QuestionWSEventMap[Event]>(
     questionId: string,
     event: Event,
     data: Data

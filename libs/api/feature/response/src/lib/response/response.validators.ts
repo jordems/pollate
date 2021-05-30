@@ -1,6 +1,6 @@
-import { IsObjectId } from '@deb8/api/shared/util/mongoose';
-import { CreateResponseRequest, UpdateResponseRequest } from '@deb8/type';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsObjectId } from '@pollate/api/shared/util/mongoose';
+import { CreateResponseRequest, UpdateResponseRequest } from '@pollate/type';
 import { Length } from 'class-validator';
 
 export class CreateResponseValidator implements CreateResponseRequest {

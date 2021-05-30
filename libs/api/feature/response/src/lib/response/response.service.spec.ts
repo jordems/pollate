@@ -1,9 +1,9 @@
-import { QuestionModelService } from '@deb8/api/data-access/question';
-import { ResponseModelService } from '@deb8/api/data-access/response';
-import { Deb8GatewayService } from '@deb8/api/shared/gateway/deb8';
-import { mockObjectId, mockQuestion, mockResponse } from '@deb8/testing';
-import { Deb8OnUpsertResponse, Deb8WSEvent, Response } from '@deb8/type';
 import { Test, TestingModule } from '@nestjs/testing';
+import { QuestionModelService } from '@pollate/api/data-access/question';
+import { ResponseModelService } from '@pollate/api/data-access/response';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/pollate';
+import { mockObjectId, mockQuestion, mockResponse } from '@pollate/testing';
+import { Deb8OnUpsertResponse, Deb8WSEvent, Response } from '@pollate/type';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { ResponseService } from './response.service';
 
@@ -12,7 +12,7 @@ describe('ResponseService', () => {
 
   const responseModelService = Mock<ResponseModelService>();
   const questionModelService = Mock<QuestionModelService>();
-  const deb8GatewayService = Mock<Deb8GatewayService>();
+  const pollateGatewayService = Mock<QuestionGatewayService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('ResponseService', () => {
         ResponseService,
         { provide: ResponseModelService, useValue: responseModelService },
         { provide: QuestionModelService, useValue: questionModelService },
-        { provide: Deb8GatewayService, useValue: deb8GatewayService },
+        { provide: QuestionGatewayService, useValue: pollateGatewayService },
       ],
     }).compile();
 
@@ -28,7 +28,7 @@ describe('ResponseService', () => {
 
     mockReset(responseModelService);
     mockReset(questionModelService);
-    mockReset(deb8GatewayService);
+    mockReset(pollateGatewayService);
   });
 
   it('should be defined', () => {
@@ -69,7 +69,7 @@ describe('ResponseService', () => {
         response: 'b',
       });
 
-      expect(deb8GatewayService.emit).toHaveBeenCalledWith<
+      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
         [string, Deb8WSEvent, Deb8OnUpsertResponse]
       >(questionId, 'onUpsertResponse', {
         response: ResponseModelService.toMinimal(response),
@@ -104,7 +104,7 @@ describe('ResponseService', () => {
         response: 'b',
       });
 
-      expect(deb8GatewayService.emit).toHaveBeenCalledWith<
+      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
         [string, Deb8WSEvent, Deb8OnUpsertResponse]
       >(questionId, 'onUpsertResponse', {
         response: ResponseModelService.toMinimal(response),

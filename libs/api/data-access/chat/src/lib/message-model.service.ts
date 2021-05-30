@@ -1,6 +1,6 @@
-import { Message, MinimalMessage, PaginateParams } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Message, MinimalMessage, PaginateParams } from '@pollate/type';
 import { pick } from 'lodash';
 import { Model } from 'mongoose';
 import { MessageDocument, MESSAGE_MODEL_NAME } from './message.schema';

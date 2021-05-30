@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/api/shared/gateway/deb8/tsconfig.*?.json"]
+        "project": ["libs/api/shared/gateway/pollate/tsconfig.*?.json"]
       },
       "rules": {}
     },

@@ -1,6 +1,6 @@
-import { Question } from '@deb8/type';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Question } from '@pollate/type';
 import { pick } from 'lodash';
 import { Model } from 'mongoose';
 import { QuestionDocument, QUESTION_MODEL_NAME } from './question.schema';

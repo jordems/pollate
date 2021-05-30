@@ -1,5 +1,5 @@
-import { User } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { User } from '@pollate/type';
 import { Document } from 'mongoose';
 
 export const USER_MODEL_NAME = 'User';

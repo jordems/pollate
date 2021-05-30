@@ -1,5 +1,5 @@
-import { CreateQuestionRequest, Question } from '@deb8/type';
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateQuestionRequest, Question } from '@pollate/type';
 import { ArrayMaxSize, ArrayMinSize, Length } from 'class-validator';
 
 export class CreateQuestionValidator implements CreateQuestionRequest {

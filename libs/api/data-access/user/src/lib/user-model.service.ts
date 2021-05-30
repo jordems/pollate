@@ -1,6 +1,6 @@
-import { User } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { User } from '@pollate/type';
 import { pick } from 'lodash';
 import { Model } from 'mongoose';
 import { UserDocument, USER_MODEL_NAME } from './user.schema';

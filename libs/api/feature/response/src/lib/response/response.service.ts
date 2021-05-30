@@ -1,20 +1,20 @@
-import { QuestionModelService } from '@deb8/api/data-access/question';
-import { ResponseModelService } from '@deb8/api/data-access/response';
-import { Deb8GatewayService } from '@deb8/api/shared/gateway/deb8';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { QuestionModelService } from '@pollate/api/data-access/question';
+import { ResponseModelService } from '@pollate/api/data-access/response';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/question';
 import {
   CreateResponseRequest,
   CreateResponseResponse,
   UpdateResponseRequest,
   UpdateResponseResponse,
-} from '@deb8/type';
-import { BadRequestException, Injectable } from '@nestjs/common';
+} from '@pollate/type';
 
 @Injectable()
 export class ResponseService {
   constructor(
     private readonly responseModelService: ResponseModelService,
     private readonly questionModelService: QuestionModelService,
-    private readonly deb8GatewayService: Deb8GatewayService
+    private readonly pollateGatewayService: QuestionGatewayService
   ) {}
 
   /**
@@ -38,7 +38,7 @@ export class ResponseService {
       userId,
     });
 
-    this.deb8GatewayService.emit(questionId, 'onUpsertResponse', {
+    this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
       response: ResponseModelService.toMinimal(createdResponse),
     });
 
@@ -65,7 +65,7 @@ export class ResponseService {
       dto
     );
 
-    this.deb8GatewayService.emit(questionId, 'onUpsertResponse', {
+    this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
       response: ResponseModelService.toMinimal(updatedResponse),
     });
 

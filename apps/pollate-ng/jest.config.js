@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'deb8',
+  displayName: 'pollate-ng',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/apps/deb8',
+  coverageDirectory: '../../coverage/apps/pollate-ng',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

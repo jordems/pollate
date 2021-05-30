@@ -1,7 +1,7 @@
-import { ApiDataAccessChatModule } from '@deb8/api/data-access/chat';
-import { ApiDataAccessUserModule } from '@deb8/api/data-access/user';
-import { Deb8GatewayModule } from '@deb8/api/shared/gateway/deb8';
 import { Module } from '@nestjs/common';
+import { ApiDataAccessChatModule } from '@pollate/api/data-access/chat';
+import { ApiDataAccessUserModule } from '@pollate/api/data-access/user';
+import { QuestionGatewayModule } from '@pollate/api/shared/gateway/question';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
 
@@ -9,7 +9,7 @@ import { MessageService } from './message.service';
   imports: [
     ApiDataAccessUserModule,
     ApiDataAccessChatModule,
-    Deb8GatewayModule,
+    QuestionGatewayModule,
   ],
   controllers: [MessageController],
   providers: [MessageService],

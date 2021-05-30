@@ -9,7 +9,7 @@
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "deb8",
+  "npmScope": "pollate",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
@@ -19,13 +19,6 @@
     }
   },
   "projects": {
-    "deb8": {
-      "tags": []
-    },
-    "deb8-e2e": {
-      "tags": [],
-      "implicitDependencies": ["deb8"]
-    },
     "api": {
       "tags": []
     },
@@ -53,7 +46,7 @@
     "api-feature-user": {
       "tags": []
     },
-    "api-shared-gateway-deb8": {
+    "api-shared-gateway-question": {
       "tags": []
     },
     "api-shared-util-mongoose": {
@@ -67,6 +60,13 @@
     },
     "type": {
       "tags": []
+    },
+    "pollate-ng": {
+      "tags": []
+    },
+    "pollate-ng-e2e": {
+      "tags": [],
+      "implicitDependencies": ["pollate-ng"]
     }
   }
 }

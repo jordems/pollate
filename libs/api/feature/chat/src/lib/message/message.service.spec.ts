@@ -1,9 +1,9 @@
-import { MessageModelService } from '@deb8/api/data-access/chat';
-import { UserModelService } from '@deb8/api/data-access/user';
-import { Deb8GatewayService } from '@deb8/api/shared/gateway/deb8';
-import { mockMessage, mockObjectId, mockUser } from '@deb8/testing';
-import { Deb8OnMessageEvent, Deb8WSEvent, Message, User } from '@deb8/type';
 import { Test, TestingModule } from '@nestjs/testing';
+import { MessageModelService } from '@pollate/api/data-access/chat';
+import { UserModelService } from '@pollate/api/data-access/user';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/pollate';
+import { mockMessage, mockObjectId, mockUser } from '@pollate/testing';
+import { Deb8OnMessageEvent, Deb8WSEvent, Message, User } from '@pollate/type';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { MessageService } from './message.service';
 
@@ -12,7 +12,7 @@ describe('MessageService', () => {
 
   const messageModelService = Mock<MessageModelService>();
   const userModelService = Mock<UserModelService>();
-  const deb8GatewayService = Mock<Deb8GatewayService>();
+  const pollateGatewayService = Mock<QuestionGatewayService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('MessageService', () => {
         MessageService,
         { provide: MessageModelService, useValue: messageModelService },
         { provide: UserModelService, useValue: userModelService },
-        { provide: Deb8GatewayService, useValue: deb8GatewayService },
+        { provide: QuestionGatewayService, useValue: pollateGatewayService },
       ],
     }).compile();
 
@@ -28,7 +28,7 @@ describe('MessageService', () => {
 
     mockReset(messageModelService);
     mockReset(userModelService);
-    mockReset(deb8GatewayService);
+    mockReset(pollateGatewayService);
   });
 
   it('should be defined', () => {
@@ -65,7 +65,7 @@ describe('MessageService', () => {
         text: 'Incorrect!',
       });
 
-      expect(deb8GatewayService.emit).toHaveBeenCalledWith<
+      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
         [string, Deb8WSEvent, Deb8OnMessageEvent]
       >(questionId, 'onMessage', {
         message: MessageModelService.toMinimal(message),

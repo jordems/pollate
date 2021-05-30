@@ -1,4 +1,3 @@
-import { User } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -7,6 +6,7 @@ import {
   ApiParam,
   ApiProperty,
 } from '@nestjs/swagger';
+import { User } from '@pollate/type';
 
 export function CreateUserSwagger() {
   return applyDecorators(

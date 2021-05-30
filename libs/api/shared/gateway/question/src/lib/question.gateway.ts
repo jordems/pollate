@@ -1,7 +1,3 @@
-import { MessageModelService } from '@deb8/api/data-access/chat';
-import { ResponseModelService } from '@deb8/api/data-access/response';
-import { isObjectId } from '@deb8/api/shared/util/mongoose';
-import { Deb8ConnectedEvent, DEB8_NAMESPACE } from '@deb8/type';
 import { Logger } from '@nestjs/common';
 import {
   OnGatewayConnection,
@@ -10,26 +6,30 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { MessageModelService } from '@pollate/api/data-access/chat';
+import { ResponseModelService } from '@pollate/api/data-access/response';
+import { isObjectId } from '@pollate/api/shared/util/mongoose';
+import { QuestionConnectedEvent, QUESTION_NAMESPACE } from '@pollate/type';
 import * as SocketIO from 'socket.io';
-import { Deb8GatewayService } from './deb8-gateway.service';
+import { QuestionGatewayService } from './question-gateway.service';
 
-@WebSocketGateway({ namespace: DEB8_NAMESPACE })
-export class Deb8Gateway
+@WebSocketGateway({ namespace: QUESTION_NAMESPACE })
+export class QuestionGateway
   implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
   @WebSocketServer() server!: SocketIO.Server;
 
   constructor(
-    private readonly deb8GatewayService: Deb8GatewayService,
+    private readonly questionGatewayService: QuestionGatewayService,
     private readonly messageModelService: MessageModelService,
     private readonly responseModelService: ResponseModelService
   ) {}
 
   afterInit(server: SocketIO.Server): void {
-    this.deb8GatewayService.init(server);
+    this.questionGatewayService.init(server);
   }
 
   async handleConnection(client: SocketIO.Socket): Promise<void> {
-    const { questionId } = client.handshake.query;
+    const { questionId, userId } = client.handshake.query;
 
     if (questionId === null || !isObjectId(questionId)) {
       Logger.log('Gateway - Missing `questionId` as input');
@@ -38,11 +38,16 @@ export class Deb8Gateway
     }
 
     Logger.log(
-      `Gateway - Client Connected ${questionId}:${client.handshake.address}`
+      `Gateway - Client Connected ${questionId}:${userId ?? 'Anoynmous'}:${
+        client.handshake.address
+      }`
     );
     client.join(questionId);
 
-    client.emit('connected', await this.fetchOnConnectedData(questionId));
+    client.emit(
+      'connected',
+      await this.fetchOnConnectedData(questionId, userId as string)
+    );
   }
 
   handleDisconnect(client: SocketIO.Socket): void {
@@ -55,8 +60,9 @@ export class Deb8Gateway
   }
 
   private async fetchOnConnectedData(
-    questionId: string
-  ): Promise<Deb8ConnectedEvent | null> {
+    questionId: string,
+    userId: string | null
+  ): Promise<QuestionConnectedEvent | null> {
     const messages = await this.messageModelService.findMessagesOnQuestion(
       questionId,
       { startId: null, limit: 50 }
@@ -66,6 +72,11 @@ export class Deb8Gateway
       questionId
     );
 
+    const userResponse = await this.responseModelService.findUsersResponseOnQuestion(
+      questionId,
+      userId
+    );
+
     return {
       messages: messages.map((message) =>
         MessageModelService.toMinimal(message)
@@ -73,6 +84,7 @@ export class Deb8Gateway
       responses: responses.map((response) =>
         ResponseModelService.toMinimal(response)
       ),
+      userResponse,
     };
   }
 }

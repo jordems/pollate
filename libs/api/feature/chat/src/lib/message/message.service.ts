@@ -1,15 +1,15 @@
-import { MessageModelService } from '@deb8/api/data-access/chat';
-import { UserModelService } from '@deb8/api/data-access/user';
-import { Deb8GatewayService } from '@deb8/api/shared/gateway/deb8';
-import { CreateMessageRequest, CreateMessageResponse } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
+import { MessageModelService } from '@pollate/api/data-access/chat';
+import { UserModelService } from '@pollate/api/data-access/user';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/question';
+import { CreateMessageRequest, CreateMessageResponse } from '@pollate/type';
 
 @Injectable()
 export class MessageService {
   constructor(
     private readonly messageModelService: MessageModelService,
     private readonly userModelService: UserModelService,
-    private readonly deb8GatewayService: Deb8GatewayService
+    private readonly pollateGatewayService: QuestionGatewayService
   ) {}
 
   /**
@@ -31,7 +31,7 @@ export class MessageService {
       userId,
     });
 
-    this.deb8GatewayService.emit(questionId, 'onMessage', {
+    this.pollateGatewayService.emit(questionId, 'onMessage', {
       message: MessageModelService.toMinimal(createdMessage),
     });
 

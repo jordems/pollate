@@ -1,7 +1,10 @@
-import { AuthParam, AuthParamsValidator } from '@deb8/api/shared/util/auth';
-import { CreateQuestionResponse, GetQuestionByStubResponse } from '@deb8/type';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
+import { AuthParam, AuthParamsValidator } from '@pollate/api/shared/util/auth';
+import {
+  CreateQuestionResponse,
+  GetQuestionByStubResponse,
+} from '@pollate/type';
 import { QuestionService } from './question.service';
 import {
   CreateQuestionSwagger,

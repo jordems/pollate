@@ -1,4 +1,3 @@
-import { Question } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -8,6 +7,7 @@ import {
   ApiParam,
   ApiProperty,
 } from '@nestjs/swagger';
+import { Question } from '@pollate/type';
 
 export function CreateQuestionSwagger() {
   return applyDecorators(

@@ -1,7 +1,7 @@
-import { AuthParam, AuthParamsValidator } from '@deb8/api/shared/util/auth';
-import { CreateResponseResponse, UpdateResponseResponse } from '@deb8/type';
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { AuthParam, AuthParamsValidator } from '@pollate/api/shared/util/auth';
+import { CreateResponseResponse, UpdateResponseResponse } from '@pollate/type';
 import { ResponseService } from './response.service';
 import {
   CreateResponseSwagger,

@@ -15,27 +15,37 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@deb8/api/data-access/user": ["libs/api/data-access/user/src/index.ts"],
-      "@deb8/api/data-access/question": [
+      "@pollate/api/data-access/user": [
+        "libs/api/data-access/user/src/index.ts"
+      ],
+      "@pollate/api/data-access/question": [
         "libs/api/data-access/question/src/index.ts"
       ],
-      "@deb8/api/data-access/chat": ["libs/api/data-access/chat/src/index.ts"],
-      "@deb8/api/data-access/response": [
+      "@pollate/api/data-access/chat": [
+        "libs/api/data-access/chat/src/index.ts"
+      ],
+      "@pollate/api/data-access/response": [
         "libs/api/data-access/response/src/index.ts"
       ],
-      "@deb8/api/feature/chat": ["libs/api/feature/chat/src/index.ts"],
-      "@deb8/api/feature/response": ["libs/api/feature/response/src/index.ts"],
-      "@deb8/api/feature/question": ["libs/api/feature/question/src/index.ts"],
-      "@deb8/api/feature/user": ["libs/api/feature/user/src/index.ts"],
-      "@deb8/api/shared/gateway/deb8": [
-        "libs/api/shared/gateway/deb8/src/index.ts"
+      "@pollate/api/feature/chat": ["libs/api/feature/chat/src/index.ts"],
+      "@pollate/api/feature/response": [
+        "libs/api/feature/response/src/index.ts"
       ],
-      "@deb8/api/shared/util/mongoose": [
+      "@pollate/api/feature/question": [
+        "libs/api/feature/question/src/index.ts"
+      ],
+      "@pollate/api/feature/user": ["libs/api/feature/user/src/index.ts"],
+      "@pollate/api/shared/gateway/question": [
+        "libs/api/shared/gateway/question/src/index.ts"
+      ],
+      "@pollate/api/shared/util/mongoose": [
         "libs/api/shared/util/mongoose/src/index.ts"
       ],
-      "@deb8/api/shared/util/auth": ["libs/api/shared/util/auth/src/index.ts"],
-      "@deb8/testing": ["libs/testing/src/index.ts"],
-      "@deb8/type": ["libs/type/src/index.ts"]
+      "@pollate/api/shared/util/auth": [
+        "libs/api/shared/util/auth/src/index.ts"
+      ],
+      "@pollate/testing": ["libs/testing/src/index.ts"],
+      "@pollate/type": ["libs/type/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

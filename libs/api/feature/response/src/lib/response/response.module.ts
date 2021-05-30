@@ -1,7 +1,7 @@
-import { ApiDataAccessQuestionModule } from '@deb8/api/data-access/question';
-import { ApiDataAccessResponseModule } from '@deb8/api/data-access/response';
-import { Deb8GatewayModule } from '@deb8/api/shared/gateway/deb8';
 import { Module } from '@nestjs/common';
+import { ApiDataAccessQuestionModule } from '@pollate/api/data-access/question';
+import { ApiDataAccessResponseModule } from '@pollate/api/data-access/response';
+import { QuestionGatewayModule } from '@pollate/api/shared/gateway/question';
 import { ResponseController } from './response.controller';
 import { ResponseService } from './response.service';
 
@@ -9,7 +9,7 @@ import { ResponseService } from './response.service';
   imports: [
     ApiDataAccessResponseModule,
     ApiDataAccessQuestionModule,
-    Deb8GatewayModule,
+    QuestionGatewayModule,
   ],
   controllers: [ResponseController],
   providers: [ResponseService],

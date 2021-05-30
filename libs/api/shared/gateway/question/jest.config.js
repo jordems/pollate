@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'api-shared-gateway-deb8',
+  displayName: 'api-shared-gateway-pollate',
   preset: '../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../../coverage/libs/api/shared/gateway/deb8',
+  coverageDirectory: '../../../../../coverage/libs/api/shared/gateway/pollate',
 };

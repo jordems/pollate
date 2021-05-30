@@ -1,6 +1,6 @@
-import { IsObjectId } from '@deb8/api/shared/util/mongoose';
-import { AuthUserParams } from '@deb8/type';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { IsObjectId } from '@pollate/api/shared/util/mongoose';
+import { AuthUserParams } from '@pollate/type';
 /**
  * Decorator to be used in Nestjs contollers to get the userId out of the request
  */

@@ -1,5 +1,5 @@
-import { ApiDataAccessUserModule } from '@deb8/api/data-access/user';
 import { Module } from '@nestjs/common';
+import { ApiDataAccessUserModule } from '@pollate/api/data-access/user';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 

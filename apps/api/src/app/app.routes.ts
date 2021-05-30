@@ -1,7 +1,7 @@
-import { MessageModule } from '@deb8/api/feature/chat';
-import { QuestionModule } from '@deb8/api/feature/question';
-import { ResponseModule } from '@deb8/api/feature/response';
-import { UserModule } from '@deb8/api/feature/user';
+import { MessageModule } from '@pollate/api/feature/chat';
+import { QuestionModule } from '@pollate/api/feature/question';
+import { ResponseModule } from '@pollate/api/feature/response';
+import { UserModule } from '@pollate/api/feature/user';
 import { Routes } from 'nest-router';
 
 export const routes: Routes = [

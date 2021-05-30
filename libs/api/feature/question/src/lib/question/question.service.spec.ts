@@ -1,7 +1,7 @@
-import { QuestionModelService } from '@deb8/api/data-access/question';
-import { mockObjectId, mockQuestion } from '@deb8/testing';
-import { Question } from '@deb8/type';
 import { Test, TestingModule } from '@nestjs/testing';
+import { QuestionModelService } from '@pollate/api/data-access/question';
+import { mockObjectId, mockQuestion } from '@pollate/testing';
+import { Question } from '@pollate/type';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { QuestionService } from './question.service';
 

@@ -1,5 +1,5 @@
-import { Response } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Response } from '@pollate/type';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 
@@ -28,3 +28,5 @@ export class ResponseSchema implements Omit<Response, '_id'> {
 }
 
 export const responseSchema = SchemaFactory.createForClass(ResponseSchema);
+
+responseSchema.index({questionId: 1, userId: 1});

@@ -1,6 +1,6 @@
-import { UserModelService } from '@deb8/api/data-access/user';
-import { mockUser } from '@deb8/testing';
 import { Test, TestingModule } from '@nestjs/testing';
+import { UserModelService } from '@pollate/api/data-access/user';
+import { mockUser } from '@pollate/testing';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { UserService } from './user.service';
 

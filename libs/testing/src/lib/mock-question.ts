@@ -1,4 +1,4 @@
-import { Question } from '@deb8/type';
+import { Question } from '@pollate/type';
 import { merge } from 'lodash';
 import { mockObjectId } from './mock-object-id';
 

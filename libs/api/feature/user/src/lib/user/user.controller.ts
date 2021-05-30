@@ -1,6 +1,6 @@
-import { CreateUserResponse, UpdateUserResponse } from '@deb8/type';
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateUserResponse, UpdateUserResponse } from '@pollate/type';
 import { UserService } from './user.service';
 import { CreateUserSwagger, UpdateUserSwagger } from './user.swagger';
 import {

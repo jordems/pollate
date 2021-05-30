@@ -1,5 +1,5 @@
-import { Question } from '@deb8/type';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Question } from '@pollate/type';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 

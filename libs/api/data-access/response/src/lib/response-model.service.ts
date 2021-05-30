@@ -1,6 +1,6 @@
-import { MinimalResponse, Response } from '@deb8/type';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { MinimalResponse, Response } from '@pollate/type';
 import { pick } from 'lodash';
 import { Model } from 'mongoose';
 import { ResponseDocument, RESPONSE_MODEL_NAME } from './response.schema';
@@ -41,5 +41,18 @@ export class ResponseModelService {
         questionId,
       })
     ).map((response) => ResponseModelService.fromDocument(response));
+  }
+
+  async findUsersResponseOnQuestion(
+    questionId: string,
+    userId: string
+  ): Promise<Response | null> {
+    const response = await this.model.findOne({ questionId, userId });
+
+    if (!response) {
+      return null;
+    }
+
+    return ResponseModelService.fromDocument(response);
   }
 }

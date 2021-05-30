@@ -1,6 +1,6 @@
 module.exports = {
   projects: [
-    '<rootDir>/apps/deb8',
+    '<rootDir>/apps/pollate-ng',
     '<rootDir>/apps/api',
     '<rootDir>/libs/data-access/question',
     '<rootDir>/libs/data-access/response',
@@ -12,7 +12,7 @@ module.exports = {
     '<rootDir>/libs/api/feature/viewer',
     '<rootDir>/libs/api/feature/question',
     '<rootDir>/libs/api/feature/user',
-    '<rootDir>/libs/api/shared/gateway/deb8',
+    '<rootDir>/libs/api/shared/gateway/question',
     '<rootDir>/libs/api/data-access/shared/util/mongoose',
     '<rootDir>/libs/api/shared/util/auth',
     '<rootDir>/libs/testing',

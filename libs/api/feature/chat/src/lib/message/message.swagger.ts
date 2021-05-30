@@ -1,4 +1,3 @@
-import { Message } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -6,6 +5,7 @@ import {
   ApiParam,
   ApiProperty,
 } from '@nestjs/swagger';
+import { Message } from '@pollate/type';
 
 export function CreateMessageSwagger() {
   return applyDecorators(

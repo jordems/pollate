@@ -1,10 +1,10 @@
-import { QuestionModelService } from '@deb8/api/data-access/question';
+import { Injectable, Logger } from '@nestjs/common';
+import { QuestionModelService } from '@pollate/api/data-access/question';
 import {
   CreateQuestionRequest,
   CreateQuestionResponse,
   GetQuestionByStubResponse,
-} from '@deb8/type';
-import { Injectable, Logger } from '@nestjs/common';
+} from '@pollate/type';
 import { nanoid } from 'nanoid';
 
 @Injectable()

@@ -1,11 +1,11 @@
-import { UserModelService } from '@deb8/api/data-access/user';
+import { Injectable } from '@nestjs/common';
+import { UserModelService } from '@pollate/api/data-access/user';
 import {
   CreateUserRequest,
   CreateUserResponse,
   UpdateUserRequest,
   UpdateUserResponse,
-} from '@deb8/type';
-import { Injectable } from '@nestjs/common';
+} from '@pollate/type';
 
 @Injectable()
 export class UserService {
