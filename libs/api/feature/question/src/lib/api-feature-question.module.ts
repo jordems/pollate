@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
+import { QuestionModule } from './question/question.module';
 
 @Module({
-  controllers: [],
-  providers: [],
-  exports: [],
+  imports: [QuestionModule],
 })
 export class ApiFeatureQuestionModule {}
