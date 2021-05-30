@@ -42,7 +42,7 @@ describe('QuestionService', () => {
       mockGetQuestionByStubOnce(null);
     });
 
-    it('should create a question on the question', async () => {
+    it('should create a question', async () => {
       const actual = await service.create(mockObjectId(), {
         question: '2+2?',
         responses: ['1', '2', '3'],

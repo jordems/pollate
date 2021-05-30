@@ -21,7 +21,7 @@ export function CreateQuestionSwagger() {
 export function GetQuestionByStubSwagger() {
   return applyDecorators(
     ApiOperation({
-      description: 'Creates a question with set responses',
+      description: 'Gets a question from its stub',
     }),
     ApiParam({
       name: 'stubId',

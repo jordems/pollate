@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ResponseModule } from './response/response.module';
 
 @Module({
-  controllers: [],
-  providers: [],
-  exports: [],
+  imports: [ResponseModule],
 })
 export class ApiFeatureResponseModule {}

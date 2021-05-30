@@ -29,6 +29,16 @@ export class QuestionModelService {
     return QuestionModelService.fromDocument(await this.model.create(question));
   }
 
+  async findById(id: string): Promise<Question> {
+    const question = await this.model.findById(id);
+
+    if (!question) {
+      throw new NotFoundException({ message: 'Question not found' });
+    }
+
+    return QuestionModelService.fromDocument(question);
+  }
+
   async findByStub(stub: string): Promise<Question> {
     const question = await this.model.findOne({
       stub,

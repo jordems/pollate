@@ -26,6 +26,15 @@ export class ResponseModelService {
     return ResponseModelService.fromDocument(await this.model.create(response));
   }
 
+  async update(
+    id: string,
+    response: Pick<Response, 'response'>
+  ): Promise<Response> {
+    return ResponseModelService.fromDocument(
+      await this.model.findByIdAndUpdate(id, { $set: response }, { new: true })
+    );
+  }
+
   async findAllOnQuestion(questionId: string): Promise<Response[]> {
     return (
       await this.model.find({
