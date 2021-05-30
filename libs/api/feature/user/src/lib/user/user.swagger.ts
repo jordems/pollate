@@ -1,6 +1,7 @@
 import { User } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -12,7 +13,7 @@ export function CreateUserSwagger() {
     ApiOperation({
       description: 'Creates a user',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: UserEntity,
     })
   );

@@ -1,6 +1,8 @@
 import { Question } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiCreatedResponse,
+  ApiHeader,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -12,8 +14,12 @@ export function CreateQuestionSwagger() {
     ApiOperation({
       description: 'Creates a question with set responses',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: QuestionEntity,
+    }),
+    ApiHeader({
+      name: 'x-user-id',
+      description: 'User creating request',
     })
   );
 }
@@ -24,8 +30,8 @@ export function GetQuestionByStubSwagger() {
       description: 'Gets a question from its stub',
     }),
     ApiParam({
-      name: 'stubId',
-      description: 'The stubId to get the question',
+      name: 'stub',
+      description: 'The stub to get the question',
     }),
     ApiOkResponse({
       type: QuestionEntity,

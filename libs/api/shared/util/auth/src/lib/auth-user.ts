@@ -5,7 +5,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
  * Decorator to be used in Nestjs contollers to get the userId out of the request
  */
 export const AuthParam = createParamDecorator(
-  (ctx: ExecutionContext): AuthUserParams => {
+  (_: any, ctx: ExecutionContext): AuthUserParams => {
     const request = ctx.switchToHttp().getRequest();
 
     return {

@@ -8,10 +8,7 @@ export const QUESTION_MODEL_NAME = 'Question';
 export type QuestionDocument = QuestionSchema & Document;
 
 @Schema()
-export class QuestionSchema implements Question {
-  @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: string;
-
+export class QuestionSchema implements Omit<Question, '_id'> {
   @Prop({ index: true, unique: true })
   stub: string;
 

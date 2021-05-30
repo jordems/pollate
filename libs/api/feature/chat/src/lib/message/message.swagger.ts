@@ -1,7 +1,7 @@
 import { Message } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
-  ApiOkResponse,
+  ApiCreatedResponse,
   ApiOperation,
   ApiParam,
   ApiProperty,
@@ -16,7 +16,7 @@ export function CreateMessageSwagger() {
       name: 'questionId',
       description: 'The question that this message is to be created under',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: MessageEntity,
     })
   );

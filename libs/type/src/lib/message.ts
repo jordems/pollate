@@ -2,7 +2,7 @@ export interface Message {
   /**
    * Unique ID of the message
    */
-  _id: string;
+  _id?: string;
 
   /**
    * User who created the message

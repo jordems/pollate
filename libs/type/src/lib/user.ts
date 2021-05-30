@@ -2,7 +2,7 @@ export interface User {
   /**
    * Unique ID of the user
    */
-  _id: string;
+  _id?: string;
 
   /**
    * The firebase uid created for the user (only creating anoynmous user accounts)

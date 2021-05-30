@@ -1,6 +1,7 @@
 import { Response } from '@deb8/type';
 import { applyDecorators } from '@nestjs/common';
 import {
+  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -16,7 +17,7 @@ export function CreateResponseSwagger() {
       name: 'questionId',
       description: 'Question that is being responded to',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       type: ResponseEntity,
     })
   );

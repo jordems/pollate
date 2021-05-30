@@ -1,6 +1,7 @@
 import { AuthParam, AuthParamsValidator } from '@deb8/api/shared/util/auth';
 import { CreateQuestionResponse, GetQuestionByStubResponse } from '@deb8/type';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { QuestionService } from './question.service';
 import {
   CreateQuestionSwagger,
@@ -11,6 +12,7 @@ import {
   GetQuestionByStubParamsValidator,
 } from './question.validators';
 
+@ApiTags('question')
 @Controller()
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}

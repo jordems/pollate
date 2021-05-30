@@ -8,10 +8,7 @@ export const RESPONSE_MODEL_NAME = 'Response';
 export type ResponseDocument = ResponseSchema & Document;
 
 @Schema()
-export class ResponseSchema implements Response {
-  @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: string;
-
+export class ResponseSchema implements Omit<Response, '_id'> {
   @Prop({
     index: true,
     type: mongoose.Schema.Types.ObjectId,

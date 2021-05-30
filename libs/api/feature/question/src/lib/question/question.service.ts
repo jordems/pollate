@@ -35,12 +35,13 @@ export class QuestionService {
 
     do {
       stub = nanoid(10);
+
       try {
         await this.questionModelService.findByStub(stub);
-        exists = false;
+        exists = true;
       } catch {
         Logger.log('Please buy a lottery ticket!!!');
-        exists = true;
+        exists = false;
       }
     } while (exists);
 

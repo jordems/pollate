@@ -1,6 +1,7 @@
 import { AuthParam, AuthParamsValidator } from '@deb8/api/shared/util/auth';
 import { CreateResponseResponse, UpdateResponseResponse } from '@deb8/type';
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { ResponseService } from './response.service';
 import {
   CreateResponseSwagger,
@@ -13,6 +14,11 @@ import {
   UpdateResponseValidator,
 } from './response.validators';
 
+@ApiTags('response')
+@ApiHeader({
+  name: 'x-user-id',
+  description: 'User creating request',
+})
 @Controller()
 export class ResponseController {
   constructor(private readonly responseService: ResponseService) {}

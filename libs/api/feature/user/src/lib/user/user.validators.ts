@@ -1,17 +1,24 @@
 import { IsObjectId } from '@deb8/api/shared/util/mongoose';
 import { CreateUserRequest, UpdateUserRequest } from '@deb8/type';
+import { ApiProperty } from '@nestjs/swagger';
 import { Length } from 'class-validator';
 
 export class CreateUserValidator implements CreateUserRequest {
   @Length(1, 25)
+  @ApiProperty({ description: 'Users display name', example: 'John Doe' })
   name: string;
 
   @Length(28, 28)
+  @ApiProperty({
+    description: 'Firebases generated user id (28 characters)',
+    example: 'XKrqfb9ZeqSCqM2WkcCxULWTnng2',
+  })
   uid: string;
 }
 
 export class UpdateUserValidator implements UpdateUserRequest {
   @Length(1, 25)
+  @ApiProperty({ description: 'Users display name' })
   name: string;
 }
 

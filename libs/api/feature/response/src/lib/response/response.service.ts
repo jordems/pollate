@@ -83,7 +83,9 @@ export class ResponseService {
     const question = await this.questionModelService.findById(questionId);
 
     if (!question.responses.find((r) => r === response)) {
-      throw new BadRequestException({ error: 'Response entered is invalid' });
+      throw new BadRequestException({
+        error: `Response entered is invalid, must be one of [${question.responses}]`,
+      });
     }
   }
 }

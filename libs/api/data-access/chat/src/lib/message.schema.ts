@@ -8,10 +8,7 @@ export const MESSAGE_MODEL_NAME = 'Message';
 export type MessageDocument = MessageSchema & Document;
 
 @Schema()
-export class MessageSchema implements Message {
-  @Prop({ index: true, type: mongoose.Schema.Types.ObjectId })
-  _id: string;
-
+export class MessageSchema implements Omit<Message, '_id'> {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   userId: string;
 

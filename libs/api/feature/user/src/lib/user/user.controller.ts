@@ -1,5 +1,6 @@
 import { CreateUserResponse, UpdateUserResponse } from '@deb8/type';
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserSwagger, UpdateUserSwagger } from './user.swagger';
 import {
@@ -8,6 +9,7 @@ import {
   UpdateUserValidator,
 } from './user.validators';
 
+@ApiTags('user')
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
