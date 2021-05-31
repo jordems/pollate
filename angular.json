@@ -475,6 +475,31 @@
           }
         }
       }
+    },
+    "ng-state-question": {
+      "projectType": "library",
+      "root": "libs/ng/state/question",
+      "sourceRoot": "libs/ng/state/question/src",
+      "prefix": "pollate",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/state/question"],
+          "options": {
+            "jestConfig": "libs/ng/state/question/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/state/question/src/**/*.ts",
+              "libs/ng/state/question/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

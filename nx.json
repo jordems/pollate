@@ -67,6 +67,9 @@
     "pollate-ng-e2e": {
       "tags": [],
       "implicitDependencies": ["pollate-ng"]
+    },
+    "ng-state-question": {
+      "tags": []
     }
   }
 }

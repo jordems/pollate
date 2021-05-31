@@ -45,7 +45,8 @@
         "libs/api/shared/util/auth/src/index.ts"
       ],
       "@pollate/testing": ["libs/testing/src/index.ts"],
-      "@pollate/type": ["libs/type/src/index.ts"]
+      "@pollate/type": ["libs/type/src/index.ts"],
+      "@pollate/ng/state/question": ["libs/ng/state/question/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

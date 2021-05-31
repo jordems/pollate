@@ -38,7 +38,7 @@ export class QuestionGateway
     }
 
     Logger.log(
-      `Gateway - Client Connected ${questionId}:${userId ?? 'Anoynmous'}:${
+      `Gateway - Client Connected ${questionId}:${userId || 'anon'}:${
         client.handshake.address
       }`
     );
@@ -72,10 +72,12 @@ export class QuestionGateway
       questionId
     );
 
-    const userResponse = await this.responseModelService.findUsersResponseOnQuestion(
-      questionId,
-      userId
-    );
+    const userResponse = userId
+      ? await this.responseModelService.findUsersResponseOnQuestion(
+          questionId,
+          userId
+        )
+      : null;
 
     return {
       messages: messages.map((message) =>

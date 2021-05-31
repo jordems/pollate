@@ -16,5 +16,6 @@ module.exports = {
     '<rootDir>/libs/api/data-access/shared/util/mongoose',
     '<rootDir>/libs/api/shared/util/auth',
     '<rootDir>/libs/testing',
+    '<rootDir>/libs/ng/state/question',
   ],
 };
