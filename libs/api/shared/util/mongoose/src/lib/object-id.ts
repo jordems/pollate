@@ -8,7 +8,7 @@ import * as mongoose from 'mongoose';
  * @param id - String version of an ObjectId
  * @returns - ObjectId version of id
  */
-export function isObjectId(id: any): id is string {
+export function isObjectId(id: string): boolean {
   return mongoose.isValidObjectId(id);
 }
 

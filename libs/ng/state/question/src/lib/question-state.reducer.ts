@@ -11,6 +11,7 @@ export function questionReducer(
     on(wsConnected, (state, initialData) => ({
       ...state,
       ...initialData,
+      loaded: true,
     })),
     on(wsOnMessage, (state, { message }) => ({
       ...state,

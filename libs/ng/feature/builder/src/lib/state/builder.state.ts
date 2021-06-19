@@ -1,9 +1,9 @@
 export const BUILDER_STATE = 'builder';
 
-export interface BuilderState {}
+export interface BuilderState {
+  test: string;
+}
 
 export const initialBuilderState: BuilderState = {
-  messages: [],
-  responses: [],
-  userResponse: null,
+  test: '',
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { CACHE_MANAGER, Inject } from '@nestjs/common';
 import { Cache, CachingConfig } from 'cache-manager';
 
@@ -8,9 +9,9 @@ import { Cache, CachingConfig } from 'cache-manager';
 function SetupCacheDecorator(
   func: (
     cacheManager: Cache,
-    args: any[],
-    methodExecution: () => any
-  ) => Promise<any>
+    args: unknown[],
+    methodExecution: () => unknown
+  ) => Promise<unknown>
 ): (
   target: Function['prototype'],
   propertyKey: string,
@@ -27,7 +28,10 @@ function SetupCacheDecorator(
 
     const originalMethod = propertyDescriptor.value;
 
-    propertyDescriptor.value = async function (...args: any[]): Promise<any> {
+    propertyDescriptor.value = async function (
+      ...args: unknown[]
+    ): Promise<unknown> {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cacheManger: Cache = (this as any).cacheManager;
 
       return func(cacheManger, args, () => originalMethod.apply(this, args));

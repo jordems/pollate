@@ -5,7 +5,7 @@ import { AuthUserParams } from '@pollate/type';
  * Decorator to be used in Nestjs contollers to get the userId out of the request
  */
 export const AuthParam = createParamDecorator(
-  (_: any, ctx: ExecutionContext): AuthUserParams => {
+  (_: unknown, ctx: ExecutionContext): AuthUserParams => {
     const request = ctx.switchToHttp().getRequest();
 
     return {
