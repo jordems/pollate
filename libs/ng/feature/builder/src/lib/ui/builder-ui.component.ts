@@ -7,16 +7,10 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./builder-ui.component.scss'],
 })
 export class BuilderUIComponent {
-  constructor() {}
-
-      questionControl = new FormControl({
-    question: ['',Validators.maxLength(3)],
-    responses: [['', '', ''], Validators.],
+  questionControl = new FormControl({
+    question: ['', Validators.maxLength(3)],
+    responses: [['', '', '']],
   });
 
-  responseControl = [
-      new FormControl()
-  ]
-
-
+  responseControl = [new FormControl()];
 }
