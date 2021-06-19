@@ -5,8 +5,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NG_ENVIRONMENT } from '@pollate/ng/shared/environment';
-import { NgStateQuestionModule } from '@pollate/ng/state/question';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
       maxAge: 25,
     }),
     EffectsModule.forRoot(),
-    NgStateQuestionModule,
+    AppRoutingModule,
   ],
   providers: [{ provide: NG_ENVIRONMENT, useValue: environment }],
   bootstrap: [AppComponent],

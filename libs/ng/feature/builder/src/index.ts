@@ -1,1 +1,1 @@
-export * from './lib/ng-feature-builder.module';
+export * from './lib/builder-feature.module';

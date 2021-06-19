@@ -5,6 +5,6 @@ import { BuilderUIComponent } from './builder-ui.component';
 @NgModule({
   imports: [CommonModule],
   declarations: [BuilderUIComponent],
-  providers: [BuilderUIComponent],
+  exports: [BuilderUIComponent],
 })
 export class BuilderUIModule {}
