@@ -17,5 +17,8 @@ module.exports = {
     '<rootDir>/libs/api/shared/util/auth',
     '<rootDir>/libs/testing',
     '<rootDir>/libs/ng/state/question',
+    '<rootDir>/libs/ng/builder',
+    '<rootDir>/libs/ng/shared/environment',
+    '<rootDir>/libs/api/shared/util/cache',
   ],
 };

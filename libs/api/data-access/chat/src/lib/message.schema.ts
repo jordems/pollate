@@ -16,6 +16,7 @@ export class MessageSchema implements Omit<Message, '_id'> {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Question',
     required: true,
+    index: true,
   })
   questionId: string;
 
@@ -32,6 +33,6 @@ export class MessageSchema implements Omit<Message, '_id'> {
 export const messageSchema = SchemaFactory.createForClass(MessageSchema);
 
 /**
- * ESR Index for message query
+ * ESR Index for message query made by the gateway onConnect Request
  */
 messageSchema.index({ questionId: 1, createdAt: -1, _id: 1 });

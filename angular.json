@@ -29,6 +29,9 @@
     },
     "@nrwl/angular:component": {
       "style": "scss"
+    },
+    "@nrwl/nest:library": {
+      "strict": "true"
     }
   },
   "projects": {
@@ -497,6 +500,77 @@
               "libs/ng/state/question/src/**/*.ts",
               "libs/ng/state/question/src/**/*.html"
             ]
+          }
+        }
+      }
+    },
+    "ng-feature-builder": {
+      "projectType": "library",
+      "root": "libs/ng/feature/builder",
+      "sourceRoot": "libs/ng/feature/builder/src",
+      "prefix": "pollate",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/feature/builder"],
+          "options": {
+            "jestConfig": "libs/ng/feature/builder/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/feature/builder/src/**/*.ts",
+              "libs/ng/feature/builder/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-shared-environment": {
+      "projectType": "library",
+      "root": "libs/ng/shared/environment",
+      "sourceRoot": "libs/ng/shared/environment/src",
+      "prefix": "pollate",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/shared/environment"],
+          "options": {
+            "jestConfig": "libs/ng/shared/environment/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/shared/environment/src/**/*.ts",
+              "libs/ng/shared/environment/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "api-shared-util-cache": {
+      "root": "libs/api/shared/util/cache",
+      "sourceRoot": "libs/api/shared/util/cache/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/shared/util/cache/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/shared/util/cache"],
+          "options": {
+            "jestConfig": "libs/api/shared/util/cache/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

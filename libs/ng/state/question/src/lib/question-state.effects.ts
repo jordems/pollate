@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
-import { QuestionSocketService } from './question-socket.service';
+import { QuestionSocketService } from './data-access/question-socket.service';
 import { wsConnected, wsOnMessage } from './question-state.actions';
 
 @Injectable()
@@ -16,9 +16,5 @@ export class QuestionStateEffects {
   constructor(
     private actions$: Actions,
     private questionSocketService: QuestionSocketService
-  ) {
-    this.questionSocketService.connected$.subscribe((data) =>
-      console.log('aa', data)
-    );
-  }
+  ) {}
 }

@@ -46,7 +46,14 @@
       ],
       "@pollate/testing": ["libs/testing/src/index.ts"],
       "@pollate/type": ["libs/type/src/index.ts"],
-      "@pollate/ng/state/question": ["libs/ng/state/question/src/index.ts"]
+      "@pollate/ng/state/question": ["libs/ng/state/question/src/index.ts"],
+      "@pollate/ng/feature/builder": ["libs/ng/feature/builder/src/index.ts"],
+      "@pollate/ng/shared/environment": [
+        "libs/ng/shared/environment/src/index.ts"
+      ],
+      "@pollate/api/shared/util/cache": [
+        "libs/api/shared/util/cache/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

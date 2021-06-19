@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { NgEnvironment, NG_ENVIRONMENT } from '@pollate/ng/shared/environment';
 import { QuestionWSEvent, QuestionWSEventMap } from '@pollate/type';
 import { Socket } from 'ngx-socket-io';
 
@@ -8,13 +9,13 @@ export class QuestionSocketService extends Socket {
   onMessage$ = this.fromQuestionEvent('onMessage');
   onUpsertResponse$ = this.fromQuestionEvent('onUpsertResponse');
 
-  constructor() {
+  constructor(@Inject(NG_ENVIRONMENT) private readonly env: NgEnvironment) {
     super({
-      url: 'http://localhost:3000/question',
+      url: `${env.api}question`,
       options: {
         transports: ['websocket', 'polling'],
         query: {
-          questionId: '60b330dd2531454ab92efb07',
+          questionId: '60c590e7549ab522c32ca1a2',
           userId: '',
         },
         reconnection: true,

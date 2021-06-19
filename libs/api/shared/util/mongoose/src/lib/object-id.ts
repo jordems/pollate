@@ -16,14 +16,17 @@ export function isObjectId(id: any): id is string {
  * Class-validator to confirm the specified type is infact a string that can be converted to an ObjectId
  */
 export function IsObjectId() {
-  return function (object: Object, propertyName: string) {
+  return function (object: unknown, propertyName: string) {
     registerDecorator({
       name: 'IsObjectId',
       target: object.constructor,
       propertyName: propertyName,
       validator: {
-        validate(value: any) {
+        validate(value: string): boolean {
           return mongoose.isValidObjectId(value);
+        },
+        defaultMessage(args): string {
+          return `'${args.value}' is not an object id on property '${args.property}'`;
         },
       },
     });
