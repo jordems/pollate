@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { QuestionModelService } from '@pollate/api/data-access/question';
 import { ResponseModelService } from '@pollate/api/data-access/response';
-import { QuestionGatewayService } from '@pollate/api/shared/gateway/pollate';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/question';
 import { mockObjectId, mockQuestion, mockResponse } from '@pollate/testing';
-import { Deb8OnUpsertResponse, Deb8WSEvent, Response } from '@pollate/type';
+import { Response } from '@pollate/type';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { ResponseService } from './response.service';
 
@@ -12,7 +12,7 @@ describe('ResponseService', () => {
 
   const responseModelService = Mock<ResponseModelService>();
   const questionModelService = Mock<QuestionModelService>();
-  const pollateGatewayService = Mock<QuestionGatewayService>();
+  const questionGatewayService = Mock<QuestionGatewayService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('ResponseService', () => {
         ResponseService,
         { provide: ResponseModelService, useValue: responseModelService },
         { provide: QuestionModelService, useValue: questionModelService },
-        { provide: QuestionGatewayService, useValue: pollateGatewayService },
+        { provide: QuestionGatewayService, useValue: questionGatewayService },
       ],
     }).compile();
 
@@ -28,7 +28,7 @@ describe('ResponseService', () => {
 
     mockReset(responseModelService);
     mockReset(questionModelService);
-    mockReset(pollateGatewayService);
+    mockReset(questionGatewayService);
   });
 
   it('should be defined', () => {
@@ -69,8 +69,8 @@ describe('ResponseService', () => {
         response: 'b',
       });
 
-      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
-        [string, Deb8WSEvent, Deb8OnUpsertResponse]
+      expect(questionGatewayService.emit).toHaveBeenCalledWith<
+        Parameters<QuestionGatewayService['emit']>
       >(questionId, 'onUpsertResponse', {
         response: ResponseModelService.toMinimal(response),
       });
@@ -104,8 +104,8 @@ describe('ResponseService', () => {
         response: 'b',
       });
 
-      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
-        [string, Deb8WSEvent, Deb8OnUpsertResponse]
+      expect(questionGatewayService.emit).toHaveBeenCalledWith<
+        Parameters<QuestionGatewayService['emit']>
       >(questionId, 'onUpsertResponse', {
         response: ResponseModelService.toMinimal(response),
       });

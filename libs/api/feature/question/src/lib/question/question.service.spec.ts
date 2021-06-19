@@ -41,15 +41,11 @@ describe('QuestionService', () => {
       Promise.resolve({ ...question, ...generatedQuestionFields })
     );
   }
-  function mockGetQuestionByStubOnce(question: Question = mockQuestion()) {
-    questionModelService.findByStub.mockResolvedValueOnce(question);
+  function mockGetQuestionByStub(question: Question = mockQuestion()) {
+    questionModelService.findByStub.mockResolvedValue(question);
   }
 
   describe('create', () => {
-    beforeEach(() => {
-      mockGetQuestionByStubOnce(null);
-    });
-
     it.each<[string, Partial<Question>]>([
       [
         'with a stub',
@@ -89,27 +85,18 @@ describe('QuestionService', () => {
     ])('should create a question %s', async (_, expectContaining) => {
       mockCreateQuestion();
 
-      const actual = await service.create(mockObjectId(), {
+      const actual = await service.create(userId, {
         question: '2+2?',
         responses: ['1', '2', '3', '4'],
       });
 
       expect(actual).toEqual(expect.objectContaining(expectContaining));
     });
-
-    it('should generate a new stub if generated one is already used', async () => {
-      mockGetQuestionByStubOnce(mockQuestion());
-
-      await service.create(mockObjectId(), {
-        question: '2+2?',
-        responses: ['1', '2', '3'],
-      });
-    });
   });
 
   describe('getByStub', () => {
     beforeEach(() => {
-      mockGetQuestionByStubOnce(question);
+      mockGetQuestionByStub(question);
     });
 
     it('should get question when exists', async () => {

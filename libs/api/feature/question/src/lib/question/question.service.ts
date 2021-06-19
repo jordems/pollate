@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { QuestionModelService } from '@pollate/api/data-access/question';
 import {
   CreateQuestionRequest,
@@ -16,15 +16,16 @@ export class QuestionService {
    * Builds the base question data that exists on a question when first created.
    *
    * - Organizes starting memoized data
+   * - Creates a unique stub
+   * TODO Make custom stubs and check if already exists
    */
   private static buildQuestion(
     dto: CreateQuestionRequest,
-    stub: string,
     userId: string
   ): Omit<Question, 'createdAt'> {
     return {
       ...dto,
-      stub,
+      stub: nanoid(10),
       userId,
       memoized: {
         responseCount: 0,
@@ -47,36 +48,12 @@ export class QuestionService {
     userId: string,
     dto: CreateQuestionRequest
   ): Promise<CreateQuestionResponse> {
-    const stub = await this.generateStub();
-
     return this.questionModelService.create(
-      QuestionService.buildQuestion(dto, stub, userId)
+      QuestionService.buildQuestion(dto, userId)
     );
   }
 
   getByStub(stub: string): Promise<GetQuestionByStubResponse> {
     return this.questionModelService.findByStub(stub);
-  }
-
-  /**
-   * Generate a random stub to link to the question. If it's already used, create another.
-   */
-  private async generateStub(): Promise<string> {
-    let exists: boolean;
-    let stub: string;
-
-    do {
-      stub = nanoid(10);
-
-      try {
-        await this.questionModelService.findByStub(stub);
-        exists = true;
-      } catch {
-        Logger.log('Please buy a lottery ticket!!!');
-        exists = false;
-      }
-    } while (exists);
-
-    return stub;
   }
 }

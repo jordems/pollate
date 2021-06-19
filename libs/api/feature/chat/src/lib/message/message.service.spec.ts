@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MessageModelService } from '@pollate/api/data-access/chat';
 import { UserModelService } from '@pollate/api/data-access/user';
-import { QuestionGatewayService } from '@pollate/api/shared/gateway/pollate';
+import { QuestionGatewayService } from '@pollate/api/shared/gateway/question';
 import { mockMessage, mockObjectId, mockUser } from '@pollate/testing';
-import { Deb8OnMessageEvent, Deb8WSEvent, Message, User } from '@pollate/type';
+import { Message, User } from '@pollate/type';
 import Mock, { mockReset } from 'jest-mock-extended/lib/Mock';
 import { MessageService } from './message.service';
 
@@ -12,7 +12,7 @@ describe('MessageService', () => {
 
   const messageModelService = Mock<MessageModelService>();
   const userModelService = Mock<UserModelService>();
-  const pollateGatewayService = Mock<QuestionGatewayService>();
+  const questionGatewayService = Mock<QuestionGatewayService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('MessageService', () => {
         MessageService,
         { provide: MessageModelService, useValue: messageModelService },
         { provide: UserModelService, useValue: userModelService },
-        { provide: QuestionGatewayService, useValue: pollateGatewayService },
+        { provide: QuestionGatewayService, useValue: questionGatewayService },
       ],
     }).compile();
 
@@ -28,7 +28,7 @@ describe('MessageService', () => {
 
     mockReset(messageModelService);
     mockReset(userModelService);
-    mockReset(pollateGatewayService);
+    mockReset(questionGatewayService);
   });
 
   it('should be defined', () => {
@@ -65,8 +65,8 @@ describe('MessageService', () => {
         text: 'Incorrect!',
       });
 
-      expect(pollateGatewayService.emit).toHaveBeenCalledWith<
-        [string, Deb8WSEvent, Deb8OnMessageEvent]
+      expect(questionGatewayService.emit).toHaveBeenCalledWith<
+        Parameters<QuestionGatewayService['emit']>
       >(questionId, 'onMessage', {
         message: MessageModelService.toMinimal(message),
       });
