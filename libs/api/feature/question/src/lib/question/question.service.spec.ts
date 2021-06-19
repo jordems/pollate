@@ -86,7 +86,7 @@ describe('QuestionService', () => {
         },
       ],
       ['with generated fields', generatedQuestionFields],
-    ])('should create a question, %s', async (_, expectContaining) => {
+    ])('should create a question %s', async (_, expectContaining) => {
       mockCreateQuestion();
 
       const actual = await service.create(mockObjectId(), {
