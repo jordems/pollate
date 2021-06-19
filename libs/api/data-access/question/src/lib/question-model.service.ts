@@ -24,6 +24,10 @@ export class QuestionModelService {
     ]);
   }
 
+  private static buildActiveResponseKey(response: string): string {
+    return `memoized.activeResponses.${response}`;
+  }
+
   async create(
     question: Pick<
       Question,
@@ -53,5 +57,47 @@ export class QuestionModelService {
     }
 
     return QuestionModelService.fromDocument(question);
+  }
+
+  async incrementMessageCount(questionId: string): Promise<void> {
+    await this.model.updateOne(
+      { _id: questionId },
+      { $inc: { 'memoized.messageCount': 1 } }
+    );
+  }
+
+  async incrementResponseCount(
+    questionId: string,
+    response: string
+  ): Promise<void> {
+    await this.model.updateOne(
+      { _id: questionId },
+      {
+        $inc: {
+          'memoized.responseCount': 1,
+          [QuestionModelService.buildActiveResponseKey(response)]: 1,
+        },
+      }
+    );
+  }
+
+  async changeResponseCount(
+    questionId: string,
+    oldResponse: string,
+    newResponse: string
+  ): Promise<void> {
+    if (oldResponse === newResponse) {
+      return;
+    }
+
+    await this.model.updateOne(
+      { _id: questionId },
+      {
+        $inc: {
+          [QuestionModelService.buildActiveResponseKey(oldResponse)]: -1,
+          [QuestionModelService.buildActiveResponseKey(newResponse)]: 1,
+        },
+      }
+    );
   }
 }

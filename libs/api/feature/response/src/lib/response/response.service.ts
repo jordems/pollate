@@ -8,6 +8,10 @@ import {
   UpdateResponseRequest,
   UpdateResponseResponse,
 } from '@pollate/type';
+import {
+  alreadyHasResponse,
+  responseDoesNotExistOnQuestion,
+} from './response.copy';
 
 @Injectable()
 export class ResponseService {
@@ -18,8 +22,10 @@ export class ResponseService {
   ) {}
 
   /**
-   * Creates the response in the database, aswell as sending the response
-   * in real time to each client.
+   * Creates the response in the database
+   * - Check that user doesn't already have a response on question
+   * - Sends the response in real time to each client.
+   * - Increments memoized values on question related to response
    *
    * @param questionId - Question the response is being created under
    * @param userId - User that's creating the response
@@ -30,13 +36,28 @@ export class ResponseService {
     userId: string,
     dto: CreateResponseRequest
   ): Promise<CreateResponseResponse> {
+    if (
+      await this.responseModelService.findUsersResponseOnQuestion(
+        questionId,
+        userId
+      )
+    ) {
+      throw new BadRequestException(alreadyHasResponse);
+    }
+
     await this.confirmQuestionHasResponse(questionId, dto.response);
 
-    const createdResponse = await this.responseModelService.create({
-      ...dto,
-      questionId,
-      userId,
-    });
+    const [createdResponse] = await Promise.all([
+      this.responseModelService.create({
+        ...dto,
+        questionId,
+        userId,
+      }),
+      this.questionModelService.incrementResponseCount(
+        questionId,
+        dto.response
+      ),
+    ]);
 
     this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
       response: ResponseModelService.toMinimal(createdResponse),
@@ -46,8 +67,9 @@ export class ResponseService {
   }
 
   /**
-   * Updates the response in the database, and emits an event to all clients
-   * to change the response.
+   * Updates the response in the database
+   * - Emits an event to all clients to change the response.
+   * - Handles necessary changes to memoized values on question
    *
    * @param questionId - Question the response is being created under
    * @param responseId - Response that is being updated
@@ -60,10 +82,18 @@ export class ResponseService {
   ): Promise<UpdateResponseResponse> {
     await this.confirmQuestionHasResponse(questionId, dto.response);
 
-    const updatedResponse = await this.responseModelService.update(
-      responseId,
-      dto
+    const oldResponse = await this.responseModelService.findOneRequired(
+      responseId
     );
+
+    const [updatedResponse] = await Promise.all([
+      this.responseModelService.update(responseId, dto),
+      this.questionModelService.changeResponseCount(
+        questionId,
+        oldResponse.response,
+        dto.response
+      ),
+    ]);
 
     this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
       response: ResponseModelService.toMinimal(updatedResponse),
@@ -83,9 +113,9 @@ export class ResponseService {
     const question = await this.questionModelService.findById(questionId);
 
     if (!question.responses.find((r) => r === response)) {
-      throw new BadRequestException({
-        error: `Response entered is invalid, must be one of [${question.responses}]`,
-      });
+      throw new BadRequestException(
+        responseDoesNotExistOnQuestion(question.responses)
+      );
     }
   }
 }

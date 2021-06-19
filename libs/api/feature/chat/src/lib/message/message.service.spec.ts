@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MessageModelService } from '@pollate/api/data-access/chat';
+import { QuestionModelService } from '@pollate/api/data-access/question';
 import { UserModelService } from '@pollate/api/data-access/user';
 import { QuestionGatewayService } from '@pollate/api/shared/gateway/question';
 import { mockMessage, mockObjectId, mockUser } from '@pollate/testing';
@@ -12,6 +13,7 @@ describe('MessageService', () => {
 
   const messageModelService = Mock<MessageModelService>();
   const userModelService = Mock<UserModelService>();
+  const questionModelService = Mock<QuestionModelService>();
   const questionGatewayService = Mock<QuestionGatewayService>();
 
   beforeEach(async () => {
@@ -20,6 +22,7 @@ describe('MessageService', () => {
         MessageService,
         { provide: MessageModelService, useValue: messageModelService },
         { provide: UserModelService, useValue: userModelService },
+        { provide: QuestionModelService, useValue: questionModelService },
         { provide: QuestionGatewayService, useValue: questionGatewayService },
       ],
     }).compile();
@@ -28,6 +31,7 @@ describe('MessageService', () => {
 
     mockReset(messageModelService);
     mockReset(userModelService);
+    mockReset(questionModelService);
     mockReset(questionGatewayService);
   });
 
@@ -70,6 +74,18 @@ describe('MessageService', () => {
       >(questionId, 'onMessage', {
         message: MessageModelService.toMinimal(message),
       });
+    });
+
+    it('should call to increment messageCount on question', async () => {
+      const questionId = mockObjectId();
+
+      await service.create(questionId, mockObjectId(), {
+        text: 'Incorrect!',
+      });
+
+      expect(questionModelService.incrementMessageCount).toHaveBeenCalledWith<
+        Parameters<QuestionModelService['incrementMessageCount']>
+      >(questionId);
     });
   });
 });

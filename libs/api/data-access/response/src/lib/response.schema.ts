@@ -29,4 +29,4 @@ export class ResponseSchema implements Omit<Response, '_id'> {
 
 export const responseSchema = SchemaFactory.createForClass(ResponseSchema);
 
-responseSchema.index({questionId: 1, userId: 1});
+responseSchema.index({ questionId: 1, userId: 1 });

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MinimalResponse, Response } from '@pollate/type';
 import { pick } from 'lodash';
@@ -33,6 +33,16 @@ export class ResponseModelService {
     return ResponseModelService.fromDocument(
       await this.model.findByIdAndUpdate(id, { $set: response }, { new: true })
     );
+  }
+
+  async findOneRequired(id: string): Promise<Response> {
+    const response = await this.model.findById(id);
+
+    if (!response) {
+      throw new BadRequestException('Response ID given does not exist');
+    }
+
+    return ResponseModelService.fromDocument(response);
   }
 
   async findAllOnQuestion(questionId: string): Promise<Response[]> {

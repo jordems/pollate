@@ -43,11 +43,22 @@ describe('ResponseService', () => {
       mockQuestion({ responses: ['a', 'b', 'c'] })
     );
   }
+  function mockFindUsersResponseOnQuestion() {
+    responseModelService.findUsersResponseOnQuestion.mockResolvedValue(
+      response
+    );
+  }
   function mockCreateResponse(response: Response) {
     responseModelService.create.mockResolvedValue(response);
   }
   function mockUpdateResponse(response: Response) {
     responseModelService.update.mockResolvedValue(response);
+  }
+  function mockFindResponseSuccess(response: Response) {
+    responseModelService.findOneRequired.mockResolvedValue(response);
+  }
+  function mockFindResponseFailed() {
+    responseModelService.findOneRequired.mockRejectedValue(null);
   }
 
   describe('create', () => {
@@ -76,6 +87,16 @@ describe('ResponseService', () => {
       });
     });
 
+    it('should increment memoized response on question', async () => {
+      await service.create(questionId, mockObjectId(), {
+        response: 'b',
+      });
+
+      expect(questionModelService.incrementResponseCount).toHaveBeenCalledWith<
+        Parameters<QuestionModelService['incrementResponseCount']>
+      >(questionId, 'b');
+    });
+
     it('should throw error if response is not on the question', () => {
       return expect(
         service.create(questionId, mockObjectId(), {
@@ -83,10 +104,21 @@ describe('ResponseService', () => {
         })
       ).rejects.toThrowError();
     });
+
+    it('should throw error if user already has response on the question', () => {
+      mockFindUsersResponseOnQuestion();
+
+      return expect(
+        service.create(questionId, mockObjectId(), {
+          response: 'a',
+        })
+      ).rejects.toThrowError();
+    });
   });
 
   describe('update', () => {
     beforeEach(() => {
+      mockFindResponseSuccess(response);
       mockUpdateResponse(response);
       mockFindQuestionById();
     });
@@ -109,6 +141,16 @@ describe('ResponseService', () => {
       >(questionId, 'onUpsertResponse', {
         response: ResponseModelService.toMinimal(response),
       });
+    });
+
+    it('should change memoized response on question', async () => {
+      await service.update(questionId, mockObjectId(), {
+        response: 'b',
+      });
+
+      expect(questionModelService.changeResponseCount).toHaveBeenCalledWith<
+        Parameters<QuestionModelService['changeResponseCount']>
+      >(questionId, response.response, 'b');
     });
 
     it('should throw error if response is not on the question', () => {
