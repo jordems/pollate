@@ -20,11 +20,15 @@ export class QuestionModelService {
       'responses',
       'userId',
       'createdAt',
+      'memoized',
     ]);
   }
 
   async create(
-    question: Pick<Question, 'question' | 'responses' | 'stub' | 'userId'>
+    question: Pick<
+      Question,
+      'question' | 'responses' | 'stub' | 'userId' | 'memoized'
+    >
   ): Promise<Question> {
     return QuestionModelService.fromDocument(await this.model.create(question));
   }

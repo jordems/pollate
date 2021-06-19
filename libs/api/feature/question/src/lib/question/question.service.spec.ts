@@ -27,10 +27,19 @@ describe('QuestionService', () => {
     expect(service).toBeDefined();
   });
 
-  const question = mockQuestion();
+  type GeneratedQuestionFields = Required<Pick<Question, '_id' | 'createdAt'>>;
 
-  function mockCreateQuestion(question: Question) {
-    questionModelService.create.mockResolvedValue(question);
+  const userId = mockObjectId();
+  const question = mockQuestion();
+  const generatedQuestionFields: GeneratedQuestionFields = {
+    _id: mockObjectId(),
+    createdAt: new Date(),
+  };
+
+  function mockCreateQuestion() {
+    questionModelService.create.mockImplementation((question) =>
+      Promise.resolve({ ...question, ...generatedQuestionFields })
+    );
   }
   function mockGetQuestionByStubOnce(question: Question = mockQuestion()) {
     questionModelService.findByStub.mockResolvedValueOnce(question);
@@ -38,17 +47,54 @@ describe('QuestionService', () => {
 
   describe('create', () => {
     beforeEach(() => {
-      mockCreateQuestion(question);
       mockGetQuestionByStubOnce(null);
     });
 
-    it('should create a question', async () => {
+    it.each<[string, Partial<Question>]>([
+      [
+        'with a stub',
+        {
+          stub: expect.stringMatching(/^[A-Za-z0-9_-]{10}$/),
+        },
+      ],
+      [
+        'with the userId',
+        {
+          userId,
+        },
+      ],
+      [
+        'with default memoized values',
+        {
+          memoized: {
+            messageCount: 0,
+            responseCount: 0,
+            activeResponses: {
+              '1': 0,
+              '2': 0,
+              '3': 0,
+              '4': 0,
+            },
+          },
+        },
+      ],
+      [
+        'with requested question and responses',
+        {
+          question: '2+2?',
+          responses: ['1', '2', '3', '4'],
+        },
+      ],
+      ['with generated fields', generatedQuestionFields],
+    ])('should create a question, %s', async (_, expectContaining) => {
+      mockCreateQuestion();
+
       const actual = await service.create(mockObjectId(), {
         question: '2+2?',
-        responses: ['1', '2', '3'],
+        responses: ['1', '2', '3', '4'],
       });
 
-      expect(actual).toEqual(question);
+      expect(actual).toEqual(expect.objectContaining(expectContaining));
     });
 
     it('should generate a new stub if generated one is already used', async () => {

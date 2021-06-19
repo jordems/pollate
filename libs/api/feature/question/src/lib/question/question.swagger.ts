@@ -7,7 +7,7 @@ import {
   ApiParam,
   ApiProperty,
 } from '@nestjs/swagger';
-import { Question } from '@pollate/type';
+import { MemoizedQuestionData, Question } from '@pollate/type';
 
 export function CreateQuestionSwagger() {
   return applyDecorators(
@@ -39,6 +39,21 @@ export function GetQuestionByStubSwagger() {
   );
 }
 
+class MemoizedQuestionDataEntity implements MemoizedQuestionData {
+  @ApiProperty({
+    description: 'Total number of responses made on the question',
+  })
+  responseCount: number;
+
+  @ApiProperty({ description: 'Total number of messages made on the question' })
+  messageCount: number;
+
+  @ApiProperty({
+    description: 'Active count of each response on question',
+    example: { response1: 0, response2: 1 },
+  })
+  activeResponses: { [response: string]: number };
+}
 class QuestionEntity implements Question {
   @ApiProperty({ description: 'Generated unique id of question' })
   _id: string;
@@ -60,4 +75,7 @@ class QuestionEntity implements Question {
 
   @ApiProperty({ description: 'Timestamp when the question was created' })
   createdAt: Date;
+
+  @ApiProperty({ type: MemoizedQuestionDataEntity })
+  memoized: MemoizedQuestionData;
 }

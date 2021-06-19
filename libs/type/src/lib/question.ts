@@ -1,3 +1,21 @@
+export interface MemoizedQuestionData {
+  /**
+   * Total number of responses that have been made on the question
+   */
+  responseCount: number;
+  /**
+   * Total number of messages that have been made on the question
+   */
+  messageCount: number;
+
+  /**
+   * Active count of each response on question
+   */
+  activeResponses: {
+    [response: string]: number;
+  };
+}
+
 export interface Question {
   /**
    * Unique ID of the question
@@ -30,4 +48,9 @@ export interface Question {
    * The date at which the question was created
    */
   createdAt: Date;
+
+  /**
+   * Memoized objects on question that are updated dynamically
+   */
+  memoized: MemoizedQuestionData;
 }

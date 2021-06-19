@@ -1,11 +1,23 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Question } from '@pollate/type';
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { MemoizedQuestionData, Question } from '@pollate/type';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 
 export const QUESTION_MODEL_NAME = 'Question';
 
 export type QuestionDocument = QuestionSchema & Document;
+
+@Schema({ _id: false })
+export class MemoizedQuestionDataSchema implements MemoizedQuestionData {
+  @Prop({ default: 0 })
+  responseCount: number;
+
+  @Prop({ default: 0 })
+  messageCount: number;
+
+  @Prop(raw({ type: Number }))
+  activeResponses: { [response: string]: number };
+}
 
 @Schema()
 export class QuestionSchema implements Omit<Question, '_id'> {
@@ -23,6 +35,9 @@ export class QuestionSchema implements Omit<Question, '_id'> {
 
   @Prop({ default: new Date() })
   createdAt: Date;
+
+  @Prop({ type: MemoizedQuestionDataSchema })
+  memoized: MemoizedQuestionData;
 }
 
 export const questionSchema = SchemaFactory.createForClass(QuestionSchema);
