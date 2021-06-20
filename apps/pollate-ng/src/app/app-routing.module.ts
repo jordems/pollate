@@ -8,6 +8,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@pollate/ng/feature/builder').then((m) => m.BuilderFeatureModule),
   },
+  {
+    path: ':stub',
+    loadChildren: () =>
+      import('@pollate/ng/feature/voter').then((m) => m.VoterFeatureModule),
+  },
 ];
 
 @NgModule({

@@ -576,6 +576,56 @@
           }
         }
       }
+    },
+    "ng-shared-auth": {
+      "projectType": "library",
+      "root": "libs/ng/shared/auth",
+      "sourceRoot": "libs/ng/shared/auth/src",
+      "prefix": "pollate",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/shared/auth"],
+          "options": {
+            "jestConfig": "libs/ng/shared/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/shared/auth/src/**/*.ts",
+              "libs/ng/shared/auth/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-feature-voter": {
+      "projectType": "library",
+      "root": "libs/ng/feature/voter",
+      "sourceRoot": "libs/ng/feature/voter/src",
+      "prefix": "pollate",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/feature/voter"],
+          "options": {
+            "jestConfig": "libs/ng/feature/voter/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/feature/voter/src/**/*.ts",
+              "libs/ng/feature/voter/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

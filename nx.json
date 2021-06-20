@@ -79,6 +79,12 @@
     },
     "api-shared-util-cache": {
       "tags": []
+    },
+    "ng-shared-auth": {
+      "tags": []
+    },
+    "ng-feature-voter": {
+      "tags": []
     }
   }
 }

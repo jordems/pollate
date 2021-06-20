@@ -53,7 +53,9 @@
       ],
       "@pollate/api/shared/util/cache": [
         "libs/api/shared/util/cache/src/index.ts"
-      ]
+      ],
+      "@pollate/ng/shared/auth": ["libs/ng/shared/auth/src/index.ts"],
+      "@pollate/ng/feature/voter": ["libs/ng/feature/voter/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
