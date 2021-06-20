@@ -1,10 +1,15 @@
-<mat-form-field appearance="fill">
-  <mat-label>Question</mat-label>
-  <input matInput />
-</mat-form-field>
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Question</mat-label>
+    <input matInput [formControl]="questionControl" />
+  </mat-form-field>
+  <div *ngFor="let responseControl of responseControls">
+    <mat-form-field appearance="fill">
+      <mat-label>responses</mat-label>
+      <!-- CONNECT FORMS -->
+      <input matInput [formControl]="responseControl" />
+    </mat-form-field>
+  </div>
 
-<mat-form-field appearance="fill">
-  <mat-label>responses</mat-label>
-  <!-- CONNECT FORMS -->
-  <input matInput />
-</mat-form-field>
+  <button type="submit">Submit</button>
+</form>
