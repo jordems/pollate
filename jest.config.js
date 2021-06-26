@@ -20,5 +20,7 @@ module.exports = {
     '<rootDir>/libs/ng/builder',
     '<rootDir>/libs/ng/shared/environment',
     '<rootDir>/libs/api/shared/util/cache',
+    '<rootDir>/libs/ng/shared/auth',
+    '<rootDir>/libs/ng/feature/voter',
   ],
 };

@@ -23,7 +23,7 @@ export function IsObjectId() {
       propertyName: propertyName,
       validator: {
         validate(value: string): boolean {
-          return mongoose.isValidObjectId(value);
+          return value && mongoose.isValidObjectId(value);
         },
         defaultMessage(args): string {
           return `'${args.value}' is not an object id on property '${args.property}'`;

@@ -1,4 +1,4 @@
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { MemoizedQuestionData, Question } from '@pollate/type';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
@@ -15,7 +15,7 @@ export class MemoizedQuestionDataSchema implements MemoizedQuestionData {
   @Prop({ default: 0 })
   messageCount: number;
 
-  @Prop(raw({ type: Number }))
+  @Prop({ type: mongoose.Schema.Types.Mixed })
   activeResponses: { [response: string]: number };
 }
 
