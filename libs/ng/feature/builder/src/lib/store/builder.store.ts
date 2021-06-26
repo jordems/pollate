@@ -61,8 +61,6 @@ export class BuilderStore {
   }
 
   createQuestion(): void {
-    console.log('he', this.question, this.responses);
-
     this.submissionLoading = true;
 
     this.builderApiService
@@ -79,7 +77,7 @@ export class BuilderStore {
       .subscribe((question) => {
         const { stub } = question;
 
-        //  this.router.navigate([`/${stub}`, { share: true }]);
+        this.router.navigate([`/${stub}`, { share: true }]);
 
         this.submissionLoading = false;
       });

@@ -3,6 +3,10 @@ import { MinimalResponse, Response } from '../response';
 
 export const QUESTION_NAMESPACE = 'question' as const;
 
+export interface QuestionConnectionRequest {
+  questionId: string;
+  userId: string;
+}
 export interface QuestionConnectedEvent {
   messages: MinimalMessage[];
   responses: MinimalResponse[];

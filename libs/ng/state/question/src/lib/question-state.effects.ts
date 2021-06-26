@@ -1,20 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
+import { NgEnvironment, NG_ENVIRONMENT } from '@pollate/ng/shared/environment';
 import { map } from 'rxjs/operators';
-import { QuestionSocketService } from './data-access/question-socket.service';
-import { wsConnected, wsOnMessage } from './question-state.actions';
+import { QuestionSocket } from './data-access/question-socket';
+import {
+  wsConnected,
+  wsOnMessage,
+  wsOnUpsertResponse,
+} from './question-state.actions';
 
 @Injectable()
 export class QuestionStateEffects {
+  private questionSocket!: QuestionSocket;
+
   wsConnected$ = createEffect(() =>
-    this.questionSocketService.connected$.pipe(map((data) => wsConnected(data)))
+    this.questionSocket?.connected$.pipe(map((data) => wsConnected(data)))
   );
-  onMessage$ = createEffect(() =>
-    this.questionSocketService.onMessage$.pipe(map((data) => wsOnMessage(data)))
+
+  wsOnMessage$ = createEffect(() =>
+    this.questionSocket?.onMessage$.pipe(map((data) => wsOnMessage(data)))
+  );
+
+  wsOnUpsertResponse$ = createEffect(() =>
+    this.questionSocket?.onUpsertResponse$.pipe(
+      map((data) => wsOnUpsertResponse(data))
+    )
   );
 
   constructor(
     private actions$: Actions,
-    private questionSocketService: QuestionSocketService
+    @Inject(NG_ENVIRONMENT) private readonly env: NgEnvironment
   ) {}
 }

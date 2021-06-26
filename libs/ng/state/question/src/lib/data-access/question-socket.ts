@@ -1,23 +1,33 @@
-import { Inject, Injectable } from '@angular/core';
-import { NgEnvironment, NG_ENVIRONMENT } from '@pollate/ng/shared/environment';
-import { QuestionWSEvent, QuestionWSEventMap } from '@pollate/type';
+import {
+  QuestionConnectionRequest,
+  QuestionWSEvent,
+  QuestionWSEventMap,
+} from '@pollate/type';
 import { Socket } from 'ngx-socket-io';
 
-@Injectable({ providedIn: 'root' })
-export class QuestionSocketService extends Socket {
+export class QuestionSocket extends Socket {
   connected$ = this.fromQuestionEvent('connected');
   onMessage$ = this.fromQuestionEvent('onMessage');
   onUpsertResponse$ = this.fromQuestionEvent('onUpsertResponse');
 
-  constructor(@Inject(NG_ENVIRONMENT) private readonly env: NgEnvironment) {
+  // Definitely not the best way to do it
+  private static getQuestionIdFromUrl(url: string): string {
+    const pieces = url.split('/');
+
+    const questionId = pieces.pop() || pieces.pop();
+
+    if (!questionId) {
+      throw new Error('Question Id not given');
+    }
+    return questionId;
+  }
+
+  constructor(apiUrl: string, request: QuestionConnectionRequest) {
     super({
-      url: `${env.api}question`,
+      url: `${apiUrl}question`,
       options: {
         transports: ['websocket', 'polling'],
-        query: {
-          questionId: '60c590e7549ab522c32ca1a2',
-          userId: '',
-        },
+        query: request,
         reconnection: true,
       },
     });
