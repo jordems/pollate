@@ -1,7 +1,5 @@
 <pollate-builder-ui
-  [addResponse]="addResponse"
-  [removeResponse]="removeResponse"
-  [updateResponses]="updateResponses"
-  [updateQuestion]="updateQuestion"
-  [submit]="submit"
+  (updateResponses)="updateResponses($event)"
+  (updateQuestion)="updateQuestion($event)"
+  (createQuestion)="createQuestion()"
 ></pollate-builder-ui>

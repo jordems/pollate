@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-
 @Component({
   selector: 'pollate-builder-ui',
   templateUrl: './builder-ui.component.html',
@@ -10,45 +9,67 @@ import { debounceTime } from 'rxjs/operators';
 export class BuilderUIComponent implements OnInit {
   private static DEFAULT_STARTING_RESPONSES = 3;
 
-  @Input() addResponse!: () => void;
-  @Input() removeResponse!: (idx: number) => void;
-  @Input() updateResponses!: (value: string[]) => void;
-  @Input() updateQuestion!: (value: string) => void;
-  @Input() submit!: () => void;
+  @Output() updateResponses!: EventEmitter<string[]>;
+  @Output() updateQuestion!: EventEmitter<string>;
+  @Output() createQuestion!: EventEmitter<undefined>;
 
-  formGroup!: FormGroup;
-  questionControl!: FormControl;
-  responseControls: FormControl[] = [];
+  formGroup: FormGroup;
 
-  ngOnInit(): void {
-    this.questionControl = new FormControl('', Validators.minLength(3));
+  get responses() {
+    return this.formGroup.get('responses') as FormArray;
+  }
 
-    this.responseControls = new Array(
-      BuilderUIComponent.DEFAULT_STARTING_RESPONSES
-    )
-      .fill(null)
-      .map(() => new FormControl('', Validators.minLength(1)));
+  constructor(private formBuilder: FormBuilder) {
+    this.updateResponses = new EventEmitter();
+    this.updateQuestion = new EventEmitter();
+    this.createQuestion = new EventEmitter();
 
-    this.formGroup = new FormGroup({
-      question: this.questionControl,
-      ...this.responseControls.reduce(
-        (prev, cur, idx) => ({
-          ...prev,
-          [`response${idx}`]: cur,
-        }),
-        {}
+    this.formGroup = this.formBuilder.group({
+      question: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(150),
+        ],
+      ],
+      responses: this.formBuilder.array(
+        new Array(BuilderUIComponent.DEFAULT_STARTING_RESPONSES)
+          .fill(null)
+          .map(() => this.createResponseControl()),
+        [Validators.required, Validators.minLength(2), Validators.maxLength(10)]
       ),
     });
+  }
 
-    // TODO destroy gracefully
-    console.log(this.formGroup.value);
-
+  ngOnInit(): void {
     this.formGroup.valueChanges.pipe(debounceTime(200)).subscribe((changes) => {
       const { question, responses } = changes;
-      console.log(changes);
 
-      this.updateQuestion(question);
-      this.updateResponses(responses);
+      this.updateQuestion.emit(question);
+      this.updateResponses.emit(responses);
     });
+  }
+
+  addResponse(): void {
+    this.responses.push(this.createResponseControl());
+  }
+
+  removeResponse(idx: number): void {
+    this.responses.removeAt(idx);
+  }
+
+  onSubmit(): void {
+    if (this.formGroup.valid) {
+      this.createQuestion.emit();
+    }
+  }
+
+  private createResponseControl() {
+    return this.formBuilder.control('', [
+      Validators.required,
+      Validators.minLength(1),
+      Validators.maxLength(50),
+    ]);
   }
 }

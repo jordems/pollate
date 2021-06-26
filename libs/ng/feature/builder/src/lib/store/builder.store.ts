@@ -59,14 +59,10 @@ export class BuilderStore {
   updateResponses(value: string[]): void {
     this.responses = value;
   }
-  addResponse(): void {
-    this.responses = [...this.responses, ''];
-  }
-  removeResponse(idx: number): void {
-    this.responses = this.responses.splice(idx, 1);
-  }
 
-  submit(): void {
+  createQuestion(): void {
+    console.log('he', this.question, this.responses);
+
     this.submissionLoading = true;
 
     this.builderApiService
@@ -83,7 +79,7 @@ export class BuilderStore {
       .subscribe((question) => {
         const { stub } = question;
 
-        this.router.navigate([`/${stub}`, { share: true }]);
+        //  this.router.navigate([`/${stub}`, { share: true }]);
 
         this.submissionLoading = false;
       });

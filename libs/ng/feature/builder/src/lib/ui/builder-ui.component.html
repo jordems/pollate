@@ -1,14 +1,18 @@
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="fill">
     <mat-label>Question</mat-label>
-    <input matInput [formControl]="questionControl" />
+    <input matInput formControlName="question" />
   </mat-form-field>
-  <div *ngFor="let responseControl of responseControls">
-    <mat-form-field appearance="fill">
-      <mat-label>responses</mat-label>
-      <!-- CONNECT FORMS -->
-      <input matInput [formControl]="responseControl" />
-    </mat-form-field>
+
+  <div formArrayName="responses">
+    <div *ngFor="let response of responses.controls; let i = index">
+      <mat-form-field appearance="fill">
+        <mat-label>response:</mat-label>
+        <input id="response-{{ i }}" matInput [formControlName]="i" />
+      </mat-form-field>
+      <button tabindex="-1" (click)="removeResponse(i)">remove</button>
+    </div>
+    <button tabindex="-1" (click)="addResponse()">add</button>
   </div>
 
   <button type="submit">Submit</button>

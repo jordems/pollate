@@ -1,16 +1,27 @@
 import { Component } from '@angular/core';
-import { BuilderStore } from './state/builder.store';
+import { Observable } from 'rxjs';
+import { BuilderStore } from './store/builder.store';
 
 @Component({
   selector: 'pollate-builder-feature',
   templateUrl: './builder-feature.component.html',
 })
 export class BuilderFeatureComponent {
-  constructor(private readonly builderStore: BuilderStore) {}
+  $submissionLoading: Observable<boolean>;
 
-  addResponse = this.builderStore.addResponse;
-  removeResponse = this.builderStore.removeResponse;
-  updateResponses = this.builderStore.updateResponses;
-  updateQuestion = this.builderStore.updateQuestion;
-  submit = this.builderStore.submit;
+  constructor(private readonly builderStore: BuilderStore) {
+    this.$submissionLoading = this.builderStore.submissionLoading$;
+  }
+
+  updateQuestion(question: string) {
+    this.builderStore.updateQuestion(question);
+  }
+
+  updateResponses(responses: string[]) {
+    this.builderStore.updateResponses(responses);
+  }
+
+  createQuestion() {
+    this.builderStore.createQuestion();
+  }
 }
