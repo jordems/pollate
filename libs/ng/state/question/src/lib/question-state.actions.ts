@@ -1,5 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import {
+  CreateMessageRequest,
+  CreateMessageResponse,
+  CreateResponseRequest,
+  CreateResponseResponse,
   Question,
   QuestionConnectedEvent,
   QuestionConnectionRequest,
@@ -26,9 +30,31 @@ export const connectToWs = createAction(
   props<QuestionConnectionRequest>()
 );
 
-//TODO?
-// Create and Update Response (Maybe merge into a single endpoint?)
-// Send Message
+export const createResponse = createAction(
+  '[Question] Creates a response on the question, if one already exists, then updates it',
+  props<CreateResponseRequest>()
+);
+export const createResponseSuccess = createAction(
+  '[Question] Created a response successfully',
+  props<CreateResponseResponse>()
+);
+export const createResponseFailed = createAction(
+  '[Question] Failed to create a response',
+  props<Error>()
+);
+
+export const createMessage = createAction(
+  '[Question] Creates a message on the question',
+  props<CreateMessageRequest>()
+);
+export const createMessageSuccess = createAction(
+  '[Question] Created a message successfully',
+  props<CreateMessageResponse>()
+);
+export const createMessageFailed = createAction(
+  '[Question] Failed to create a message',
+  props<Error>()
+);
 
 // Websocket received actions
 export const wsConnected = createAction(
