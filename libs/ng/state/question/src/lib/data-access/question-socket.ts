@@ -12,7 +12,7 @@ export class QuestionSocket extends Socket {
 
   constructor(apiUrl: string, request: QuestionConnectionRequest) {
     super({
-      url: `${apiUrl}question`,
+      url: `${apiUrl.replace('/v1', '')}question`,
       options: {
         transports: ['websocket', 'polling'],
         query: request,

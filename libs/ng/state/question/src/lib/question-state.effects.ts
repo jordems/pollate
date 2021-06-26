@@ -10,6 +10,7 @@ import {
   exhaustMap,
   filter,
   map,
+  switchMap,
   take,
   takeUntil,
   tap,
@@ -42,14 +43,14 @@ export class QuestionStateEffects implements OnDestroy {
   loadQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadQuestion),
-      concatMap((action) => {
+      switchMap((action) => {
         return this.questionApiService.getQuestionByStub(action.stub).pipe(
           take(1),
-          map((data) => {
+          concatMap((data) => {
             const { _id: questionId } = data;
             return [
               loadQuestionSuccess(data),
-              connectToWs({ questionId: questionId, userId: 'TODO' }),
+              connectToWs({ questionId: questionId, userId: '' }), // TODO
             ];
           }),
           catchError((err) => {
@@ -61,11 +62,15 @@ export class QuestionStateEffects implements OnDestroy {
     )
   );
 
+  /**
+   * Connects to the api gateway and starts listeners for realtime events
+   *
+   * - Skip connecting to socket when SS
+   */
   connectToWs$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(connectToWs),
-        // Skip connecting to socket when SSR
         filter(() => isPlatformBrowser(this.platformId)),
         tap((action) => {
           const questionSocket = new QuestionSocket(this.env.api, action);
@@ -87,6 +92,9 @@ export class QuestionStateEffects implements OnDestroy {
     { dispatch: false }
   );
 
+  /**
+   * Creates a response if user doesn't already have one, otherwise it updates the existing
+   */
   createResponse = createEffect(() =>
     this.actions$.pipe(
       ofType(createResponse),
@@ -126,6 +134,9 @@ export class QuestionStateEffects implements OnDestroy {
     )
   );
 
+  /**
+   * Creates a message for the user
+   */
   createMessage = createEffect(() =>
     this.actions$.pipe(
       ofType(createMessage),
