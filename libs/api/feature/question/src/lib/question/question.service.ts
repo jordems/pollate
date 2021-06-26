@@ -22,7 +22,7 @@ export class QuestionService {
   private static buildQuestion(
     dto: CreateQuestionRequest,
     userId: string
-  ): Omit<Question, 'createdAt'> {
+  ): Omit<Question, 'createdAt' | '_id'> {
     return {
       ...dto,
       stub: nanoid(10),

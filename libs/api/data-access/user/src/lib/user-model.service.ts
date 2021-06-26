@@ -13,7 +13,7 @@ export class UserModelService {
   ) {}
 
   static fromDocument(doc: UserDocument): User {
-    return pick(doc, ['_id', 'uid', 'name', 'createdAt']);
+    return { ...pick(doc, ['uid', 'name', 'createdAt']), _id: doc._id };
   }
 
   /**

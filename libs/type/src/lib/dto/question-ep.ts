@@ -9,7 +9,4 @@ export type CreateQuestionResponse = Question;
 /**
  * GET /question/stub/:stub
  */
-export type GetQuestionByStubResponse = Pick<
-  Question,
-  '_id' | 'question' | 'responses' | 'createdAt'
->;
+export type GetQuestionByStubResponse = Question;

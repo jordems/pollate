@@ -2,7 +2,7 @@ export interface Response {
   /**
    * Unique ID of the response
    */
-  _id?: string;
+  _id: string;
 
   /**
    * The question of which this response is under

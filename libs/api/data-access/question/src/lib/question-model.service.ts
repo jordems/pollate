@@ -13,15 +13,17 @@ export class QuestionModelService {
   ) {}
 
   static fromDocument(doc: QuestionDocument): Question {
-    return pick(doc, [
-      '_id',
-      'stub',
-      'question',
-      'responses',
-      'userId',
-      'createdAt',
-      'memoized',
-    ]);
+    return {
+      ...pick(doc, [
+        'stub',
+        'question',
+        'responses',
+        'userId',
+        'createdAt',
+        'memoized',
+      ]),
+      _id: doc._id,
+    };
   }
 
   private static buildActiveResponseKey(response: string): string {

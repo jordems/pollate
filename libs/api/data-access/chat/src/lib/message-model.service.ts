@@ -13,14 +13,10 @@ export class MessageModelService {
   ) {}
 
   static fromDocument(doc: MessageDocument): Message {
-    return pick(doc, [
-      '_id',
-      'name',
-      'text',
-      'questionId',
-      'userId',
-      'createdAt',
-    ]);
+    return {
+      ...pick(doc, ['name', 'text', 'questionId', 'userId', 'createdAt']),
+      _id: doc._id,
+    };
   }
 
   static toMinimal<T extends Message>(message: T): MinimalMessage {

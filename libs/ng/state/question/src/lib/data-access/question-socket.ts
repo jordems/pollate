@@ -10,18 +10,6 @@ export class QuestionSocket extends Socket {
   onMessage$ = this.fromQuestionEvent('onMessage');
   onUpsertResponse$ = this.fromQuestionEvent('onUpsertResponse');
 
-  // Definitely not the best way to do it
-  private static getQuestionIdFromUrl(url: string): string {
-    const pieces = url.split('/');
-
-    const questionId = pieces.pop() || pieces.pop();
-
-    if (!questionId) {
-      throw new Error('Question Id not given');
-    }
-    return questionId;
-  }
-
   constructor(apiUrl: string, request: QuestionConnectionRequest) {
     super({
       url: `${apiUrl}question`,

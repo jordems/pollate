@@ -10,7 +10,7 @@ import {
 // Initiated actions
 export const loadQuestion = createAction(
   '[Question] Fetch question details from stub',
-  props<{ questionId: string }>()
+  props<{ stub: string }>()
 );
 export const loadQuestionSuccess = createAction(
   '[Question] Fetched question successfully',
@@ -21,7 +21,7 @@ export const loadQuestionFailed = createAction(
   props<Error>()
 );
 
-export const connectToQuestion = createAction(
+export const connectToWs = createAction(
   '[Question] Connect to a questions gateway',
   props<QuestionConnectionRequest>()
 );
