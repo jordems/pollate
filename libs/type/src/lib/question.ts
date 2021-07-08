@@ -20,7 +20,7 @@ export interface Question {
   /**
    * Unique ID of the question
    */
-  _id?: string;
+  _id: string;
 
   /**
    * Stub to find question from https://.../{stub}

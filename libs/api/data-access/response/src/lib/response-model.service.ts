@@ -13,7 +13,10 @@ export class ResponseModelService {
   ) {}
 
   static fromDocument(doc: ResponseDocument): Response {
-    return pick(doc, ['_id', 'questionId', 'userId', 'response', 'createdAt']);
+    return {
+      ...pick(doc, ['questionId', 'userId', 'response', 'createdAt']),
+      _id: doc._id,
+    };
   }
 
   static toMinimal<T extends Response>(response: T): MinimalResponse {

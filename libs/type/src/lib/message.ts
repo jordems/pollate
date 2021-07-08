@@ -2,7 +2,7 @@ export interface Message {
   /**
    * Unique ID of the message
    */
-  _id?: string;
+  _id: string;
 
   /**
    * User who created the message
@@ -31,4 +31,7 @@ export interface Message {
   createdAt: Date;
 }
 
-export type MinimalMessage = Pick<Message, 'name' | 'text' | 'createdAt'>;
+export type MinimalMessage = Pick<
+  Message,
+  'name' | 'text' | 'createdAt' | 'userId'
+>;

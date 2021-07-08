@@ -59,8 +59,9 @@ export class ResponseService {
       ),
     ]);
 
-    this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
-      response: ResponseModelService.toMinimal(createdResponse),
+    this.pollateGatewayService.emit(questionId, 'onUpdateResponseDelta', {
+      responsesDeltas: [{ response: dto.response, amountDelta: 1 }],
+      changedUserResponse: [{ userId, response: dto.response }],
     });
 
     return createdResponse;
@@ -95,8 +96,14 @@ export class ResponseService {
       ),
     ]);
 
-    this.pollateGatewayService.emit(questionId, 'onUpsertResponse', {
-      response: ResponseModelService.toMinimal(updatedResponse),
+    this.pollateGatewayService.emit(questionId, 'onUpdateResponseDelta', {
+      responsesDeltas: [
+        { response: oldResponse.response, amountDelta: -1 },
+        { response: dto.response, amountDelta: 1 },
+      ],
+      changedUserResponse: [
+        { userId: oldResponse.userId, response: dto.response },
+      ],
     });
 
     return updatedResponse;

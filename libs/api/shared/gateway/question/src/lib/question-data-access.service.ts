@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { MessageModelService } from '@pollate/api/data-access/chat';
+import { QuestionModelService } from '@pollate/api/data-access/question';
 import { ResponseModelService } from '@pollate/api/data-access/response';
 import {
+  MemoizedQuestionData,
   MinimalMessage,
-  MinimalResponse,
   QuestionConnectedEvent,
   Response,
 } from '@pollate/type';
@@ -12,7 +13,8 @@ import {
 export class QuestionDataAccessService {
   constructor(
     private readonly messageModelService: MessageModelService,
-    private readonly responseModelService: ResponseModelService
+    private readonly responseModelService: ResponseModelService,
+    private readonly questionModelService: QuestionModelService
   ) {}
 
   /**
@@ -27,16 +29,23 @@ export class QuestionDataAccessService {
     questionId: string,
     userId: string | null
   ): Promise<QuestionConnectedEvent | null> {
-    const [messages, responses, userResponse] = await Promise.all([
+    const [
+      messages,
+      memoizedQuestionData,
+      userResponse,
+      userInteractionMap,
+    ] = await Promise.all([
       this.getMessages(questionId),
-      this.getResponses(questionId),
+      this.getMemoizedQuestionData(questionId),
       this.getUserResponse(questionId, userId),
+      this.getUserInteractionMap(questionId),
     ]);
 
     return {
       messages,
-      responses,
+      memoizedQuestionData,
       userResponse,
+      userInteractionMap,
     };
   }
 
@@ -49,14 +58,12 @@ export class QuestionDataAccessService {
     return messages.map((message) => MessageModelService.toMinimal(message));
   }
 
-  private async getResponses(questionId: string): Promise<MinimalResponse[]> {
-    const responses = await this.responseModelService.findAllOnQuestion(
-      questionId
-    );
+  private async getMemoizedQuestionData(
+    questionId: string
+  ): Promise<MemoizedQuestionData> {
+    const { memoized } = await this.questionModelService.findById(questionId);
 
-    return responses.map((response) =>
-      ResponseModelService.toMinimal(response)
-    );
+    return memoized;
   }
 
   private async getUserResponse(
@@ -69,5 +76,18 @@ export class QuestionDataAccessService {
           userId
         )
       : null;
+  }
+
+  private async getUserInteractionMap(
+    questionId: string
+  ): Promise<QuestionConnectedEvent['userInteractionMap']> {
+    const responses = await this.responseModelService.findAllOnQuestion(
+      questionId
+    );
+
+    return responses.reduce(
+      (prev, cur) => ({ ...prev, [cur.userId]: cur.response }),
+      {}
+    );
   }
 }

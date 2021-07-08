@@ -26,12 +26,12 @@ export class MessageService {
     dto: CreateMessageRequest
   ): Promise<CreateMessageResponse> {
     // Don't need to worry about this being null, as the user was validated earlier in request
-    const { name } = await this.userModelService.findUnique(userId);
+    const user = await this.userModelService.findUnique(userId);
 
     const [createdMessage] = await Promise.all([
       this.messageModelService.create({
         ...dto,
-        name,
+        name: user?.name || 'broken LOL',
         questionId,
         userId,
       }),

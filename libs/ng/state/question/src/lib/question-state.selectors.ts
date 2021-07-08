@@ -8,12 +8,22 @@ export const selectMessages = createSelector(
   (state) => state.messages
 );
 
-export const selectResponses = createSelector(
-  selectState,
-  (state) => state.responses
-);
-
 export const selectUserResponse = createSelector(
   selectState,
   (state) => state.userResponse
+);
+
+export const selectQuestion = createSelector(
+  selectState,
+  (state) => state.question
+);
+
+export const selectMemoizedQuestionData = createSelector(
+  selectState,
+  (state) => state.memoizedQuestionData
+);
+
+export const selectResponseOptions = createSelector(
+  selectState,
+  (state) => state.question?.responses || []
 );
