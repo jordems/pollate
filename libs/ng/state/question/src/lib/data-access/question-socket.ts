@@ -8,7 +8,7 @@ import { Socket } from 'ngx-socket-io';
 export class QuestionSocket extends Socket {
   connected$ = this.fromQuestionEvent('connected');
   onMessage$ = this.fromQuestionEvent('onMessage');
-  onUpsertResponse$ = this.fromQuestionEvent('onUpsertResponse');
+  onUpdateResponseDelta$ = this.fromQuestionEvent('onUpdateResponseDelta');
 
   constructor(apiUrl: string, request: QuestionConnectionRequest) {
     super({

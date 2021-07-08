@@ -20,7 +20,7 @@ export class MessageModelService {
   }
 
   static toMinimal<T extends Message>(message: T): MinimalMessage {
-    return pick(message, ['name', 'text', 'createdAt']);
+    return pick(message, ['name', 'text', 'createdAt', 'userId']);
   }
 
   async create(

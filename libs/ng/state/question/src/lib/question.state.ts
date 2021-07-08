@@ -9,8 +9,13 @@ export interface QuestionState extends QuestionConnectedEvent {
 
 export const initialQuestionState: QuestionState = {
   messages: [],
-  responses: [],
   userResponse: null,
   question: null,
+  memoizedQuestionData: {
+    messageCount: NaN,
+    responseCount: NaN,
+    activeResponses: {},
+  },
+  userInteractionMap: {},
   loaded: false,
 };

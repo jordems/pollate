@@ -8,7 +8,7 @@ import {
   QuestionConnectedEvent,
   QuestionConnectionRequest,
   QuestionOnMessageEvent,
-  QuestionOnUpsertResponse,
+  QuestionOnUpdateResponseDelta,
 } from '@pollate/type';
 
 // Initiated actions
@@ -67,7 +67,7 @@ export const wsOnMessage = createAction(
   props<QuestionOnMessageEvent>()
 );
 
-export const wsOnUpsertResponse = createAction(
-  '[Question] Socket received and upserted response',
-  props<QuestionOnUpsertResponse>()
+export const wsOnUpdateResponseDelta = createAction(
+  '[Question] Socket received an update response delta',
+  props<QuestionOnUpdateResponseDelta>()
 );

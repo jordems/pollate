@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { MinimalMessage, MinimalResponse, Response } from '@pollate/type';
 import { Observable } from 'rxjs';
-import { loadQuestion } from './question-state.actions';
+import {
+  createMessage,
+  createResponse,
+  loadQuestion,
+} from './question-state.actions';
 import {
   selectMessages,
   selectResponses,
@@ -26,6 +30,14 @@ export class QuestionStateFacade {
 
   // Actions
   initialize(stub: string): void {
-    this.store.dispatch(loadQuestion({stub}));
+    this.store.dispatch(loadQuestion({ stub }));
+  }
+
+  createResponse(response: string): void {
+    this.store.dispatch(createResponse({ response }));
+  }
+
+  sendMessage(message: string): void {
+    this.store.dispatch(createMessage({ text: message }));
   }
 }

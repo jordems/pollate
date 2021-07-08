@@ -30,7 +30,7 @@ import {
   loadQuestionSuccess,
   wsConnected,
   wsOnMessage,
-  wsOnUpsertResponse,
+  wsOnUpdateResponseDelta,
 } from './question-state.actions';
 import { selectQuestion, selectUserResponse } from './question-state.selectors';
 @Injectable()
@@ -83,9 +83,9 @@ export class QuestionStateEffects implements OnDestroy {
             takeUntil(this.destroySubject$),
             map((data) => wsOnMessage(data))
           );
-          questionSocket.onUpsertResponse$.pipe(
+          questionSocket.onUpdateResponseDelta$.pipe(
             takeUntil(this.destroySubject$),
-            map((data) => wsOnUpsertResponse(data))
+            map((data) => wsOnUpdateResponseDelta(data))
           );
         })
       ),
