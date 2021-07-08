@@ -67,26 +67,38 @@ export class QuestionStateEffects implements OnDestroy {
    *
    * - Skip connecting to socket when SS
    */
+  questionSocket!: QuestionSocket;
   connectToWs$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(connectToWs),
         filter(() => isPlatformBrowser(this.platformId)),
         tap((action) => {
-          const questionSocket = new QuestionSocket(this.env.api, action);
+          this.questionSocket = new QuestionSocket(this.env.api, action);
 
-          questionSocket.connected$.pipe(
-            takeUntil(this.destroySubject$),
-            map((data) => wsConnected(data))
-          );
-          questionSocket.onMessage$.pipe(
-            takeUntil(this.destroySubject$),
-            map((data) => wsOnMessage(data))
-          );
-          questionSocket.onUpdateResponseDelta$.pipe(
-            takeUntil(this.destroySubject$),
-            map((data) => wsOnUpdateResponseDelta(data))
-          );
+          console.log('located socket');
+          this.questionSocket.connected$
+            .pipe(
+              takeUntil(this.destroySubject$),
+              map((data) => {
+                console.log('hee');
+
+                this.store.dispatch(wsConnected(data));
+              })
+            )
+            .subscribe();
+          this.questionSocket.onMessage$
+            .pipe(
+              takeUntil(this.destroySubject$),
+              tap((data) => this.store.dispatch(wsOnMessage(data)))
+            )
+            .subscribe();
+          this.questionSocket.onUpdateResponseDelta$
+            .pipe(
+              takeUntil(this.destroySubject$),
+              tap((data) => this.store.dispatch(wsOnUpdateResponseDelta(data)))
+            )
+            .subscribe();
         })
       ),
     { dispatch: false }
@@ -113,7 +125,9 @@ export class QuestionStateEffects implements OnDestroy {
 
         if (userResponse) {
           return this.responseApiService
-            .updateResponse(question._id, userResponse._id, action)
+            .updateResponse(question._id, userResponse._id, {
+              response: action.response,
+            })
             .pipe(
               take(1),
               map((data) => {
@@ -122,7 +136,7 @@ export class QuestionStateEffects implements OnDestroy {
             );
         } else {
           return this.responseApiService
-            .createResponse(question._id, action)
+            .createResponse(question._id, { response: action.response })
             .pipe(
               take(1),
               map((data) => {
@@ -147,12 +161,14 @@ export class QuestionStateEffects implements OnDestroy {
         if (!question) {
           return throwError('No Question Loaded');
         }
-        return this.chatApiService.createMessage(question._id, action).pipe(
-          take(1),
-          map((data) => {
-            return createMessageSuccess(data);
-          })
-        );
+        return this.chatApiService
+          .createMessage(question._id, { text: action.text })
+          .pipe(
+            take(1),
+            map((data) => {
+              return createMessageSuccess(data);
+            })
+          );
       })
     )
   );

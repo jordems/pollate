@@ -4,6 +4,7 @@ import {
   QuestionOnUpdateResponseDelta,
 } from '@pollate/type';
 import {
+  loadQuestionSuccess,
   wsConnected,
   wsOnMessage,
   wsOnUpdateResponseDelta,
@@ -46,6 +47,10 @@ export function questionReducer(
 ): QuestionState {
   return createReducer<QuestionState>(
     initialQuestionState,
+    on(loadQuestionSuccess, (state, question) => ({
+      ...state,
+      question,
+    })),
     on(wsConnected, (state, initialData) => ({
       ...state,
       ...initialData,

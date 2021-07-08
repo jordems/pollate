@@ -1,1 +1,14 @@
-<div>voter</div>
+<div>Voter</div>
+
+<pollate-results-ui
+  [memoizedQuestionData]="(memoizedQuestionData$ | async)!"
+></pollate-results-ui>
+<pollate-poll-ui
+  [responses]="(responseOptions$ | async)!"
+  [userResponse]="userResponse$ | async"
+  (upsertResponse)="makeResponse($event)"
+></pollate-poll-ui>
+<pollate-chat-ui
+  [messages]="(messages$ | async)!"
+  (sendMessage)="sendMessage($event)"
+></pollate-chat-ui>

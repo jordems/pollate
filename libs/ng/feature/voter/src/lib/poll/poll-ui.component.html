@@ -1,0 +1,8 @@
+<div>
+  <div>Responses:</div>
+
+  <div>Selected: {{ userResponse | json }}</div>
+  <div *ngFor="let response of responses">
+    <button (click)="makeResponse(response)">{{ response }}</button>
+  </div>
+</div>
