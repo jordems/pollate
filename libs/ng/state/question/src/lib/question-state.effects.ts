@@ -76,15 +76,10 @@ export class QuestionStateEffects implements OnDestroy {
         tap((action) => {
           this.questionSocket = new QuestionSocket(this.env.api, action);
 
-          console.log('located socket');
           this.questionSocket.connected$
             .pipe(
               takeUntil(this.destroySubject$),
-              map((data) => {
-                console.log('hee');
-
-                this.store.dispatch(wsConnected(data));
-              })
+              tap((data) => this.store.dispatch(wsConnected(data)))
             )
             .subscribe();
           this.questionSocket.onMessage$

@@ -36,7 +36,8 @@ describe('ResponseService', () => {
   });
 
   const questionId = mockObjectId();
-  const response = mockResponse();
+  const userId = mockObjectId();
+  const response = mockResponse({ userId });
 
   function mockFindQuestionById() {
     questionModelService.findById.mockResolvedValue(
@@ -68,7 +69,7 @@ describe('ResponseService', () => {
     });
 
     it('should create a response on the question', async () => {
-      const actual = await service.create(questionId, mockObjectId(), {
+      const actual = await service.create(questionId, userId, {
         response: 'b',
       });
 
@@ -76,19 +77,20 @@ describe('ResponseService', () => {
     });
 
     it('should emit created response to gateway', async () => {
-      await service.create(questionId, mockObjectId(), {
+      await service.create(questionId, userId, {
         response: 'b',
       });
 
       expect(questionGatewayService.emit).toHaveBeenCalledWith<
         Parameters<QuestionGatewayService['emit']>
-      >(questionId, 'onUpsertResponse', {
-        response: ResponseModelService.toMinimal(response),
+      >(questionId, 'onUpdateResponseDelta', {
+        responsesDeltas: [{ response: 'b', amountDelta: 1 }],
+        changedUserResponse: [{ userId, response: 'b' }],
       });
     });
 
     it('should increment memoized response on question', async () => {
-      await service.create(questionId, mockObjectId(), {
+      await service.create(questionId, userId, {
         response: 'b',
       });
 
@@ -99,7 +101,7 @@ describe('ResponseService', () => {
 
     it('should throw error if response is not on the question', () => {
       return expect(
-        service.create(questionId, mockObjectId(), {
+        service.create(questionId, userId, {
           response: 'd',
         })
       ).rejects.toThrowError();
@@ -109,7 +111,7 @@ describe('ResponseService', () => {
       mockFindUsersResponseOnQuestion();
 
       return expect(
-        service.create(questionId, mockObjectId(), {
+        service.create(questionId, userId, {
           response: 'a',
         })
       ).rejects.toThrowError();
@@ -124,7 +126,7 @@ describe('ResponseService', () => {
     });
 
     it('should update a response on the question', async () => {
-      const actual = await service.update(questionId, mockObjectId(), {
+      const actual = await service.update(questionId, response._id, {
         response: 'b',
       });
 
@@ -132,19 +134,23 @@ describe('ResponseService', () => {
     });
 
     it('should emit update response to gateway', async () => {
-      await service.update(questionId, mockObjectId(), {
+      await service.update(questionId, response._id, {
         response: 'b',
       });
 
       expect(questionGatewayService.emit).toHaveBeenCalledWith<
         Parameters<QuestionGatewayService['emit']>
-      >(questionId, 'onUpsertResponse', {
-        response: ResponseModelService.toMinimal(response),
+      >(questionId, 'onUpdateResponseDelta', {
+        responsesDeltas: [
+          { response: response.response, amountDelta: -1 },
+          { response: 'b', amountDelta: 1 },
+        ],
+        changedUserResponse: [{ userId, response: 'b' }],
       });
     });
 
     it('should change memoized response on question', async () => {
-      await service.update(questionId, mockObjectId(), {
+      await service.update(questionId, response._id, {
         response: 'b',
       });
 
@@ -155,7 +161,7 @@ describe('ResponseService', () => {
 
     it('should throw error if response is not on the question', () => {
       return expect(
-        service.update(questionId, mockObjectId(), {
+        service.update(questionId, userId, {
           response: 'd',
         })
       ).rejects.toThrowError();
