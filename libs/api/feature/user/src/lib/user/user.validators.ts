@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsObjectId } from '@pollate/api/shared/util/mongoose';
 import { CreateUserRequest, UpdateUserRequest } from '@pollate/type';
-import { Length } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class CreateUserValidator implements CreateUserRequest {
   @Length(1, 25)
@@ -25,4 +25,10 @@ export class UpdateUserValidator implements UpdateUserRequest {
 export class UpdateUserParamsValidator {
   @IsObjectId()
   userId: string;
+}
+
+export class GetUserByUidParamsValidator {
+  @IsString()
+  @IsNotEmpty()
+  uid: string;
 }

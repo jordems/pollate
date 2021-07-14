@@ -12,4 +12,16 @@ export interface NgEnvironment {
    * The base url of the api server
    */
   api: string;
+
+  /**
+   * Firebase client details
+   */
+  firebase: {
+    apiKey: string;
+    authDomain: string;
+    projectId: string;
+    storageBucket: string;
+    messagingSenderId: string;
+    appId: string;
+  };
 }

@@ -19,6 +19,17 @@ export function CreateUserSwagger() {
   );
 }
 
+export function GetUserByUidSwagger() {
+  return applyDecorators(
+    ApiOperation({
+      description: 'Get a user from the given firebase uid',
+    }),
+    ApiOkResponse({
+      type: UserEntity,
+    })
+  );
+}
+
 export function UpdateUserSwagger() {
   return applyDecorators(
     ApiOperation({

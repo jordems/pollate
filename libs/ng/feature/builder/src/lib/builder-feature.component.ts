@@ -22,6 +22,6 @@ export class BuilderFeatureComponent {
   }
 
   createQuestion() {
-    this.builderStore.createQuestion();
+    //this.builderStore.createQuestion();
   }
 }

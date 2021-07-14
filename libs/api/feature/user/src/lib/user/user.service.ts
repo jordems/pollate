@@ -3,6 +3,7 @@ import { UserModelService } from '@pollate/api/data-access/user';
 import {
   CreateUserRequest,
   CreateUserResponse,
+  GetUserByUidResponse,
   UpdateUserRequest,
   UpdateUserResponse,
 } from '@pollate/type';
@@ -13,6 +14,10 @@ export class UserService {
 
   create(dto: CreateUserRequest): Promise<CreateUserResponse> {
     return this.userModelService.create(dto);
+  }
+
+  get(uid: string): Promise<GetUserByUidResponse> {
+    return this.userModelService.findByUid(uid);
   }
 
   update(userId: string, dto: UpdateUserRequest): Promise<UpdateUserResponse> {
