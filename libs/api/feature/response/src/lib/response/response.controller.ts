@@ -1,6 +1,10 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { AuthParam, AuthParamsValidator } from '@pollate/api/shared/util/auth';
+import {
+  AuthParam,
+  AuthParamsValidator,
+  FirebaseAuthGuard,
+} from '@pollate/api/shared/util/auth';
 import { CreateResponseResponse, UpdateResponseResponse } from '@pollate/type';
 import { ResponseService } from './response.service';
 import {
@@ -20,6 +24,7 @@ import {
   description: 'User creating request',
 })
 @Controller()
+@UseGuards(FirebaseAuthGuard)
 export class ResponseController {
   constructor(private readonly responseService: ResponseService) {}
 

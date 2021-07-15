@@ -1,6 +1,10 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthParam, AuthParamsValidator } from '@pollate/api/shared/util/auth';
+import {
+  AuthParam,
+  AuthParamsValidator,
+  FirebaseAuthGuard,
+} from '@pollate/api/shared/util/auth';
 import {
   CreateQuestionResponse,
   GetQuestionByStubResponse,
@@ -22,6 +26,7 @@ export class QuestionController {
 
   @Post()
   @CreateQuestionSwagger()
+  @UseGuards(FirebaseAuthGuard)
   create(
     @AuthParam() { userId }: AuthParamsValidator,
     @Body() dto: CreateQuestionValidator

@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
+import { ApiDataAccessUserModule } from '@pollate/api/data-access/user';
 import { AuthService } from './auth.service';
-import { AuthStrategy } from './auth.strategy';
 
+@Global()
 @Module({
-  providers: [AuthService, AuthStrategy],
+  imports: [ApiDataAccessUserModule],
+  providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}
