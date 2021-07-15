@@ -9,6 +9,7 @@ import { UserApiService } from './user-api.service';
 @Injectable({ providedIn: 'root' })
 export class NgAuthService {
   public user$: Observable<User | null>;
+  public idToken: string | null = null;
 
   constructor(
     private readonly angularFireAuth: AngularFireAuth,
@@ -17,6 +18,7 @@ export class NgAuthService {
     this.user$ = this.angularFireAuth.authState.pipe(
       switchMap((firebaseUser) => {
         if (firebaseUser) {
+          this.setIdToken(firebaseUser);
           return this.userApiService.getUserByUid(firebaseUser.uid);
         }
 
@@ -58,5 +60,9 @@ export class NgAuthService {
 
   async logout() {
     await this.angularFireAuth.signOut();
+  }
+
+  private async setIdToken(firebaseUser: firebase.User) {
+    this.idToken = await firebaseUser.getIdToken();
   }
 }
