@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgAuthService } from '@pollate/ng/shared/auth';
 import { Observable } from 'rxjs';
 import { BuilderStore } from './store/builder.store';
 
@@ -9,7 +10,10 @@ import { BuilderStore } from './store/builder.store';
 export class BuilderFeatureComponent {
   $submissionLoading: Observable<boolean>;
 
-  constructor(private readonly builderStore: BuilderStore) {
+  constructor(
+    private readonly builderStore: BuilderStore,
+    private readonly ngAuthService: NgAuthService
+  ) {
     this.$submissionLoading = this.builderStore.submissionLoading$;
   }
 
@@ -22,6 +26,7 @@ export class BuilderFeatureComponent {
   }
 
   createQuestion() {
+    this.ngAuthService.googleLogin();
     //this.builderStore.createQuestion();
   }
 }
