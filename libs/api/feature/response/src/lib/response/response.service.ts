@@ -8,10 +8,7 @@ import {
   UpdateResponseRequest,
   UpdateResponseResponse,
 } from '@pollate/type';
-import {
-  alreadyHasResponse,
-  responseDoesNotExistOnQuestion,
-} from './response.copy';
+import { responseDoesNotExistOnQuestion } from './response.copy';
 
 @Injectable()
 export class ResponseService {
@@ -36,13 +33,12 @@ export class ResponseService {
     userId: string,
     dto: CreateResponseRequest
   ): Promise<CreateResponseResponse> {
-    if (
-      await this.responseModelService.findUsersResponseOnQuestion(
-        questionId,
-        userId
-      )
-    ) {
-      throw new BadRequestException(alreadyHasResponse);
+    const existingResponse = await this.responseModelService.findUsersResponseOnQuestion(
+      questionId,
+      userId
+    );
+    if (existingResponse) {
+      return this.update(questionId, existingResponse._id, dto);
     }
 
     await this.confirmQuestionHasResponse(questionId, dto.response);

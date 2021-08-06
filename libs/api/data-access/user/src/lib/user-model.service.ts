@@ -44,4 +44,10 @@ export class UserModelService {
       await this.model.findByIdAndUpdate(id, { $set: user }, { new: true })
     );
   }
+
+  async countCollidingUsers(username: string): Promise<number> {
+    return this.model.countDocuments({
+      username: { $regex: new RegExp(`/^${username}-[0-9]+$/g`) },
+    });
+  }
 }

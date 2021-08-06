@@ -18,6 +18,11 @@ import {
   UpdateUserValidator,
 } from './user.validators';
 
+/**
+ * !!!!!!!!!!!!!!!!!!!!!
+ * Endpoints are not secure.
+ * For prototype
+ */
 @ApiTags('user')
 @Controller()
 export class UserController {

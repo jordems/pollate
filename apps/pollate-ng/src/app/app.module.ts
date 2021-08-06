@@ -1,6 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
@@ -21,7 +20,6 @@ import { AppComponent } from './app.component';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
-    AngularFireModule.initializeApp(environment.firebase),
     EffectsModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
