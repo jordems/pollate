@@ -17,7 +17,7 @@ export class UserService {
   }
 
   get(uid: string): Promise<GetUserByUidResponse> {
-    return this.userModelService.findByUid(uid);
+    return this.userModelService.findUnique(uid);
   }
 
   update(userId: string, dto: UpdateUserRequest): Promise<UpdateUserResponse> {

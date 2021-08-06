@@ -8,11 +8,8 @@ export type UserDocument = UserSchema & Document;
 
 @Schema()
 export class UserSchema implements Omit<User, '_id'> {
-  @Prop({ unique: true, index: true })
-  uid: string;
-
-  @Prop({ required: true })
-  name: string;
+  @Prop({ required: true, unique: true })
+  username: string;
 
   @Prop({ default: new Date() })
   createdAt: Date;

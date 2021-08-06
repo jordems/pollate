@@ -13,7 +13,7 @@ export class UserModelService {
   ) {}
 
   static fromDocument(doc: UserDocument): User {
-    return { ...pick(doc, ['uid', 'name', 'createdAt']), _id: doc._id };
+    return { ...pick(doc, ['username', 'createdAt']), _id: doc._id };
   }
 
   /**
@@ -29,21 +29,8 @@ export class UserModelService {
     return UserModelService.fromDocument(user);
   }
 
-  /**
-   * Find user by the firebase uid
-   */
-  async findByUid(uid: string): Promise<User | null> {
-    const user = await this.model.findOne({ uid });
-
-    if (!user) {
-      return null;
-    }
-
-    return UserModelService.fromDocument(user);
-  }
-
-  async create(user: Pick<User, 'uid' | 'name'>): Promise<User> {
-    const existingUser = await this.model.findOne({ uid: user.uid });
+  async create(user: Pick<User, 'username'>): Promise<User> {
+    const existingUser = await this.model.findOne({ username: user.username });
 
     if (existingUser) {
       return UserModelService.fromDocument(existingUser);
@@ -52,7 +39,7 @@ export class UserModelService {
     return UserModelService.fromDocument(await this.model.create(user));
   }
 
-  async update(id: string, user: Pick<User, 'name'>): Promise<User> {
+  async update(id: string, user: Pick<User, 'username'>): Promise<User> {
     return UserModelService.fromDocument(
       await this.model.findByIdAndUpdate(id, { $set: user }, { new: true })
     );

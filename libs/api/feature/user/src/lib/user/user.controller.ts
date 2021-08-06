@@ -1,14 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { FirebaseAuthGuard } from '@pollate/api/shared/util/auth';
 import {
   CreateUserResponse,
   GetUserByUidResponse,
@@ -38,9 +29,8 @@ export class UserController {
     return this.userService.create(dto);
   }
 
-  @Get('uid/:uid')
+  @Get(':userId')
   @GetUserByUidSwagger()
-  @UseGuards(FirebaseAuthGuard)
   get(
     @Param() { uid }: GetUserByUidParamsValidator
   ): Promise<GetUserByUidResponse> {
@@ -49,7 +39,6 @@ export class UserController {
 
   @Put(':userId')
   @UpdateUserSwagger()
-  @UseGuards(FirebaseAuthGuard)
   update(
     @Param() { userId }: UpdateUserParamsValidator,
     @Body() dto: UpdateUserValidator

@@ -87,8 +87,6 @@ export function BreakCacheOnKey(
   return SetupCacheDecorator(async (cacheManger, args, methodExecution) => {
     const cacheKey = `${args[0]}:${key}`;
 
-    console.log('BreakingCacheKey', cacheKey);
-
     await cacheManger.del(cacheKey);
 
     return methodExecution();

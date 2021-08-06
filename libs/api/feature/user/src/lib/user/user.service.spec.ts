@@ -42,8 +42,7 @@ describe('UserService', () => {
 
     it('should create a user', async () => {
       const actual = await service.create({
-        uid: '1234567890123456789012345678',
-        name: 'Timmo',
+        username: 'Timmo',
       });
 
       expect(actual).toEqual(user);
@@ -57,7 +56,7 @@ describe('UserService', () => {
 
     it('should update a user', async () => {
       const actual = await service.update(user._id, {
-        name: 'b',
+        username: 'b',
       });
 
       expect(actual).toEqual(user);

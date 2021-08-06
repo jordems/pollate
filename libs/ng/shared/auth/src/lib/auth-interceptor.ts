@@ -5,35 +5,38 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { NgAuthService } from './auth.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private readonly ngAuthService: NgAuthService) {}
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    private ngAuthService: NgAuthService
+  ) {}
 
   intercept(
-    req: HttpRequest<unknown>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const { user$ } = this.ngAuthService;
+    return this.angularFireAuth.idToken.pipe(
+      first(),
+      switchMap((token) =>
+        this.ngAuthService.user$.pipe(
+          first(),
+          map((user) => ({ user, token }))
+        )
+      ),
+      switchMap(({ user, token }) => {
+        const headers = request.headers
+          .set('x-user-id', user?.uid ?? '')
+          .set('Authorization', token ? `Bearer ${token}` : '');
 
-    console.log('h123');
-    if (!user$) {
-      return next.handle(req);
-    }
-
-    return this.ngAuthService.user$.pipe(
-      switchMap((user) => {
-        console.log('he');
-        return next.handle(
-          req.clone({
-            headers: req.headers
-              .set('x-user-id', user?._id ?? '')
-              .set('x-firebase-token', this.ngAuthService.idToken ?? ''),
-          })
-        );
+        return next.handle(request.clone({ headers }));
       })
     );
   }

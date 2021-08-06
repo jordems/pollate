@@ -49,9 +49,6 @@ class UserEntity implements User {
   @ApiProperty({ description: 'Generated unique id of user' })
   _id: string;
 
-  @ApiProperty({ description: 'Firebase uid of the user' })
-  uid: string;
-
   @ApiProperty({ description: 'Users display name' })
-  name: string;
+  username: string;
 }
