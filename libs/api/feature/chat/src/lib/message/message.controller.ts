@@ -1,6 +1,10 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { AuthParam, AuthParamsValidator } from '@pollate/api/shared/util/auth';
+import {
+  AuthParam,
+  AuthParamsValidator,
+  FirebaseAuthGuard,
+} from '@pollate/api/shared/util/auth';
 import { CreateMessageResponse } from '@pollate/type';
 import { MessageService } from './message.service';
 import { CreateMessageSwagger } from './message.swagger';
@@ -20,6 +24,7 @@ export class MessageController {
 
   @Post()
   @CreateMessageSwagger()
+  @UseGuards(FirebaseAuthGuard)
   create(
     @Param() { questionId }: MessageParamsValidator,
     @AuthParam() { userId }: AuthParamsValidator,

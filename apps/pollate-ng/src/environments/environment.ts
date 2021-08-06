@@ -5,6 +5,5 @@ import { NgEnvironment } from '@pollate/ng/shared/environment';
 
 export const environment: NgEnvironment = {
   env: 'development',
-
   api: 'http://localhost:3000/v1/',
 };

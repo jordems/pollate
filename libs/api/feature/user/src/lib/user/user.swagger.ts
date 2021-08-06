@@ -19,6 +19,17 @@ export function CreateUserSwagger() {
   );
 }
 
+export function GetUserByUidSwagger() {
+  return applyDecorators(
+    ApiOperation({
+      description: 'Get a user from the given firebase uid',
+    }),
+    ApiOkResponse({
+      type: UserEntity,
+    })
+  );
+}
+
 export function UpdateUserSwagger() {
   return applyDecorators(
     ApiOperation({
@@ -38,9 +49,6 @@ class UserEntity implements User {
   @ApiProperty({ description: 'Generated unique id of user' })
   _id: string;
 
-  @ApiProperty({ description: 'Firebase uid of the user' })
-  uid: string;
-
   @ApiProperty({ description: 'Users display name' })
-  name: string;
+  username: string;
 }

@@ -6,19 +6,24 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { NgAuthService } from './auth.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private ngAuthService: NgAuthService) {}
+
   intercept(
-    req: HttpRequest<unknown>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    /**
-     * TODO just hard coded for testing
-     */
-    return next.handle(
-      req.clone({
-        headers: req.headers.set('x-user-id', '60b32b28598a9e449844e797'),
+    return this.ngAuthService.getUser().pipe(
+      switchMap((user) => {
+        const headers = request.headers.set('x-user-id', user?._id ?? '');
+
+        return next.handle(request.clone({ headers }));
       })
     );
   }

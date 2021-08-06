@@ -1,14 +1,28 @@
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateUserResponse, UpdateUserResponse } from '@pollate/type';
+import {
+  CreateUserResponse,
+  GetUserByUidResponse,
+  UpdateUserResponse,
+} from '@pollate/type';
 import { UserService } from './user.service';
-import { CreateUserSwagger, UpdateUserSwagger } from './user.swagger';
+import {
+  CreateUserSwagger,
+  GetUserByUidSwagger,
+  UpdateUserSwagger,
+} from './user.swagger';
 import {
   CreateUserValidator,
+  GetUserByUidParamsValidator,
   UpdateUserParamsValidator,
   UpdateUserValidator,
 } from './user.validators';
 
+/**
+ * !!!!!!!!!!!!!!!!!!!!!
+ * Endpoints are not secure.
+ * For prototype
+ */
 @ApiTags('user')
 @Controller()
 export class UserController {
@@ -18,6 +32,14 @@ export class UserController {
   @CreateUserSwagger()
   create(@Body() dto: CreateUserValidator): Promise<CreateUserResponse> {
     return this.userService.create(dto);
+  }
+
+  @Get(':userId')
+  @GetUserByUidSwagger()
+  get(
+    @Param() { uid }: GetUserByUidParamsValidator
+  ): Promise<GetUserByUidResponse> {
+    return this.userService.get(uid);
   }
 
   @Put(':userId')

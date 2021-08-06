@@ -59,6 +59,10 @@ export function questionReducer(
     on(wsOnMessage, (state, { message }) => ({
       ...state,
       messages: [...state.messages, message],
+      memoizedQuestionData: {
+        ...state.memoizedQuestionData,
+        messageCount: state.memoizedQuestionData.messageCount + 1,
+      },
     })),
     on(
       wsOnUpdateResponseDelta,

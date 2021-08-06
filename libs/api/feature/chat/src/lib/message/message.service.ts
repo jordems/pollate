@@ -31,7 +31,7 @@ export class MessageService {
     const [createdMessage] = await Promise.all([
       this.messageModelService.create({
         ...dto,
-        name: user?.name || 'broken LOL',
+        name: user?.username || 'broken LOL',
         questionId,
         userId,
       }),
