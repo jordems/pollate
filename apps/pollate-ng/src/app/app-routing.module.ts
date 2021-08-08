@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'builder',
+    path: '',
     loadChildren: () =>
       import('@pollate/ng/feature/builder').then((m) => m.BuilderFeatureModule),
   },

@@ -108,7 +108,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *yarn_cache
-      - run: yarn affected:test -- ${AFFECTED_ARGS} --parallel -- --ci --code-coverage
+      - run: yarn affected:test -- ${AFFECTED_ARGS} --parallel -- --ci --code-coverage --maxWorkers=2
   e2e:
     <<: *defaults
     steps:
@@ -135,7 +135,7 @@ jobs:
           <<: *yarn_cache
       - restore_cache:
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: yarn affected -- --target deploy ${AFFECTED_ARGS}
+      - run: yarn affected -- --target deploy ${AFFECTED_ARGS} --maxWorkers=2
       - run: git rev-parse HEAD > dist/last-deploy.txt
       - save_cache:
           key: last-deploy-sha

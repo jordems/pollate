@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { NgAuthService } from '@pollate/ng/shared/auth';
 import { NgEnvironment, NG_ENVIRONMENT } from '@pollate/ng/shared/environment';
 import { of, Subject, throwError } from 'rxjs';
 import {
@@ -33,6 +34,7 @@ import {
   wsOnUpdateResponseDelta,
 } from './question-state.actions';
 import { selectQuestion, selectUserResponse } from './question-state.selectors';
+
 @Injectable()
 export class QuestionStateEffects implements OnDestroy {
   private destroySubject$: Subject<void> = new Subject();
@@ -43,14 +45,15 @@ export class QuestionStateEffects implements OnDestroy {
   loadQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadQuestion),
-      switchMap((action) => {
+      concatLatestFrom(() => this.ngAuthService.getUser()),
+      switchMap(([action, user]) => {
         return this.questionApiService.getQuestionByStub(action.stub).pipe(
           take(1),
           concatMap((data) => {
             const { _id: questionId } = data;
             return [
               loadQuestionSuccess(data),
-              connectToWs({ questionId: questionId, userId: '' }), // TODO
+              connectToWs({ questionId: questionId, userId: user?._id ?? '' }),
             ];
           }),
           catchError((err) => {
@@ -175,7 +178,8 @@ export class QuestionStateEffects implements OnDestroy {
     private store: Store,
     private questionApiService: QuestionApiService,
     private responseApiService: ResponseApiService,
-    private chatApiService: ChatApiService
+    private chatApiService: ChatApiService,
+    private ngAuthService: NgAuthService
   ) {}
 
   ngOnDestroy(): void {
