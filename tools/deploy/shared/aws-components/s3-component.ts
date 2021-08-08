@@ -2,6 +2,13 @@ import { readdirSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 import { AWSComponent } from './aws-abstract-component';
 
+const CONTENT_TYPE_MAP = {
+  html: 'text/html; charset=UTF-8',
+  js: 'text/javascript; charset=UTF-8',
+  css: 'text/css; charset=UTF-8',
+  json: 'application/json; charset=UTF-8',
+};
+
 export class S3Component extends AWSComponent {
   private readonly s3 = new this.aws.S3({ apiVersion: '2006-03-01' });
 
@@ -24,6 +31,16 @@ export class S3Component extends AWSComponent {
     }
 
     return filePaths;
+  }
+
+  /**
+   * Given the filePath determines the `Content-Type` of the file
+   *
+   * @param filePath - The path of the file
+   * @returns - The content type of the file eg. text/html
+   */
+  private static getContentType(filePath: string): string {
+    return CONTENT_TYPE_MAP[filePath.split('.').pop()];
   }
 
   /**
@@ -59,6 +76,7 @@ export class S3Component extends AWSComponent {
         Bucket: bucket,
         Key: fileKey,
         Body: readFileSync(filePath),
+        ContentType: S3Component.getContentType(filePath),
       })
       .promise();
 
