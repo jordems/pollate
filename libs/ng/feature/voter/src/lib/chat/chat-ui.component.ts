@@ -40,6 +40,7 @@ export class ChatUIComponent {
   onSubmit(): void {
     if (this.formGroup.valid) {
       this.sendMessage.emit(this.message.value);
+      this.message.setValue('');
     }
   }
 }
