@@ -1,20 +1,17 @@
 import { config } from 'dotenv';
-import { CloudFrontComponent } from '../shared/aws-components/cloudfront-component';
+import { CloudFrontComponent } from '../shared/components/aws/cloudfront-component';
 import { getBuildPath } from '../shared/util/path.util';
-import { S3Component } from './../shared/aws-components/s3-component';
+import { validateEnv } from '../shared/util/validate.util';
+import { S3Component } from './../shared/components/aws/s3-component';
 
 config();
 
 // Params
 const buildPath = getBuildPath('pollate-ng');
-const [bucket, distributionId] = [
+const [bucket, distributionId] = validateEnv([
   process.env.DEPLOY_POLLATE_NG_BUCKET,
   process.env.DEPLOY_POLLATE_NG_DISTRIBUTION_ID,
-];
-
-if (!(bucket && distributionId)) {
-  throw new Error('Confirm all required environment variables exist');
-}
+]);
 
 // AWS Components
 const s3 = new S3Component();

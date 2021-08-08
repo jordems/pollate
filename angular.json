@@ -61,7 +61,8 @@
                   "replace": "apps/api/src/environments/environment.ts",
                   "with": "apps/api/src/environments/environment.prod.ts"
                 }
-              ]
+              ],
+              "generatePackageJson": true
             }
           }
         },
@@ -88,7 +89,7 @@
         "deploy": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "command": ""
+            "command": "ts-node --project ./tools/tsconfig.tools.json -r tsconfig-paths/register ./tools/deploy/api/deploy.ts"
           }
         }
       }
@@ -457,6 +458,12 @@
           "options": {
             "jestConfig": "apps/pollate-ng/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "ts-node --project ./tools/tsconfig.tools.json -r tsconfig-paths/register ./tools/deploy/pollate-ng/deploy.ts"
           }
         }
       }
