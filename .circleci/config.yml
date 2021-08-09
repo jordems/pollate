@@ -13,7 +13,7 @@ orbs:
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: cimg/python:3.9.6
+    - image: cimg/python:3.9.6-browsers
 
 set_env: &set_env
   name: Setup Environment Variables
