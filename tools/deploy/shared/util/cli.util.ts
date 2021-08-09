@@ -12,10 +12,10 @@ import { exec } from 'child_process';
 export function cli(command: string): Promise<string> {
   return new Promise((resolve, reject) => {
     exec(command, (err, stdOut, stdError) => {
-      if (err || stdError) {
-        reject(err || stdError);
+      if (err) {
+        reject(err);
       }
-      resolve(stdOut);
+      resolve(stdOut || stdError);
     });
   });
 }

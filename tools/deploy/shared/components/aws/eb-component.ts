@@ -26,10 +26,26 @@ const dockerRunTemplate = (imageTag: string) => `
 }
 `;
 
+const ebConfigTemplate = (applicationName: string, region: string) => `
+branch-defaults:
+  master:
+    environment: null
+    group_suffix: null
+deploy:
+  artifact: .elasticbeanstalk/build.zip
+global:
+  application_name: ${applicationName}
+  default_region: ${region}
+  workspace_type: Application
+`;
+
 interface DeployParameters {
   environmentName: string;
+  applicationName: string;
   applicationLabel: string;
   versionDescription: string;
+  region: string;
+  imageTag: string;
 }
 
 export class EBComponent extends AWSComponent {
@@ -39,15 +55,19 @@ export class EBComponent extends AWSComponent {
    * @param params - Parameters for elastic beanstalk deployment
    * @param imageTag - ECR image tag being deployed
    */
-  async deploy(params: DeployParameters, imageTag: string): Promise<void> {
+  async deploy(params: DeployParameters): Promise<void> {
     const { environmentName, applicationLabel, versionDescription } = params;
 
-    const ebPath = await this.createBuildTemplate(imageTag);
+    await this.createBuildTemplate(params);
 
     // Start elastic beanstalk deployment
-    await cli(
-      `eb deploy ${environmentName}" -l "${applicationLabel}" -m "${versionDescription}" | tee ./.elasticbeanstalk/output.txt`
+    console.log('Starting EB deployment');
+
+    const result = await cli(
+      `eb deploy ${environmentName} -l "${applicationLabel}" -m "${versionDescription}" | tee ./.elasticbeanstalk/output.txt`
     );
+
+    console.log(result);
 
     // Hold until output states upload is finished
     await cli(
@@ -60,7 +80,7 @@ export class EBComponent extends AWSComponent {
    *
    * @param imageTag
    */
-  private async createBuildTemplate(imageTag: string): Promise<string> {
+  private async createBuildTemplate(params: DeployParameters): Promise<void> {
     const ebPath = join(cwd(), '.elasticbeanstalk');
     const ebBuildPath = join(ebPath, 'build');
 
@@ -68,12 +88,20 @@ export class EBComponent extends AWSComponent {
     mkdirSync(ebBuildPath);
 
     writeFileSync(
-      ebBuildPath,
-      Buffer.from(dockerRunTemplate(imageTag), 'utf-8')
+      join(ebBuildPath, 'Dockerrun.aws.json'),
+      Buffer.from(dockerRunTemplate(params.imageTag), 'utf-8')
     );
 
-    await cli('zip -r .elasticbeanstalk/build .elasticbeanstalk/');
+    writeFileSync(
+      join(ebPath, 'config.yml'),
+      Buffer.from(
+        ebConfigTemplate(params.applicationName, params.region),
+        'utf-8'
+      )
+    );
 
-    return ebPath;
+    await cli(
+      'cd ./.elasticbeanstalk/build/ && zip -r ./../build.zip ./ && cd ./../../'
+    );
   }
 }

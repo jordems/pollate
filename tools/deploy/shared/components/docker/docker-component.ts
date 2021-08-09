@@ -6,9 +6,7 @@ import { cli } from '../../util/cli.util';
  */
 export class DockerComponent {
   async build(tag: string, target: string, filePath: string): Promise<void> {
-    await cli(
-      `docker build . -t "${tag}" --target=${target} --memory=500m -f ${filePath}`
-    );
+    await cli(`docker build . -t "${tag}" --memory=500m -f ${filePath}`);
   }
 
   async tag(tag1: string, tag2: string): Promise<void> {

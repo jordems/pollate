@@ -6,10 +6,11 @@ import { ApiFeatureResponseModule } from '@pollate/api/feature/response';
 import { ApiFeatureUserModule } from '@pollate/api/feature/user';
 import { AuthModule } from '@pollate/api/shared/util/auth';
 import { RouterModule } from 'nest-router';
+import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/pollate', {
+    MongooseModule.forRoot(environment.MONGODB_URL, {
       useFindAndModify: false,
     }),
     RouterModule.forRoutes(routes),

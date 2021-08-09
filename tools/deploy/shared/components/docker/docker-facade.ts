@@ -31,6 +31,8 @@ export class DockerFacade {
 
     await this.docker.build(buildTag, app, getDockerFilePath(app));
 
+    console.log(`Built: ${buildTag}`);
+
     return buildTag;
   }
 
@@ -41,18 +43,21 @@ export class DockerFacade {
    */
   async pushImage(
     buildTag: string,
+    app: string,
     version: string,
     gitSHA1: string
   ): Promise<string> {
-    const imageTag = `${this.config.registry}:${version}-${gitSHA1}`;
+    const imageTag = `${this.config.registry}/${app}:${version}-${gitSHA1}`;
 
     await this.authorizeDockerForECR();
 
     await this.docker.tag(buildTag, imageTag);
 
-    await Promise.all([buildTag, imageTag].map((tag) => this.docker.push(tag)));
+    await Promise.all([imageTag].map((tag) => this.docker.push(tag)));
 
     await this.docker.rmi(imageTag);
+
+    console.log(`Pushed: ${imageTag}`);
 
     return imageTag;
   }
@@ -60,7 +65,7 @@ export class DockerFacade {
   private async authorizeDockerForECR() {
     const { region, registry } = this.config;
     await cli(
-      `eval $(aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}) || exit 1`
+      `aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}`
     );
   }
 }
