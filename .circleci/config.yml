@@ -4,10 +4,10 @@
 #
 # Thanks to https://github.com/nrwl/nx-examples/blob/master/.circleci/config.yml
 
-version: 2
+version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0
+  aws-cli: circleci/aws-cli@2.0.3
 
 defaults: &defaults
   working_directory: ~/repo
