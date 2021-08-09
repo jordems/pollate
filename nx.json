@@ -85,6 +85,9 @@
     },
     "ng-feature-voter": {
       "tags": []
+    },
+    "api-feature-health": {
+      "tags": []
     }
   }
 }

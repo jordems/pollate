@@ -639,6 +639,27 @@
           }
         }
       }
+    },
+    "api-feature-health": {
+      "root": "libs/api/feature/health",
+      "sourceRoot": "libs/api/feature/health/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api/feature/health/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api/feature/health"],
+          "options": {
+            "jestConfig": "libs/api/feature/health/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

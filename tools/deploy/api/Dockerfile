@@ -1,5 +1,7 @@
 FROM node:16-alpine
 
+RUN set -x && apt-get update && apt-get install yarn
+
 RUN mkdir /app
 WORKDIR /app
 COPY ./dist/apps/api/package.json ./package.json
