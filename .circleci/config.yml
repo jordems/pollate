@@ -116,10 +116,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/project/repo
-      - aws-cli/install:
-          version: '2'
       - restore_cache:
           <<: *deploy_cache
       - run:
@@ -134,6 +130,10 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/repo
+      - aws-cli/install:
+          version: '2'
       - restore_cache:
           <<: *deploy_cache
       - run:

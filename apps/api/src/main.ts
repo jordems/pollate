@@ -24,7 +24,7 @@ async function bootstrap() {
   // Port can be overridden by environment
   const port = process.env.PORT || 3000;
 
-  // Set global validator to take advantage of class-validator.
+  // Set global validator to take advantage of class-validator
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
