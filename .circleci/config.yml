@@ -135,7 +135,8 @@ jobs:
           <<: *yarn_cache
       - restore_cache:
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.6
       - run: yarn affected -- --target deploy ${AFFECTED_ARGS} --maxWorkers=2
       - run: git rev-parse HEAD > dist/last-deploy.txt
       - save_cache:
