@@ -13,6 +13,8 @@ export function cli(command: string): Promise<string> {
   return new Promise((resolve, reject) => {
     exec(command, (err, stdOut, stdError) => {
       if (err) {
+        console.log('CLIERROR:', err, stdOut, stdError);
+
         reject(err);
         return;
       }
