@@ -13,7 +13,7 @@ orbs:
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:14.17-browsers
+    - image: cimg/python:3.9.6
 
 set_env: &set_env
   name: Setup Environment Variables
@@ -128,9 +128,7 @@ jobs:
           path: dist/cypress
 
   deploy:
-    working_directory: ~/repo
-    docker:
-      - image: 3.9-browsers
+    <<: *defaults
     steps:
       - checkout
       - attach_workspace:
