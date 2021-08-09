@@ -6,9 +6,6 @@
 
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@2.0.3
-
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -139,8 +136,6 @@ jobs:
       - restore_cache:
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - setup_remote_docker
-      - aws-cli/install:
-          version: '2'
       - run: yarn affected -- --target deploy ${AFFECTED_ARGS} --maxWorkers=2
       - run: git rev-parse HEAD > dist/last-deploy.txt
       - save_cache:
