@@ -65,7 +65,7 @@ export class DockerFacade {
   private async authorizeDockerForECR() {
     const { region, registry } = this.config;
     await cli(
-      `aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}`
+      `docker login -u AWS -p $(aws ecr get-login-password --region ${region}) ${registry}`
     );
   }
 }
