@@ -18,17 +18,18 @@ const [registry, region, environmentName, applicationName] = validateEnv([
 const dockerFacade = new DockerFacade({ region, registry });
 const eb = new EBComponent();
 
+const version = `proto${Math.round(Date.now() / 60000)}`;
 // Deploy Logic
 (async () => {
   console.log('Starting deployment of api');
   const gitSHA1 = (await cli('git rev-parse --verify HEAD')).trim();
 
-  const buildTag = await dockerFacade.buildImage('api', 'proto');
+  const buildTag = await dockerFacade.buildImage('api', version);
 
   const imageTag = await dockerFacade.pushImage(
     buildTag,
     'api',
-    'proto',
+    version,
     gitSHA1
   );
 

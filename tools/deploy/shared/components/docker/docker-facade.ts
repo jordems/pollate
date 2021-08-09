@@ -29,9 +29,13 @@ export class DockerFacade {
   async buildImage(app: string, version: string): Promise<string> {
     const buildTag = `${app}:${version}`;
 
-    await this.docker.build(buildTag, app, getDockerFilePath(app));
+    const result = await this.docker.build(
+      buildTag,
+      app,
+      getDockerFilePath(app)
+    );
 
-    console.log(`Built: ${buildTag}`);
+    console.log(result);
 
     return buildTag;
   }
