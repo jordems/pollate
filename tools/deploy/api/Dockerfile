@@ -1,6 +1,7 @@
 FROM node:16-alpine
 
-RUN set -x
+RUN set -x && apk update && apk upgrade 
+
 RUN yarn --version
 
 RUN mkdir /app
