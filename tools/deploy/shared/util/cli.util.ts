@@ -14,6 +14,7 @@ export function cli(command: string): Promise<string> {
     exec(command, (err, stdOut, stdError) => {
       if (err) {
         reject(err);
+        return;
       }
       resolve(stdOut || stdError);
     });

@@ -21,7 +21,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization', 'x-user-id'],
   });
 
-  // Port can be overridden by environment
+  // Port can be overridden by environment.
   const port = process.env.PORT || 3000;
 
   // Set global validator to take advantage of class-validator
