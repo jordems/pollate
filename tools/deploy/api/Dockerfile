@@ -3,7 +3,6 @@ FROM node:16-alpine
 RUN set -x && apk update && apk upgrade 
 
 RUN yarn --version
-RUN aws --version
 
 RUN mkdir /app
 WORKDIR /app
