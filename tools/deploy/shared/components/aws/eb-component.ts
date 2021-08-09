@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { cwd } from 'process';
 import { cli } from '../../util/cli.util';
