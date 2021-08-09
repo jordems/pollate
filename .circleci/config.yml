@@ -6,6 +6,9 @@
 
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@1.4.1
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -113,6 +116,10 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project/repo
+      - aws-cli/install:
+          version: '2'
       - restore_cache:
           <<: *deploy_cache
       - run:
