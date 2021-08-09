@@ -6,7 +6,8 @@ RUN yarn --version
 
 RUN mkdir /app
 WORKDIR /app
-COPY ./dist/apps/api/package.json ./package.json
+# Use this when this shit actually works
+# COPY ./dist/apps/api/package.json ./package.json
 
 ENV PORT=8080
 
