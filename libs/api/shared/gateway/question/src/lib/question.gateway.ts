@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import '@nestjs/platform-socket.io';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
