@@ -88,6 +88,9 @@
     },
     "api-feature-health": {
       "tags": []
+    },
+    "ng-shared-theme": {
+      "tags": []
     }
   }
 }

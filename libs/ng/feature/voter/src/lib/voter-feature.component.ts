@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuestionStateFacade } from '@pollate/ng/state/question';
-import { MemoizedQuestionData, MinimalMessage, Response } from '@pollate/type';
+import {
+  DisplayResponse,
+  MemoizedQuestionData,
+  MinimalMessage,
+  Response,
+} from '@pollate/type';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,7 +14,7 @@ import { Observable } from 'rxjs';
   templateUrl: './voter-feature.component.html',
 })
 export class VoterFeatureComponent {
-  responseOptions$: Observable<string[]>;
+  responseOptions$: Observable<DisplayResponse[]>;
   memoizedQuestionData$: Observable<MemoizedQuestionData>;
   messages$: Observable<MinimalMessage[]>;
   userResponse$: Observable<Response | null>;

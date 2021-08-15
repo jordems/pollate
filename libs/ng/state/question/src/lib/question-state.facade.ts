@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { MemoizedQuestionData, MinimalMessage, Response } from '@pollate/type';
+import {
+  DisplayResponse,
+  MemoizedQuestionData,
+  MinimalMessage,
+  Response,
+} from '@pollate/type';
 import { Observable } from 'rxjs';
 import {
   createMessage,
@@ -28,7 +33,7 @@ export class QuestionStateFacade {
   selectUserResponse(): Observable<Response | null> {
     return this.store.pipe(select(selectUserResponse));
   }
-  selectResponseOptions(): Observable<string[]> {
+  selectResponseOptions(): Observable<DisplayResponse[]> {
     return this.store.pipe(select(selectResponseOptions));
   }
 

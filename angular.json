@@ -660,6 +660,27 @@
           }
         }
       }
+    },
+    "ng-shared-theme": {
+      "root": "libs/ng/shared/theme",
+      "sourceRoot": "libs/ng/shared/theme/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ng/shared/theme/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/shared/theme"],
+          "options": {
+            "jestConfig": "libs/ng/shared/theme/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

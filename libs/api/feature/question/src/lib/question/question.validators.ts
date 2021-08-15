@@ -9,7 +9,7 @@ export class CreateQuestionValidator implements CreateQuestionRequest {
 
   @Length(1, 50, { each: true })
   @ArrayMinSize(2)
-  @ArrayMaxSize(10)
+  @ArrayMaxSize(5)
   @ApiProperty({
     description: 'List of possible responses to the question',
     type: [String],

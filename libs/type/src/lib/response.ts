@@ -29,3 +29,9 @@ export type MinimalResponse = Pick<
   Response,
   '_id' | 'response' | 'createdAt' | 'userId'
 >;
+
+export interface DisplayResponse {
+  response: string;
+  colour: string;
+  selected: boolean;
+}

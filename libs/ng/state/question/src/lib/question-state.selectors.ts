@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { RESPONSE_COLOURS } from '@pollate/ng/shared/theme';
 import { QuestionState, QUESTION_STATE } from './question.state';
 
 export const selectState = createFeatureSelector<QuestionState>(QUESTION_STATE);
@@ -25,5 +26,10 @@ export const selectMemoizedQuestionData = createSelector(
 
 export const selectResponseOptions = createSelector(
   selectState,
-  (state) => state.question?.responses || []
+  (state) =>
+    state.question?.responses.map((response, idx) => ({
+      response,
+      colour: RESPONSE_COLOURS[idx],
+      selected: state.userResponse?.response == response,
+    })) || []
 );

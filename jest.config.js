@@ -23,5 +23,6 @@ module.exports = {
     '<rootDir>/libs/ng/shared/auth',
     '<rootDir>/libs/ng/feature/voter',
     '<rootDir>/libs/api/feature/health',
+    '<rootDir>/libs/ng/shared/theme',
   ],
 };
