@@ -5,6 +5,7 @@ import {
   DisplayResponse,
   MemoizedQuestionData,
   MinimalMessage,
+  Question,
   Response,
 } from '@pollate/type';
 import { Observable } from 'rxjs';
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
   templateUrl: './voter-feature.component.html',
 })
 export class VoterFeatureComponent {
+  question$: Observable<Question | null>;
   responseOptions$: Observable<DisplayResponse[]>;
   memoizedQuestionData$: Observable<MemoizedQuestionData>;
   messages$: Observable<MinimalMessage[]>;
@@ -27,6 +29,7 @@ export class VoterFeatureComponent {
       VoterFeatureComponent.getStubFromUrl(this.router.url)
     );
 
+    this.question$ = this.questionStateFacade.selectQuestion();
     this.responseOptions$ = this.questionStateFacade.selectResponseOptions();
     this.memoizedQuestionData$ = this.questionStateFacade.selectMemoizedQuestionData();
     this.messages$ = this.questionStateFacade.selectMessages();

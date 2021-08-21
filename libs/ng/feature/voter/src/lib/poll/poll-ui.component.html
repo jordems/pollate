@@ -4,14 +4,19 @@
   <div>Selected: {{ userResponse | json }}</div>
   <div *ngFor="let response of responses">
     <button
-      [ngClass]="response.selected ? ['selected'] : []"
+      [ngClass]="response.selected ? ['button-selected'] : []"
       (click)="makeResponse(response.response)"
     >
       <div class="row align-items-center">
         <div class="col-1">
-          <div class="circle" [style.background]="response.colour"></div>
+          <div
+            [ngClass]="
+              response.selected ? ['circle', 'circle-selected'] : ['circle']
+            "
+            [style.background]="response.colour"
+          ></div>
         </div>
-        <div class="col-4">{{ response.response }}</div>
+        <div class="col">{{ response.response }}</div>
       </div>
     </button>
   </div>

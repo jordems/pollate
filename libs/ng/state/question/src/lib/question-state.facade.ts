@@ -4,6 +4,7 @@ import {
   DisplayResponse,
   MemoizedQuestionData,
   MinimalMessage,
+  Question,
   Response,
 } from '@pollate/type';
 import { Observable } from 'rxjs';
@@ -15,6 +16,7 @@ import {
 import {
   selectMemoizedQuestionData,
   selectMessages,
+  selectQuestion,
   selectResponseOptions,
   selectUserResponse,
 } from './question-state.selectors';
@@ -24,6 +26,9 @@ export class QuestionStateFacade {
   constructor(private store: Store) {}
 
   // Selectors
+  selectQuestion(): Observable<Question | null> {
+    return this.store.pipe(select(selectQuestion));
+  }
   selectMessages(): Observable<MinimalMessage[]> {
     return this.store.pipe(select(selectMessages));
   }
