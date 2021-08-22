@@ -1,19 +1,44 @@
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Question</mat-label>
-    <input matInput formControlName="question" />
-  </mat-form-field>
+<div class="col-8 m-auto py-4">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <textarea
+      formControlName="question"
+      placeholder="Question"
+      class="w-100 mb-2"
+    ></textarea>
 
-  <div formArrayName="responses">
-    <div *ngFor="let response of responses.controls; let i = index">
-      <mat-form-field appearance="fill">
-        <mat-label>response:</mat-label>
-        <input id="response-{{ i }}" matInput [formControlName]="i" />
-      </mat-form-field>
-      <button tabindex="-1" (click)="removeResponse(i)">remove</button>
+    <div formArrayName="responses">
+      <div
+        *ngFor="let response of responses.controls; let i = index"
+        class="row align-items-center mb-2"
+      >
+        <div class="col">
+          <input
+            id="response-{{ i }}"
+            [formControlName]="i"
+            [placeholder]="'Response ' + (i + 1)"
+            class="w-100"
+          />
+        </div>
+        <div class="col-1">
+          <button
+            tabindex="-1"
+            (click)="removeResponse(i)"
+            class="action-button delete-button"
+          >
+            x
+          </button>
+        </div>
+      </div>
+      <button
+        tabindex="-1"
+        [disabled]="responses.length >= MAX_RESPONSES"
+        (click)="addResponse()"
+        class="action-button add-button mb-2"
+      >
+        +
+      </button>
     </div>
-    <button tabindex="-1" (click)="addResponse()">add</button>
-  </div>
 
-  <button type="submit">Submit</button>
-</form>
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+</div>

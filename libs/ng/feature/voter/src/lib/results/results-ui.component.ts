@@ -61,8 +61,10 @@ export class ResultsUIComponent {
 
     // * Add portions with starting degree and ending degree
     for (const portion of portions) {
-      css.push(`${portion.colour} ${delta}deg ${delta + portion.amount}deg`);
-      delta += portion.amount;
+      if (portion.amount) {
+        css.push(`${portion.colour} ${delta}deg ${delta + portion.amount}deg`);
+        delta += portion.amount;
+      }
     }
 
     return `background-image: conic-gradient(${css.join(',\n')});`;
