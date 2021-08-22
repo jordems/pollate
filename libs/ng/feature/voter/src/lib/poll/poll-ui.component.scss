@@ -24,3 +24,7 @@ button {
 .button-selected {
   border-style: inset !important;
 }
+
+section {
+  border-bottom: 1px solid var(--background-colour);
+}
