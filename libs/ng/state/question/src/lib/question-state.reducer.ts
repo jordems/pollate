@@ -26,6 +26,17 @@ function affectActiveResponses(
   return activeResponses;
 }
 
+function affectResponseCount(
+  responseCount: number,
+  responsesDeltas: QuestionOnUpdateResponseDelta['responsesDeltas']
+): number {
+  for (const { amountDelta } of responsesDeltas) {
+    responseCount = responseCount + amountDelta;
+  }
+
+  return responseCount;
+}
+
 function affectUserInteractionMap(
   userInteractionMap: QuestionState['userInteractionMap'],
   changedUserResponse: QuestionOnUpdateResponseDelta['changedUserResponse']
@@ -77,6 +88,10 @@ export function questionReducer(
           ...state.memoizedQuestionData,
           activeResponses: affectActiveResponses(
             state.memoizedQuestionData.activeResponses,
+            responsesDeltas
+          ),
+          responseCount: affectResponseCount(
+            state.memoizedQuestionData.responseCount,
             responsesDeltas
           ),
         },

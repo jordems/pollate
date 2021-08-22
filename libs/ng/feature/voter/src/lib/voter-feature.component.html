@@ -3,6 +3,7 @@
   </pollate-question-display-ui>
   <pollate-results-ui
     [memoizedQuestionData]="(memoizedQuestionData$ | async)!"
+    [responses]="(responseOptions$ | async)!"
   ></pollate-results-ui>
   <pollate-poll-ui
     [responses]="(responseOptions$ | async)!"

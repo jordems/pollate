@@ -1,0 +1,26 @@
+.pie-container {
+  margin: auto;
+  width: 12em;
+  height: 12em;
+}
+
+.pie-inner {
+  margin: auto;
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+}
+
+.pie-outer-spacer {
+  height: 1em;
+}
+
+.pie-outer {
+  margin: auto;
+  width: 12em;
+  height: 12em;
+  background: var(--background-colour);
+  border: 3px solid var(--border-colour);
+  border-radius: 50%;
+  opacity: 60%;
+}

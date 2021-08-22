@@ -1,7 +1,4 @@
 <div>
-  <div>Responses:</div>
-
-  <div>Selected: {{ userResponse | json }}</div>
   <div *ngFor="let response of responses">
     <button
       [ngClass]="response.selected ? ['button-selected'] : []"
