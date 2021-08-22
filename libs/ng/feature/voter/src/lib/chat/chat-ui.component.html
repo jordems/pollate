@@ -5,11 +5,7 @@
 
 <div>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Send a message</mat-label>
-      <input matInput formControlName="message" />
-    </mat-form-field>
-
+    <input formControlName="message" placeholder="Send a Message" />
     <button type="submit">Send Message</button>
   </form>
 </div>
