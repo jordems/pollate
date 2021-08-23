@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { MemoizedQuestionData, MinimalMessage, Response } from '@pollate/type';
+import {
+  DisplayMessage,
+  DisplayResponse,
+  MemoizedQuestionData,
+  Question,
+  QuestionConnectedEvent,
+  Response,
+} from '@pollate/type';
 import { Observable } from 'rxjs';
 import {
   createMessage,
@@ -8,9 +15,12 @@ import {
   loadQuestion,
 } from './question-state.actions';
 import {
+  selectDisplayMessages,
+  selectLoaded,
   selectMemoizedQuestionData,
-  selectMessages,
+  selectQuestion,
   selectResponseOptions,
+  selectUserInteractionMap,
   selectUserResponse,
 } from './question-state.selectors';
 
@@ -19,8 +29,14 @@ export class QuestionStateFacade {
   constructor(private store: Store) {}
 
   // Selectors
-  selectMessages(): Observable<MinimalMessage[]> {
-    return this.store.pipe(select(selectMessages));
+  selectLoaded(): Observable<boolean> {
+    return this.store.pipe(select(selectLoaded));
+  }
+  selectQuestion(): Observable<Question | null> {
+    return this.store.pipe(select(selectQuestion));
+  }
+  selectDisplayMessages(): Observable<DisplayMessage[]> {
+    return this.store.pipe(select(selectDisplayMessages));
   }
   selectMemoizedQuestionData(): Observable<MemoizedQuestionData> {
     return this.store.pipe(select(selectMemoizedQuestionData));
@@ -28,8 +44,13 @@ export class QuestionStateFacade {
   selectUserResponse(): Observable<Response | null> {
     return this.store.pipe(select(selectUserResponse));
   }
-  selectResponseOptions(): Observable<string[]> {
+  selectResponseOptions(): Observable<DisplayResponse[]> {
     return this.store.pipe(select(selectResponseOptions));
+  }
+  selectUserInteractionMap(): Observable<
+    QuestionConnectedEvent['userInteractionMap']
+  > {
+    return this.store.pipe(select(selectUserInteractionMap));
   }
 
   // Actions

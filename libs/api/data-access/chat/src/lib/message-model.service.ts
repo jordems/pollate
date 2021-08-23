@@ -26,7 +26,9 @@ export class MessageModelService {
   async create(
     message: Pick<Message, 'name' | 'text' | 'questionId' | 'userId'>
   ): Promise<Message> {
-    return MessageModelService.fromDocument(await this.model.create(message));
+    return MessageModelService.fromDocument(
+      await this.model.create({ ...message, createdAt: new Date() })
+    );
   }
 
   /**

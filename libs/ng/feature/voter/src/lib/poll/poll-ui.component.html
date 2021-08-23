@@ -1,8 +1,20 @@
-<div>
-  <div>Responses:</div>
-
-  <div>Selected: {{ userResponse | json }}</div>
+<section class="pb-2">
   <div *ngFor="let response of responses">
-    <button (click)="makeResponse(response)">{{ response }}</button>
+    <button
+      [ngClass]="response.selected ? ['button-selected'] : []"
+      (click)="makeResponse(response.response)"
+    >
+      <div class="row align-items-center">
+        <div class="col-1">
+          <div
+            [ngClass]="
+              response.selected ? ['circle', 'circle-selected'] : ['circle']
+            "
+            [style.background]="response.colour"
+          ></div>
+        </div>
+        <div class="col">{{ response.response }}</div>
+      </div>
+    </button>
   </div>
-</div>
+</section>

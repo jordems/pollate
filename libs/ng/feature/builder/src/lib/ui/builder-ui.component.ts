@@ -7,7 +7,8 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./builder-ui.component.scss'],
 })
 export class BuilderUIComponent implements OnInit {
-  private static DEFAULT_STARTING_RESPONSES = 3;
+  private DEFAULT_STARTING_RESPONSES = 3;
+  public MAX_RESPONSES = 5;
 
   @Output() updateResponses!: EventEmitter<string[]>;
   @Output() updateQuestion!: EventEmitter<string>;
@@ -34,10 +35,10 @@ export class BuilderUIComponent implements OnInit {
         ],
       ],
       responses: this.formBuilder.array(
-        new Array(BuilderUIComponent.DEFAULT_STARTING_RESPONSES)
+        new Array(this.DEFAULT_STARTING_RESPONSES)
           .fill(null)
           .map(() => this.createResponseControl()),
-        [Validators.required, Validators.minLength(2), Validators.maxLength(10)]
+        [Validators.required, Validators.minLength(2), Validators.maxLength(5)]
       ),
     });
   }

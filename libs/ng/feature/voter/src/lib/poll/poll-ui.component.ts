@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Response } from '@pollate/type';
+import { DisplayResponse, Response } from '@pollate/type';
 
 @Component({
   selector: 'pollate-poll-ui',
@@ -7,7 +7,7 @@ import { Response } from '@pollate/type';
   styleUrls: ['./poll-ui.component.scss'],
 })
 export class PollUIComponent {
-  @Input() responses!: string[];
+  @Input() responses!: DisplayResponse[];
 
   @Input() userResponse!: Response | null;
 

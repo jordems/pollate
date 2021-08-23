@@ -1,3 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/* List of global colours */
+:root {
+  --background-colour: #4b4b4b;
+  --foreground-colour: #2b2b2b;
+  --border-colour: #3e3e3e;
+  --input-colour: #585858;
+  --primary-button-colour: rgb(0, 132, 255);
+  --secondary-button-colour: ;
+}
+
+body {
+  background: var(--background-colour);
+  color: white;
+}
+
+main {
+  background-color: var(--foreground-colour);
+  border-radius: 0.3em;
+}
+
+button {
+  background: var(--button-colour);
+}

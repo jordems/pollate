@@ -35,7 +35,6 @@
     "@angular/compiler": "12.0.0",
     "@angular/core": "12.0.0",
     "@angular/forms": "12.0.0",
-    "@angular/material": "^12.0.5",
     "@angular/platform-browser": "12.0.0",
     "@angular/platform-browser-dynamic": "12.0.0",
     "@angular/router": "12.0.0",
@@ -50,11 +49,13 @@
     "@ngrx/store": "^12.0.0",
     "@ngrx/store-devtools": "^12.0.0",
     "@nrwl/angular": "12.3.5",
+    "bootstrap": "^5.1.0",
     "bson": "^4.4.0",
     "cache-manager": "^3.4.4",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "co": "^4.6.0",
+    "dotenv": "8.2.0",
     "jest-mock-extended": "^1.0.15",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.12",
@@ -67,8 +68,7 @@
     "swagger-ui-express": "^4.1.6",
     "ts-essentials": "^7.0.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4",
-    "dotenv": "8.2.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.0.0",

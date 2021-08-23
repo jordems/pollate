@@ -1,0 +1,30 @@
+.circle {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 2px solid var(--border-colour);
+}
+
+.circle-selected {
+  border-color: #e2e2e29c !important;
+  border-width: 4px !important;
+}
+
+button {
+  width: 20em;
+  border-radius: 0.5em;
+  border-color: var(--border-colour);
+  border-width: 1px;
+  padding: 0.5em;
+  margin: 0.25em;
+  background-color: var(--button-colour);
+  color: white;
+}
+
+.button-selected {
+  border-style: inset !important;
+}
+
+section {
+  border-bottom: 1px solid var(--background-colour);
+}

@@ -1,15 +1,33 @@
-<div>
-  <div>Messages</div>
-  <div>{{ messages | json }}</div>
-</div>
-
-<div>
+<section id="chat-container">
+  <div id="chat">
+    <div *ngFor="let message of messages" class="row justify-content-start">
+      <div class="col-3 col-md-2">
+        {{ message.createdAt | date: 'shortTime' }}
+      </div>
+      <div class="col px-0">
+        <span [style]="'color: ' + message.colour"> {{ message.name }}</span
+        >:
+        <span class="chat-text">{{ message.text }}</span>
+      </div>
+    </div>
+  </div>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Send a message</mat-label>
-      <input matInput formControlName="message" />
-    </mat-form-field>
-
-    <button type="submit">Send Message</button>
+    <div class="row justify-content-center align-items-center p-2">
+      <div class="col-4">
+        <span title="This is your auto-generated name"
+          ><em>{{ user.username }}</em></span
+        >
+      </div>
+      <div class="col p-0">
+        <input
+          class="w-100"
+          formControlName="message"
+          placeholder="Send a Message"
+        />
+      </div>
+      <div class="col-3">
+        <button type="submit" class="submit-button w-100">Send</button>
+      </div>
+    </div>
   </form>
-</div>
+</section>

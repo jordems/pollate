@@ -56,7 +56,8 @@
       ],
       "@pollate/ng/shared/auth": ["libs/ng/shared/auth/src/index.ts"],
       "@pollate/ng/feature/voter": ["libs/ng/feature/voter/src/index.ts"],
-      "@pollate/api/feature/health": ["libs/api/feature/health/src/index.ts"]
+      "@pollate/api/feature/health": ["libs/api/feature/health/src/index.ts"],
+      "@pollate/ng/shared/theme": ["libs/ng/shared/theme/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

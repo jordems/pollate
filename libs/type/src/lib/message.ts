@@ -35,3 +35,8 @@ export type MinimalMessage = Pick<
   Message,
   'name' | 'text' | 'createdAt' | 'userId'
 >;
+
+export interface DisplayMessage
+  extends Pick<Message, 'name' | 'text' | 'createdAt'> {
+  colour: string;
+}

@@ -1,0 +1,54 @@
+input,
+textarea {
+  padding: 0.4em;
+  border-radius: 0.4em;
+  background: var(--input-colour);
+  color: white;
+  border: 1px outset var(--border-colour);
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline-color: var(--border-colour) !important;
+  outline-width: 1px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.submit-button {
+  width: 10em;
+  border: 2px outset rgba(255, 255, 255, 0.4);
+  padding: 0.5em;
+  border-radius: 0.4em;
+  color: white;
+  background: var(--primary-button-colour);
+}
+
+.submit-button:hover {
+  border-style: inset;
+}
+
+.action-button {
+  border-radius: 50%;
+  padding: 1em;
+  line-height: 0;
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+}
+
+.action-button:hover {
+  border-style: inset;
+}
+
+.add-button {
+  background: rgb(0, 143, 0);
+}
+
+.delete-button {
+  background: rgb(170, 33, 28);
+}

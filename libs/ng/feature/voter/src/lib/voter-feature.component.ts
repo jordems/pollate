@@ -1,7 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgAuthService } from '@pollate/ng/shared/auth';
 import { QuestionStateFacade } from '@pollate/ng/state/question';
-import { MemoizedQuestionData, MinimalMessage, Response } from '@pollate/type';
+import {
+  DisplayMessage,
+  DisplayResponse,
+  MemoizedQuestionData,
+  Question,
+  QuestionConnectedEvent,
+  Response,
+  User,
+} from '@pollate/type';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,26 +18,33 @@ import { Observable } from 'rxjs';
   templateUrl: './voter-feature.component.html',
 })
 export class VoterFeatureComponent {
-  responseOptions$: Observable<string[]>;
+  question$: Observable<Question | null>;
+  responseOptions$: Observable<DisplayResponse[]>;
   memoizedQuestionData$: Observable<MemoizedQuestionData>;
-  messages$: Observable<MinimalMessage[]>;
+  messages$: Observable<DisplayMessage[]>;
   userResponse$: Observable<Response | null>;
+  userInteractionMap$: Observable<QuestionConnectedEvent['userInteractionMap']>;
+  user$: Observable<User | null>;
 
   constructor(
     private readonly questionStateFacade: QuestionStateFacade,
+    private readonly ngAuthService: NgAuthService,
     private readonly router: Router
   ) {
     this.questionStateFacade.initialize(
       VoterFeatureComponent.getStubFromUrl(this.router.url)
     );
 
+    this.question$ = this.questionStateFacade.selectQuestion();
     this.responseOptions$ = this.questionStateFacade.selectResponseOptions();
     this.memoizedQuestionData$ = this.questionStateFacade.selectMemoizedQuestionData();
-    this.messages$ = this.questionStateFacade.selectMessages();
+    this.messages$ = this.questionStateFacade.selectDisplayMessages();
     this.userResponse$ = this.questionStateFacade.selectUserResponse();
+    this.userInteractionMap$ = this.questionStateFacade.selectUserInteractionMap();
+    this.user$ = this.ngAuthService.getUser();
   }
 
-  // Definitely not the best way to do it
+  // Definitely not the best way to do this c:
   private static getStubFromUrl(url: string): string {
     const pieces = url.split('/');
 
