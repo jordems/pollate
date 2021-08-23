@@ -86,7 +86,7 @@ export class QuestionDataAccessService {
     );
 
     return responses.reduce(
-      (prev, cur) => ({ ...prev, [cur.userId]: cur.response }),
+      (prev, cur) => ({ ...prev, [cur.userId]: { response: cur.response } }),
       {}
     );
   }

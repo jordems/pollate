@@ -5,14 +5,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MinimalMessage } from '@pollate/type';
+import { DisplayMessage, User } from '@pollate/type';
+
 @Component({
   selector: 'pollate-chat-ui',
   templateUrl: './chat-ui.component.html',
   styleUrls: ['./chat-ui.component.scss'],
 })
 export class ChatUIComponent {
-  @Input() messages!: MinimalMessage[];
+  @Input() messages!: DisplayMessage[];
+  @Input() user!: User;
 
   @Output() sendMessage!: EventEmitter<string>;
 

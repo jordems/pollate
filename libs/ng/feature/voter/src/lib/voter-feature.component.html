@@ -11,6 +11,7 @@
     (upsertResponse)="makeResponse($event)"
   ></pollate-poll-ui>
   <pollate-chat-ui
+    [user]="(user$ | async)!"
     [messages]="(messages$ | async)!"
     (sendMessage)="sendMessage($event)"
   ></pollate-chat-ui>
