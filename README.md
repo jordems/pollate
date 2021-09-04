@@ -2,7 +2,7 @@
 
 ## **Live site: [pollate.org](https://pollate.org)**
 
-Realtime question and debate platform. More of a learning project playing around with SocketIO's ability to have realtime frontend, and setting up a CI/CD. I am by no means a UI/UX expert, the functionality was the goal not the aesthetics.
+Realtime question and debate platform. More of a learning project playing around with SocketIO's ability to have realtime front-ends, and setting up a CI/CD. I am by no means a UI/UX expert. The functionality was the goal, not the aesthetics.
 
 ### Table of Contents
 
@@ -25,7 +25,7 @@ Realtime question and debate platform. More of a learning project playing around
 
 ### 1.1 Angular
 
-For the frontend of the app it is making use of Angular for the sake of that it's highly opinionated allows for very decoupled components. Separating the component logic from layout and styling, and allowing for simple use of dependency injection. Overall this framework is very hardened, and allows for a combination of Client Side Rendering and Server Side Rendering which is the plan in the future when tackling seo. Angular supports lazy loading modules which allows for incredible performance when used correctly.
+For the frontend of the app it is making use of Angular for the sake of that it's highly opinionated and allows for very decoupled components. Separating the component logic from layout and styling, and allowing for simple use of dependency injection. Overall this framework is very hardened, and allows for a combination of Client Side Rendering and Server Side Rendering which is the plan in the future when tackling per question seo. Angular supports lazy loading modules which allows for incredible performance when used correctly.
 
 My personal reason for choosing Angular currently is I've heard many good things about it's capabilities and the fact that it is highly opinionated, so there is less opportunity to over analyze code structure as I tend to fall in that trap sometimes.
 
@@ -35,7 +35,7 @@ The server code on the api is taking advantage of the NestJS framework as it fol
 
 ### 1.3 Nx Monorepo
 
-Nrwl's Nx Monorepo framework is by far the most important framework of this project. It structures the overall code and folder structure allowing for affected builds, tests, and deploys. It's main purpose is to increase multi-developer performance and speed up automated CI/CD pipelines. With simple extensibility.
+Nrwl's Nx Monorepo framework is by far the most important framework of this project. It structures the overall code and folder structure allowing for affected builds, tests, and deploys. It's main purpose is to increase developer performance and speed up automated CI/CD pipelines. With simple extensibility.
 
 ### 1.4 CircleCI
 
