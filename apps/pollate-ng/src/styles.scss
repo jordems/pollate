@@ -9,6 +9,12 @@
   --primary-button-colour: rgb(0, 132, 255);
   --secondary-button-colour: ;
 }
+a {
+  color: #fd710d;
+}
+.small {
+  font-size: 9px;
+}
 
 body {
   background: var(--background-colour);
