@@ -1,6 +1,8 @@
 # Pollate
 
-Realtime question and debate platform.
+## **Live site: [pollate.org](https://pollate.org)**
+
+Realtime question and debate platform. More of a learning project playing around with SocketIO's ability to have realtime frontend, and setting up a CI/CD. I am by no means a UI/UX expert, the functionality was the goal not the aesthetics.
 
 ### Table of Contents
 
@@ -10,14 +12,12 @@ Realtime question and debate platform.
 - [1.2 NestJS](#12-nestjs)
 - [1.3 Nx Monorepo](#13-nx-monorepo)
 - [1.4 CircleCI](#14-circleci)
-- [1.5 SocketIO](#15-socketio)
-- [1.6 Prisma](#16-prisma)
 
 [2 Infrastructure and Deployment](#2-infrastructure-and-deployment)
 
-- [2.1 API]()
-- [2.2 Client App]()
-- [2.3 Database]()
+- [2.1 API](#21-api)
+- [2.2 Client App](#22-client-app)
+- [2.3 Database](#23-database)
 
 [3 Testing](#3-testing)
 
@@ -27,7 +27,7 @@ Realtime question and debate platform.
 
 For the frontend of the app it is making use of Angular for the sake of that it's highly opinionated allows for very decoupled components. Separating the component logic from layout and styling, and allowing for simple use of dependency injection. Overall this framework is very hardened, and allows for a combination of Client Side Rendering and Server Side Rendering which is the plan in the future when tackling seo. Angular supports lazy loading modules which allows for incredible performance when used correctly.
 
-My personal reason for choosing Angular currently is I've heard many good things about it's capabilities and the fact that it is highly opinionated, so there is less opportunity to over analyze code structure as I tend to fall in that trap sometimes c: - Jordan
+My personal reason for choosing Angular currently is I've heard many good things about it's capabilities and the fact that it is highly opinionated, so there is less opportunity to over analyze code structure as I tend to fall in that trap sometimes.
 
 ### 1.2 NestJS
 
@@ -39,16 +39,7 @@ Nrwl's Nx Monorepo framework is by far the most important framework of this proj
 
 ### 1.4 CircleCI
 
-### 1.5 SocketIO
-
-### 1.6 Prisma
-
-STILL TODO
-
-This project was generated using [Nx](https://nx.dev)
-
-- [Angular](https://angular.io)
-- [Nest](https://nestjs.com)
+Framework for Continuous Deployment and Integration. It is setup to run a suite of test jobs when committing to a pull request. Then once the pull request is merged into `master` it will automatically deploy the new version to the live site.
 
 ## 2 Infrastructure and Deployment
 
@@ -62,6 +53,12 @@ The [deploy script](tools/deploy/api/deploy.ts) is a little home made special, t
 
 ### 2.2 Client App
 
+The client app is stored in an AWS S3 bucket, which all traffic is first funneled through a AWS CloudFront CDN before it reaches to the bucket. To take advantage of caching.
+
 ### 2.3 Database
 
+Using the free tier mongo atlas database. Using simple distributed counters so all required data can be stored on the questions collection without the need for db joins.
+
 ## 3 Testing
+
+Wrote unit test for the api features, however not really worrying about testing the frontend for how simple it is. And if this product is to be expanded on the frontend will be re-written.
