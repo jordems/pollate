@@ -1,7 +1,5 @@
 # Pollate
 
-## **Live site: [pollate.org](https://pollate.org)**
-
 Realtime question and debate platform. More of a learning project playing around with SocketIO's ability to have realtime front-ends, and setting up a CI/CD. I am by no means a UI/UX expert. The functionality was the goal, not the aesthetics.
 
 ### Table of Contents
